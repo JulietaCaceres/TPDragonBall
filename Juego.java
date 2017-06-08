@@ -2,8 +2,8 @@ public class Juego {
 	
 	private Menu menuDeJuego; 
 	
-	public Juego(Menu menuDeJuego) { 
-		this.menuDeJuego = menuDeJuego; 
+	public Juego() { 
+		this.menuDeJuego = new Menu();  
 	}
 	
 	public Menu obtenerMenu() { 
