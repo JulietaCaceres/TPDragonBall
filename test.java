@@ -1,5 +1,6 @@
 package Tests;
-import org.junit.Test;
+package libs;
+import analysis.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -7,18 +8,23 @@ import static org.junit.Assert.assertTrue;
 public class test {
 
     @Test
-    public void test01seUbicaUnPersonajeEnUnCasilleroSePideQueSeMuevSeVerificaNuevaPosiciónAcordeASuModo(){
+       public void test01seUbicaUnPersonajeEnUnCasilleroSePideQueSeMuevSeVerificaNuevaPosiciónAcordeASuModo(){
+
+
         Goku goku = new Goku();
         Tablero tablero = new Tablero();
         Casillero casillero = tablero.obtenerCasillero(1,1);
         casillero.asignarPersonaje(goku);
-        goku.mover(tablero, 1,2);
-        goku.mover(tablero, 1,3);
+        Movimiento mover  = new Mover();
+        mover.a(Goku, 1,1, 1,2, tablero);
+        mover.a(Goku, 1,2, 1,3, tablero);
+        goku.mover(1,3);
         assertEquals(mover.obtenerCantidadDeMovimientos(),goku.obtenerVelocidad());
+
     }
 
     @Test
-    public void test02seVerificaQueDosPersonajesNoEntranEnUnMismoCasillero()
+    test02seVerificaQueDosPersonajesNoEntranEnUnMismoCasillero()
     {
         Tablero tablero = new Tablero ();
         Goku goku = new Goku();
@@ -34,7 +40,7 @@ public class test {
         }
 
         Personaje personaje = casillero.obtenerPersonaje();
-        assertEquals(personaje.obtenerNombre(),"Goku");
+        assertEquals(personaje.obtenerNombre,"Goku");
     }
 
     @Test
@@ -46,9 +52,10 @@ public class test {
         casillero.asignarPersonaje(goku);
         Cell cell = new Cell();
         casillero = tablero.obtenerCasillero(2,3);
-        casillero.asignarPersonaje(cell);
+        casillero.asignarPersonaje(Cell);
+        Movimiento mover = new Movimiento();
         try{
-            cell.mover(tablero, 2,2);
+            mover.a(Cell, 2,3, 2,2, tablero);
             fail("Deberia haber dado un error");
            } catch(Exception e)
              {
@@ -57,7 +64,7 @@ public class test {
     }
 
     @Test
-    public void test04SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
+    test04SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
     {
         Tablero tablero = new Tablero();
         Goku goku = new Goku ();
@@ -73,7 +80,7 @@ public class test {
     }
 
     @Test
-    public void test05SeUbicaAUnPersonajeSeLoTransformaSeLoMueveYSeVerificaQueElMovimientoSeaAcorde()
+    test05SeUbicaAUnPersonajeSeLoTransformaSeLoMueveYSeVerificaQueElMovimientoSeaAcorde()
     {
         Tablero tablero = new Tablero();
         MajinBoo majinBoo = new Freezer();
@@ -81,11 +88,34 @@ public class test {
         casillero.asignarPersonaje(majinBoo);
         majinBoo.aumentarKiEn(30);
         majinBoo.transformarEnBooMalo();
-        majinBoo.mover(tablero, 3,4);
-        majinBoo.mover(tablero, 3,5);
-        majinBoo.mover(tablero, 4,5);
+        Movimiento mover  = new Mover();
+        mover.a(majinBoo, 3,3, 3,4, tablero);
+        mover.a(majinBoo, 3,4, 3,5, tablero);
+        mover.a(majinBoo, 3,5, 4,5, tablero);
         assertEquals(mover.obtenerCantidadDeMovimientos(),majinBoo.obtenerVelocidad());
+
     }
+
+    @Test
+    test06seIniciaUnJuegoCon2JugadoresCadaUnoDeEllosConSus3PersonajesDistribuidosEnElTableroSegunElEnunciado()
+    {
+        Juego juego = new Juego();
+
+
+        juego.iniciarPartida();
+        Partida partida = juego.obtenerPartida();
+        Tablero tablero = juego.obtenerTablero();
+        Casillero  casillero1 = tablero.obtenerCasillero(0,2);
+        Casillero  casillero2 = tablero.obtenerCasillero(1,1);
+        Casillero  casillero3 = tablero.obtenerCasillero(2,0);
+        Casillero  casillero4 = tablero.obtenerCasillero(29,31);
+        Casillero  casillero5 = tablero.obtenerCasillero(30,30);
+        Casillero  casillero6 = tablero.obtenerCasillero(29,31);
+        boolean posicionCorrecta =  (casillero1.ocupado() && casillero2.ocupado() && casillero2.ocupado() && casillero3.ocupado()
+                                     && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado())
+        Assert.assertTrue (posicionCorrecta);
+
+    @Test
 
 }
 
