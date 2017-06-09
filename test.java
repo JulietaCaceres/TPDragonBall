@@ -115,8 +115,35 @@ public class test {
                                      && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado())
         Assert.assertTrue (posicionCorrecta);
 
-    @Test
+@Test 
+    public void test07VerificaDaniosLuegoDeAtaques () { 
+        Personaje goku = new Goku(); 
+        Personaje freezer = new Freezer(); 
+        Tablero tablero = new Tablero(); 
+        Casillero casilleroGoku = tablero.obtenerCasillero(1,1);  
+        casilleroGoku.asignarPersonaje(goku); 
+        Casillero casilleroFreezer = tablero.obtenerCasillero(2,2); 
+        casilleroFreezer.asignarPersonaje(freezer); 
+        
+        int puntosInicialesDeVidaFreezer = freezer.obtenerPuntosDeVida(); 
+        goku.atacar(freezer, tablero); 
+        assertEquals(freezer.obtenerPuntosDeVida(), puntosInicialesDeVidaFreezer - 20); 
+        
+        Personaje piccolo = new Piccolo(); 
+        Personaje cell = new Cell(); 
+        Casillero casilleroPiccolo = tablero.obtenerCasillero(3,3); 
+        casilleroPiccolo.asignarPersonaje(piccolo); 
+        Casillero casilleroCell = tablero.obtenerCasilero(15,15); 
+        casilleroCell.asignarPersonaje(cell); 
 
+        int puntosInicialesDeVidaCell = cell.obtenerPuntosDeVida(); 
+        try { 
+            piccolo.atacar(cell, tablero); 
+        } catch (Exception e) { 
+            fail ("Los personajes estan muy lejos"); 
+        } 
+        assertEquals(cell.obtenerPuntosDeVida(), puntosInicialesDeVidaCell); 
+    } 
 }
 
 
