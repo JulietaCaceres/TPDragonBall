@@ -9,7 +9,7 @@ public class Ataque {
     {
         this.validarEquipo(atacante, oponente);
         this.validarDistancia(atacante, oponente, tablero, distanciaAtaque);
-        oponente.recibirDaÃ±o(poderDeAtaque);
+        oponente.recibirDaño(poderDeAtaque);
     }
 
     public void validarEquipo(Personaje atacante, Personaje oponente)
