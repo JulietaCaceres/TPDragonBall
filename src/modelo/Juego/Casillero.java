@@ -1,5 +1,7 @@
 package modelo.Juego;
 
+import modelo.Personajes.Personaje;
+
 public class Casillero {
 	Personaje personaje;
 	Consumible consumible;
