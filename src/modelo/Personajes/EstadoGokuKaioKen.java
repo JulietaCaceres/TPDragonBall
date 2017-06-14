@@ -16,4 +16,10 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 		tablero.moverA(goku, filaDestino, columnaDestino, 3*goku.usarAumentoDeVelocidad());
 	}
 
+	@Override
+	public int obtenerVelocidad() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

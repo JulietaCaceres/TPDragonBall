@@ -8,4 +8,6 @@ public interface EstadoGoku {
 	
 	public abstract void mover(Goku goku, int filaDestino, int columnaDestino, Tablero tablero);
 
+	public abstract int obtenerVelocidad();
+
 }

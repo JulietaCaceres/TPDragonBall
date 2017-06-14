@@ -16,4 +16,10 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		tablero.moverA(goku, filaDestino, columnaDestino, 5*goku.usarAumentoDeVelocidad());
 	}
 
+	@Override
+	public int obtenerVelocidad() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -9,5 +9,9 @@ public class Equipo {
         this.nombre = nombreEquipo;
         this.participantes = participantes; 
     } 
+   
+    public Equipo() { 
+
+    }
 
 }

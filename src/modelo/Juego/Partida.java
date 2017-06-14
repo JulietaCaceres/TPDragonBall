@@ -1,4 +1,4 @@
-package modelo.Juego;
+package modelo.Juego; 
 
 
 public class Partida {

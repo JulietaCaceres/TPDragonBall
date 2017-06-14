@@ -16,4 +16,10 @@ public class EstadoGokuNormal implements EstadoGoku {
 		tablero.moverA(goku, filaDestino, columnaDestino, 2*goku.usarAumentoDeVelocidad());		
 	}
 
+	@Override
+	public int obtenerVelocidad() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

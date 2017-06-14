@@ -1,6 +1,6 @@
 package modelo.Juego;
 
-import modelo.Juego.Juego.Partida;
+import modelo.Juego.Partida;
 
 public class Menu {
 

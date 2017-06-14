@@ -1,5 +1,6 @@
 package modelo.Personajes;
 
+import modelo.Juego.Ataque;
 import modelo.Juego.Tablero;
 
 public class EstadoFreezerSegundaForma implements EstadoFreezer {
