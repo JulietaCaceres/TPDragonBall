@@ -1,8 +1,8 @@
-lenguaje: java
-JDK:
- -oraclejdk8
-addons:
- apt:
-   packages:
-   -oracle-java8-installer
+language: java
+jdk:
+  - oraclejdk8
 
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
