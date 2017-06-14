@@ -1,12 +1,14 @@
 package modelo.Personajes;
 
 import modelo.Juego.Ataque;
+import modelo.Juego.EnemigosDeLaTierra;
 import modelo.Juego.Tablero;
 
 public class EstadoGokuNormal implements EstadoGoku {
 	
 	@Override
-	public void atacar(Goku goku, Personaje oponente, Tablero tablero) {
+	public void atacar(Goku goku, EnemigosDeLaTierra oponente, Tablero tablero) {
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 20 + 20*(goku.usarAumentoDeAtaque()), 2);
 		Ataque ataque = new Ataque();
 		ataque.atacar(goku, oponente, tablero, 20 + 20*(goku.usarAumentoDeAtaque()), 2);
 	}
@@ -17,9 +19,11 @@ public class EstadoGokuNormal implements EstadoGoku {
 	}
 
 	@Override
-	public int obtenerVelocidad() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void recibirDanio(Goku goku, double danio) {
+		if(danio < 20){
+			danio = danio*80/100;
+		}
+		goku.disminuirPuntosDeVidaEn(danio);
 	}
 
 }

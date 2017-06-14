@@ -1,8 +1,11 @@
 package modelo.Personajes;
+import modelo.Juego.EnemigosDeLaTierra;
+import modelo.Juego.Equipo;
 import modelo.Juego.ExceptionAtaqueAMismoEquipo;
+import modelo.Juego.GuerrerosZ;
 import modelo.Juego.Tablero;
 
-public class Cell extends Personaje{
+public class Cell extends EnemigosDeLaTierra{
 	
 	private EstadoCell estado;
 	private int cantidadDeAbsorciones;
@@ -10,65 +13,37 @@ public class Cell extends Personaje{
 	public Cell(){
 		this.nombre = "Cell";
 		this.puntosDeVida = 500;
-		this.poderDePelea = 20;
 		this.Ki = 0;
 		this.cantidadDeAbsorciones = 0;
 		this.estado = new EstadoCellNormal();
 	}
 	
 	public void absorberA17(){
-		this.poderDePelea = 40;
 		this.cantidadDeAbsorciones -= 4 ;
 		this.estado = new EstadoCellSemiPerfecto();
 	}
 	
 	public void absorberA18(){
-		this.poderDePelea = 80;
 		this.cantidadDeAbsorciones -= 8;
 		this.estado = new EstadoCellPerfecto();
 	}
 	
-	public void atacar(Personaje oponente, Tablero tablero){
-		estado.atacar(this, oponente, tablero);
+	public void recibirDanio(double danio){
+		estado.recibirDanio(this, danio);
 	}
 	
 	public void mover(Tablero tablero, int filaDestino, int columnaDestino){
 		estado.mover(this, filaDestino, columnaDestino, tablero);
 	}
-	
+
 	@Override
-	public void recibirDanioDe(Gohan gohan, double poderDePelea) {
-		gohan.recibirDanio(poderDePelea);		
+	public void atacar(GuerrerosZ oponente) {
+		estado.atacar(this, oponente);
 	}
 
 	@Override
-	public void recibirDanioDe(Goku goku, double poderDePelea) {
-		goku.recibirDanio(poderDePelea);
-	}
-
-	@Override
-	public void recibirDanioDe(Piccolo piccolo, double poderDePelea) {
-		piccolo.recibirDanio(poderDePelea);
-	}
-
-	@Override
-	public void recibirDanioDe(Freezer freezer, double poderDePelea) {
+	public void atacar(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
-	}
-
-	@Override
-	public void recibirDanioDe(Cell cell, double poderDePelea) {
-		throw new ExceptionAtaqueAMismoEquipo();
-	}
-
-	@Override
-	public void recibirDanioDe(MajinBoo majinBoo, double poderDePelea) {
-		throw new ExceptionAtaqueAMismoEquipo();
-	}
-
-	@Override
-	public void recibirDanioDe(Personaje atacante, double poderDeAtaque) {
-		// TODO Auto-generated method stub		
 	}
 
 }

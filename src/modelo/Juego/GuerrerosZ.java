@@ -1,10 +1,12 @@
 package modelo.Juego;
 
-public class GuerrerosZ extends Equipo {
+import modelo.Personajes.Personaje;
 
-	public GuerrerosZ(String[] guerreros) {
+public abstract class GuerrerosZ extends Personaje{
+	public GuerrerosZ() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
+	public abstract void atacar(GuerrerosZ oponente);
+	public abstract void atacar(EnemigosDeLaTierra oponente);
 } 

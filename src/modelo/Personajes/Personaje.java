@@ -3,34 +3,35 @@ package modelo.Personajes;
 import modelo.Juego.EstadoEsferaDelDragon;
 import modelo.Juego.EstadoNubeVoladora;
 import modelo.Juego.Tablero;
+import modelo.Juego.GuerrerosZ;
+import modelo.Juego.LaDistanciaNoEsValidaException;
+import modelo.Juego.EnemigosDeLaTierra;
+import modelo.Juego.Equipo;
 
 public abstract class Personaje {
 	
 	protected String nombre;
 	protected double puntosDeVida;
-	protected int poderDePelea;
 	protected int Ki;
 	protected EstadoEsferaDelDragon estadoEsferaDragon;
 	protected EstadoNubeVoladora estadoNubeVoladora;
-	
-	public void recibirDanio(double poderDelAtacante) {
-		
-		double danioRecibido = poderDelAtacante;
-		
-		if(poderDelAtacante < this.poderDePelea){
-			danioRecibido = danioRecibido*20/100;
-		}
-		
-		this.puntosDeVida = this.puntosDeVida - danioRecibido;
-		
-	}
+	protected int[] coordenadas;
 
-	public Object obtenerNombre() {
-		return this.nombre;
+	public void asignarCoordenadas(int x, int y) {
+		this.coordenadas[0] = x;
+		this.coordenadas[1] = y;
+	}
+	
+	public int[] obtenerCoordenadas(){
+		return this.coordenadas;
 	}
 
 	public double obtenerPuntosDeVida() {
 		return this.puntosDeVida;
+	}
+	
+	public void disminuirPuntosDeVidaEn(double danio){
+		this.puntosDeVida -= danio;
 	}
 	
 	public int obtenerKi() {
@@ -80,14 +81,15 @@ public abstract class Personaje {
 			this.estadoNubeVoladora = null;
 		}
 	}
-
-	public abstract void recibirDanioDe(Goku goku, double poderDePelea);
-	public abstract void recibirDanioDe(Gohan gohan, double poderDePelea);
-	public abstract void recibirDanioDe(Piccolo piccolo, double poderDePelea);
-	public abstract void recibirDanioDe(Freezer freezer, double poderDePelea);
-	public abstract void recibirDanioDe(Cell cell, double poderDePelea);
-	public abstract void recibirDanioDe(MajinBoo majinBoo, double poderDePelea);
-
-	public abstract void recibirDanioDe(Personaje atacante, double poderDeAtaque);
 	
+	public void recibirAtaqueDe(int[] coordenadasDeAtacante,double poderDePelea, int alcanceDeAtaque){
+		
+		if ((alcanceDeAtaque <= Math.abs(this.coordenadas[0] - coordenadasDeAtacante[0])) &&
+		           (alcanceDeAtaque <= Math.abs(this.coordenadas[1] - coordenadasDeAtacante[1]))){
+			throw new LaDistanciaNoEsValidaException();
+		}	
+		this.recibirDanio(poderDePelea);
+	}
+	
+	public abstract void recibirDanio(double poderDePelea);	
 }
