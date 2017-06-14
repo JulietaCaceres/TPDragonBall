@@ -1,6 +1,6 @@
 lenguaje: java
 JDK:
- -oracle jdk 8
+ -oraclejdk8
 addons:
  apt:
    packages:
