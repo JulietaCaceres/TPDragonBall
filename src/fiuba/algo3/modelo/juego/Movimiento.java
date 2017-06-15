@@ -1,8 +1,6 @@
 package fiuba.algo3.modelo.juego;
 
 import fiuba.algo3.modelo.personajes.Personaje;
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.Tablero;
 
 public class Movimiento {
      protected Tablero tablero;

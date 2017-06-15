@@ -18,6 +18,11 @@ public class Fila {
     }
 
     public Columna obtenerColumna(int posicion){
-        return columnas[posicion-1];
+        return columnas[posicion];
         }
+
+    public Casillero obtenerCasillero(int fila, int columna)
+    {
+        return obtenerColumna(columna).obtenerCasillero(columna);
+    }
 }

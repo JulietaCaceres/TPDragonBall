@@ -1,4 +1,4 @@
-package modelo;
+package fiuba.algo3.modelo;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

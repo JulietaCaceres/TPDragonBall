@@ -1,9 +1,8 @@
  package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
-import fiuba.algo3.modelo.juego.Tablero;
 
-public class EstadoCellNormal implements EstadoCell {
+ public class EstadoCellNormal implements EstadoCell {
 
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {

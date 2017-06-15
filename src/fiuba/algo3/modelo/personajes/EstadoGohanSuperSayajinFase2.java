@@ -2,7 +2,6 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.Tablero;
 
 public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 

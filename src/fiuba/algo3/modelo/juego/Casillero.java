@@ -27,8 +27,10 @@ public class Casillero {
 		//}
 
 		public void asignarPersonaje(Personaje unPersonaje) {
-			if (!ocupado())
+			if (!ocupado()) {
 				this.personaje = unPersonaje;
+				personaje.asignarCoordenadas(fila, columna);
+			}
 			else throw new ExceptionCasilleroOcupado();
 		}
 

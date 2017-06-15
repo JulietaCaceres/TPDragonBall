@@ -1,17 +1,17 @@
 package modelo;
 
-import fiuba.algo3.modelo.juego.ExceptionCasilleroOcupado;
+import fiuba.algo3.modelo.juego.*;
 
+import fiuba.algo3.modelo.personajes.MajinBoo;
 import org.junit.Test;
 
 import fiuba.algo3.modelo.personajes.Cell;
 import static org.junit.Assert.*;
 import fiuba.algo3.modelo.personajes.Goku;
-import fiuba.algo3.modelo.juego.Tablero;
-import fiuba.algo3.modelo.juego.Casillero;
 import fiuba.algo3.modelo.juego.ExceptionCasilleroOcupado;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import fiuba.algo3.modelo.personajes.Freezer;
 
 public class test {
 
@@ -40,127 +40,87 @@ public class test {
 
     }
 
-   /* @Test
-    public void test02seVerificaQueDosPersonajesNoEntranEnUnMismoCasillero()
+
+    @Test(expected = ExceptionCasilleroOcupado.class)
+    public void Test03unPersonajeIntentaMoversePeroNoPuedePasarPorEncimaDeOtro()
     {
-        Tablero tablero = new Tablero ();
         Goku goku = new Goku();
-        Cell cell = new Cell();
-        Casillero casillero = tablero.obtenerCasillero(3,3);
-        casillero.asignarPersonaje(goku);
-        try
-        {
-            casillero.asignarPersonaje(cell);
-            fail("Debería haber ocurrido un error");
-        } catch(Exception e){
-            fail("Casillero ocupado");
-        }
-
-        Personaje personaje = casillero.obtenerPersonaje();
-        Assert.assertEquals(personaje.obtenerNombre(),"Goku");
-    }
-
-    @Test
-    public void Test03SeUbicanDosPersonajesYSeVerificaQueNoPuedanPasarUnoEncimaDelOtro()
-    {
+        Cell cell =new Cell();
         Tablero tablero = new Tablero();
-        Goku goku = new Goku ();
-        Casillero casillero = tablero.obtenerCasillero(2,2);
-        casillero.asignarPersonaje(goku);
-        Cell cell = new Cell();
-        casillero = tablero.obtenerCasillero(2,3);
-        casillero.asignarPersonaje(cell);        
-        try{
-            cell.mover(tablero, 2,2);
-            fail("Deberia haber dado un error");
-           } catch(Exception e)
-             {
-                fail("no puede pasar por casillero ocupado");
-             }
+        tablero.ubicarPersonaje(goku, 2,2);
+        tablero.ubicarPersonaje(cell,2,3);
+        Coordenada unaCoornada = new Coordenada(2,2);
+        Coordenada otraCordenada = new Coordenada(2,1);
+        Coordenada[] recorrido = new Coordenada[2];
+        recorrido[0] = unaCoornada;
+        recorrido[1] = otraCordenada;
+        Movimiento despazar = new Movimiento(tablero);
+        despazar.moverPersonaje(recorrido, cell);
     }
 
-    @Test
+ @Test
     public void test04SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
     {
-        Tablero tablero = new Tablero();
-        Goku goku = new Goku ();
-        Casillero casillero = tablero.obtenerCasillero(2,2);
-        casillero.asignarPersonaje(goku);
-        goku.aumentarKiEn(20);
-        try
-        {
-            goku.usarKaioKen();
-            fail("Cumple la condicion para transformarse");
-        } catch(Exception e){}
+        Freezer unFreezer = new Freezer();
+        Freezer otroFreezer = new Freezer();
+        Goku goku = new Goku();
+        Casillero unCasillero = new Casillero(2,2);
+        unCasillero.asignarPersonaje(goku);
+        Casillero otroCasillero = new Casillero(2,3);
+        otroCasillero.asignarPersonaje(unFreezer);
+        Casillero otro = new Casillero(2,1);
+        otro.asignarPersonaje(otroFreezer);
+        goku.aumentarKiEn(50);
+        goku.atacar(unFreezer);
+        goku.usarKaioKen();
+        goku.atacar(otroFreezer);
+        boolean menosDanio = (unFreezer.obtenerPuntosDeVida() > otroFreezer.obtenerPuntosDeVida());
+        assertTrue("Freezer recibe mas daño con goku transformado",menosDanio);
 
     }
 
-    @Test
-    public void test05SeUbicaAUnPersonajeSeLoTransformaSeLoMueveYSeVerificaQueElMovimientoSeaAcorde()
+   @Test
+    public void test05VerificoSiPersonajeSeMueveAcuerdoASuTransformacion()
     {
         Tablero tablero = new Tablero();
         MajinBoo majinBoo = new MajinBoo();
-        int cantidadMovimientosRealizados = 0;
-        Casillero casillero = tablero.obtenerCasillero(3,3);
-        casillero.asignarPersonaje(majinBoo);
-        majinBoo.aumentarKiEn(30);
+        majinBoo.aumentarKiEn(50);
         majinBoo.convertirseEnBooMalo();
-        majinBoo.mover(tablero, 3, 4);
-        cantidadMovimientosRealizados++;
-        majinBoo.mover(tablero, 3, 5);
-        cantidadMovimientosRealizados++;
-        majinBoo.mover(tablero, 4, 5);
-        cantidadMovimientosRealizados++;
-        assertEquals(cantidadMovimientosRealizados,majinBoo.obtenerVelocidad());
-
+        tablero.ubicarPersonaje(majinBoo,2,2);
+        Coordenada cordenadaInicial = majinBoo.obtenerCoordenadas();
+        Movimiento desplazamiento = new Movimiento(tablero);
+        Coordenada coordenada1 = new Coordenada(3,2);
+        Coordenada coordenada2 = new Coordenada(4,2);
+        Coordenada coordenada3 = new Coordenada(5,2);
+        Coordenada[] coordenadas = new Coordenada[3];
+        coordenadas[0] = coordenada1;
+        coordenadas[1] = coordenada2;
+        coordenadas[2] = coordenada3;
+        desplazamiento.moverPersonaje(coordenadas,majinBoo);
+        Coordenada coordenadaFinal = majinBoo.obtenerCoordenadas();
+        boolean posicionEsperada = ((coordenadaFinal.obtenerFila() == coordenada3.obtenerFila()) &&(coordenadaFinal.obtenerColumna() == coordenada3.obtenerColumna()));
+        assertTrue("tuvo problemas al moverse", posicionEsperada);
     }
     
-    @Test
-    public void test06seIniciaUnJuegoCon2JugadoresCadaUnoDeEllosConSus3PersonajesDistribuidosEnElTableroSegunElEnunciado()
-    {
-        Juego juego = new Juego();
+        @Test
+    public void test06seIniciaUnJuegoYSeVerificanLasCondicionesIniciales()
+    {   Jugador jugador1 = new Jugador("juli");
+        Jugador jugador2 = new Jugador("jime");
+        Juego juego = new Juego(jugador1,jugador2);
+        juego.iniciarTablero();
         Tablero tablero = juego.obtenerTablero();
-        Casillero casillero1 = tablero.obtenerCasillero(0,2);
+        Casillero casillero1 = tablero.obtenerCasillero(2,0);
         Casillero casillero2 = tablero.obtenerCasillero(1,1);
-        Casillero casillero3 = tablero.obtenerCasillero(2,0);
-        Casillero casillero4 = tablero.obtenerCasillero(29,31);
+        Casillero casillero3 = tablero.obtenerCasillero(0,2);
+        Casillero casillero4 = tablero.obtenerCasillero(31,29);
         Casillero casillero5 = tablero.obtenerCasillero(30,30);
         Casillero casillero6 = tablero.obtenerCasillero(29,31);
         boolean posicionCorrecta = (casillero1.ocupado() && casillero2.ocupado() && casillero3.ocupado()
                                      && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado());
-        Assert.assertTrue (posicionCorrecta);
+       assertTrue("se colocaron mal los personajes", posicionCorrecta);
     }
 
-    
-    @Test 
-    public void test07VerificaDaniosLuegoDeAtaques () { 
-        Personaje goku = new Goku(); 
-        Personaje freezer = new Freezer(); 
-        Tablero tablero = new Tablero(); 
-        Casillero casilleroGoku = tablero.obtenerCasillero(1,1);  
-        casilleroGoku.asignarPersonaje(goku); 
-        Casillero casilleroFreezer = tablero.obtenerCasillero(2,2); 
-        casilleroFreezer.asignarPersonaje(freezer); 
-        
-        int puntosInicialesDeVidaFreezer = freezer.obtenerPuntosDeVida(); 
-        goku.atacar(freezer, tablero); 
-        assertEquals(freezer.obtenerPuntosDeVida(), puntosInicialesDeVidaFreezer - 20); 
-        
-        Personaje piccolo = new Piccolo(); 
-        Personaje cell = new Cell(); 
-        Casillero casilleroPiccolo = tablero.obtenerCasillero(3,3); 
-        casilleroPiccolo.asignarPersonaje(piccolo); 
-        Casillero casilleroCell = tablero.obtenerCasilero(15,15); 
-        casilleroCell.asignarPersonaje(cell); 
 
-        int puntosInicialesDeVidaCell = cell.obtenerPuntosDeVida(); 
-        try { 
-            piccolo.atacar(cell, tablero); 
-        } catch (Exception e) { 
-            fail ("Los personajes estan muy lejos"); 
-        } 
-        assertEquals(cell.obtenerPuntosDeVida(), puntosInicialesDeVidaCell); 
-    }*/
 }
 
 

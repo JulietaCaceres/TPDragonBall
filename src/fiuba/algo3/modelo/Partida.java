@@ -1,7 +1,5 @@
-package modelo;
+package fiuba.algo3.modelo;
 
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
 import fiuba.algo3.modelo.juego.Tablero;
 import fiuba.algo3.modelo.juego.Equipo;
 public class Partida {

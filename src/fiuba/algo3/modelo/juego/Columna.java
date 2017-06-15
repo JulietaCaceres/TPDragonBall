@@ -17,6 +17,6 @@ public class Columna {
     }
 
     public Casillero obtenerCasillero(int posicion){
-        return casilleros[posicion-1];
+        return casilleros[posicion];
     }
 }

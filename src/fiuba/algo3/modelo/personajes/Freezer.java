@@ -2,12 +2,11 @@ package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
-import fiuba.algo3.modelo.juego.Tablero;
 
 public class Freezer extends EnemigosDeLaTierra{
 	private EstadoFreezer estado;
 	
-	Freezer(){
+	public Freezer(){
 		this.nombre = "Freezer";
 		this.puntosDeVida = 400;
 		this.Ki = 0;

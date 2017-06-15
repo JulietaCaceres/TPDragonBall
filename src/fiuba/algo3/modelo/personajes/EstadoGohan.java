@@ -1,7 +1,6 @@
 package fiuba.algo3.modelo.personajes;;
 
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.Tablero;
 
 public interface EstadoGohan {
 	
