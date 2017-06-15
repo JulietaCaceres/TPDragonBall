@@ -30,6 +30,10 @@ public abstract class Personaje {
 		return this.puntosDeVida;
 	}
 	
+	public String obtenerNombre() { 
+		return this.nombre; 
+	}
+	
 	public void disminuirPuntosDeVidaEn(double danio){
 		this.puntosDeVida -= danio;
 	}
