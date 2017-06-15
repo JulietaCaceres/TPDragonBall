@@ -336,8 +336,8 @@ public class test {
     	majinboo.aumentarKiEn(30);
 
     	majinboo.convierteteEnChocolate(goku); // inmoviliza a goku por 3 turnos 
-    											// como se implementa esto?? 
-    	
+
+    											// falta completar
     }
     
     @Test 
