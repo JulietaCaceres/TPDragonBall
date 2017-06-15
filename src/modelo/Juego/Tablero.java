@@ -1,52 +1,39 @@
-package modelo.Juego;
+package fiuba.algo3.modelo.juego;
 
-import modelo.Personajes.Personaje;
+import fiuba.algo3.modelo.personajes.Personaje;
 
 public class Tablero {
-	
-	private Casillero[][] matrizDeCasillero;
 
-	public Tablero(){
-		this.matrizDeCasillero = new Casillero[32][32];
-	}
+	public Fila filas[];
+	private static final int CANTIDAD_COLUMNAS = 32;
+	private static final int CANTIDAD_FILAS = 32;
+	private static Tablero instance = null;
 
-	public void moverA(Personaje personaje, int filaDestino, int columnaDestino, int velocidadDelPersonaje) {
-		Movimiento traslacion = new Movimiento();
-		
-		int[] coordenadasDelPersonaje = this.obtenerCoordenadasDe(personaje);
-		int[] coordenadasDestino = new int[2];
-		coordenadasDestino[0] = filaDestino;
-		coordenadasDestino[1] = columnaDestino;
-		
-		if(traslacion.esValida(velocidadDelPersonaje, coordenadasDelPersonaje, coordenadasDestino)){
-			traslacion.moverAlPersonaje(personaje, coordenadasDelPersonaje, coordenadasDestino, this);
+	public Tablero() {
+		filas = new Fila[CANTIDAD_FILAS];
+		for (int i = 0; i < CANTIDAD_FILAS; i++) {
+			filas[i] = new Fila(i, CANTIDAD_COLUMNAS);
 		}
 	}
 
-	int[] obtenerCoordenadasDe(Personaje personaje) {
-		boolean personajeNoEncontrado = true;
-		int[] coordenadas = new int[2];
-		coordenadas[0] = -1;
-		coordenadas[1] = -1;
-		for(int i = 0; i < 31 && personajeNoEncontrado; i++){
-			for(int j = 0; j < 31 && personajeNoEncontrado; j++){
-				Casillero casilleroSeleccionado = this.matrizDeCasillero[i][j];
-				Personaje personajeSeleccionado = casilleroSeleccionado.obtenerPersonaje();		
-				if(personajeSeleccionado.obtenerNombre() == personaje.obtenerNombre()){
-					personajeNoEncontrado = false;
-					coordenadas[0] = i;
-					coordenadas[1] = j;
-				}
-			}
+	public static Tablero obtenerTablero(){
+		if (Tablero.instance == null){
+			Tablero.instance = new Tablero();
 		}
-		
-		return coordenadas;
+		return Tablero.instance;
 	}
 
-	public Casillero obtenerCasillero(int fila, int columna) {
-		return this.matrizDeCasillero[fila][columna];
+	public void reiniciarTablero(){
+		Tablero.instance = null;
 	}
-	
-	
-	
+
+	public Fila obtenerFila(int posicion){
+		return filas[posicion-1];
+	}
+
+	public void ubicarPersonaje(Personaje unPersonaje, int unaFila, int unaColumna){
+
+		obtenerFila(unaFila).agregarPersonaje(unaColumna,unPersonaje);
+		unPersonaje.asignarCoordenadas(unaFila, unaColumna);
+	}
 }
