@@ -8,5 +8,9 @@ public abstract class GuerrerosZ extends Personaje{
 		// TODO Auto-generated constructor stub
 	}
 	public abstract void atacar(GuerrerosZ oponente);
+	public abstract void realizarAtaqueEspecial(GuerrerosZ oponente);
 	public abstract void atacar(EnemigosDeLaTierra oponente);
+	public abstract void realizarAtaqueEspecial(EnemigosDeLaTierra oponente);
+	public abstract void convertirseEnChocolate();
+	public abstract void volverAEstadoNormal();
 } 

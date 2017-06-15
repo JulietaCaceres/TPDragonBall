@@ -1,4 +1,4 @@
-package fiuba.algo3.modelo.personajes;;
+package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 
@@ -11,4 +11,6 @@ public interface EstadoGohan {
 	void verificarDistancia(Gohan gohan, int distancia);
 
 	public abstract void recibirDanio(Gohan gohan, double danio);
+
+	void masenko(Gohan gohan, EnemigosDeLaTierra oponente);
 }

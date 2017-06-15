@@ -27,5 +27,13 @@ public class EstadoFreezerNormal implements EstadoFreezer {
 		}
 		freezer.disminuirPuntosDeVidaEn(danio);
 	}
+	
+	@Override
+	public void rayoMortal(Freezer freezer, GuerrerosZ oponente) {
+		if(freezer.obtenerKi() < 20)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 30 + 30*(freezer.usarAumentoDeAtaque()), 2);
+		freezer.disminuirKiEn(20);
+	}
 
 }

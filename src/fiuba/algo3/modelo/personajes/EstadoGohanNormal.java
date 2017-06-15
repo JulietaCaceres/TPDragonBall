@@ -28,5 +28,13 @@ public class EstadoGohanNormal implements EstadoGohan {
 		}
 		gohan.disminuirPuntosDeVidaEn(danio);
 	}
+	
+	@Override
+	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
+		if(gohan.obtenerKi() < 10)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15*125/100 + 15*125/100*(gohan.usarAumentoDeAtaque()), 2);
+		gohan.disminuirKiEn(10);
+	}
 
 }

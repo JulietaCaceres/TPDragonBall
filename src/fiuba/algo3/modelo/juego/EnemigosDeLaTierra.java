@@ -9,5 +9,7 @@ public abstract class EnemigosDeLaTierra extends Personaje{
 	}
 
 	public abstract void atacar(GuerrerosZ oponente);
+	public abstract void realizarAtaqueEspecial(GuerrerosZ oponente);
 	public abstract void atacar(EnemigosDeLaTierra oponente);
+	public abstract void realizarAtaqueEspecial(EnemigosDeLaTierra oponente);
 } 

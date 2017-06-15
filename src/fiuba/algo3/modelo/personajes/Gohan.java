@@ -15,11 +15,17 @@ public class Gohan extends GuerrerosZ{
 	}
 	
 	public void convertirseEnSuperSayajin1(){
+		if(this.Ki < 10){
+			throw new ExceptionPrimeraTransformacion();
+		}
 		this.Ki -= 10 ;
 		this.estado = new EstadoGohanSuperSayajinFase1();
 	}
 		
-	public void convertirseEnSuperSayajin2(){
+	public void convertirseEnSuperSayajin2(int vidaDeGoku, int vidaDePiccolo){
+		if(vidaDeGoku >= 150 || vidaDePiccolo >= 150 || this.Ki<30){
+			throw new ExceptionSegundaTransformacion();
+		}
 		this.Ki -= 30 ;
 		this.estado = new EstadoGohanSuperSayajinFase2();
 	}
@@ -45,4 +51,24 @@ public class Gohan extends GuerrerosZ{
 
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
+	
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		estado.masenko(this, oponente);
+	}
+
+	@Override
+	public void convertirseEnChocolate() {
+		this.estado = new EstadoGohanChocolate();		
+	}
+
+	@Override
+	public void volverAEstadoNormal() {
+		this.estado = new EstadoGohanNormal();
+	}
 }

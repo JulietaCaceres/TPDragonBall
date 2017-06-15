@@ -26,4 +26,12 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		}
 		piccolo.disminuirPuntosDeVidaEn(danio);
 	}
+	
+	@Override
+	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
+		if(piccolo.obtenerKi() < 10)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 25, 2);
+		piccolo.disminuirKiEn(10);
+	}
 }

@@ -12,4 +12,6 @@ public interface EstadoFreezer {
 
 	void recibirDanio(Freezer freezer, double danio);
 	
+	void rayoMortal(Freezer freezer, GuerrerosZ oponente);
+	
 }

@@ -29,5 +29,13 @@ public class EstadoGokuNormal implements EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
+	
+	@Override
+	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
+		if(goku.obtenerKi()<20)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 30*goku.aumentoDePoderPorAdrenalina() + 30*(goku.usarAumentoDeAtaque()), 2);
+		goku.disminuirKiEn(20);
+	}
 
 }

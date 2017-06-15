@@ -3,7 +3,6 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
-
 public class Goku extends GuerrerosZ{
 	
 	private EstadoGoku estado;
@@ -50,4 +49,31 @@ public class Goku extends GuerrerosZ{
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
 
+	public int aumentoDePoderPorAdrenalina() {
+		int aumento = 1;
+		if(this.puntosDeVida < this.puntosDeVida*30/100){
+			aumento = 1 + 20/100;
+		}
+		return aumento;
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		estado.kamehameha(this, oponente);
+	}
+
+	@Override
+	public void convertirseEnChocolate() {
+		this.estado = new EstadoGokuChocolate();
+	}
+
+	@Override
+	public void volverAEstadoNormal() {
+		this.estado = new EstadoGokuNormal();
+	}
 }

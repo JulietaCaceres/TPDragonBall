@@ -26,5 +26,13 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
+	
+	@Override
+	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
+		if(goku.obtenerKi()<20)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 90*goku.aumentoDePoderPorAdrenalina() + 90*(goku.usarAumentoDeAtaque()), 4);
+		goku.disminuirKiEn(20);
+	}
 
 }

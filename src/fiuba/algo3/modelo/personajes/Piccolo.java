@@ -15,11 +15,18 @@ public class Piccolo extends GuerrerosZ{
 	}
 		
 	public void pasarAEstadoFortalecido(){
+		if(this.Ki < 20){
+			throw new ExceptionPrimeraTransformacion();
+		}
 		this.Ki -= 20 ;
 		this.estado = new EstadoPiccoloFortalecido();
 	}
 		
-	public void pasarAEstadoProtector(){
+	public void pasarAEstadoProtector(int puntosDeVidaDeGohan){
+		if(puntosDeVidaDeGohan >= 60){
+			throw new ExceptionSegundaTransformacion();
+		}
+		
 		this.estado = new EstadoPiccoloProtector();
 	}
 	
@@ -45,5 +52,25 @@ public class Piccolo extends GuerrerosZ{
 
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
+	
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();		
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		estado.makankosappo(this, oponente);		
+	}
+
+	@Override
+	public void convertirseEnChocolate() {
+		this.estado = new EstadoPiccoloChocolate(); 		
+	}
+
+	@Override
+	public void volverAEstadoNormal() {
+		this.estado = new EstadoPiccoloNormal();
+	}
 
 }

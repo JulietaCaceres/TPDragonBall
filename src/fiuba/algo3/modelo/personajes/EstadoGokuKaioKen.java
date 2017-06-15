@@ -7,7 +7,7 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
-		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 40 + 40*(goku.usarAumentoDeAtaque()), 4);
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 40*goku.aumentoDePoderPorAdrenalina() + 40*(goku.usarAumentoDeAtaque()), 4);
 	}
 
 	/*@Override
@@ -29,5 +29,12 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
-
+	
+	@Override
+	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
+		if(goku.obtenerKi()<20)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque()), 4);
+		goku.disminuirKiEn(20);
+	}
 }

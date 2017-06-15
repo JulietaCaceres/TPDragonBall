@@ -14,11 +14,17 @@ public class Freezer extends EnemigosDeLaTierra{
 	}
 	
 	public void primeraTransformacion(){
+		if(this.Ki < 20){
+			throw new ExceptionPrimeraTransformacion();
+		}
 		this.Ki -= 20 ;
 		this.estado = new EstadoFreezerSegundaForma();
 	}
 	
 	public void transformarEnLaAparienciaOriginal(){
+		if(this.Ki < 50){
+			throw new ExceptionPrimeraTransformacion();
+		}
 		this.Ki -= 50 ;
 		this.estado = new EstadoFreezerFormaOriginal();
 	}
@@ -43,5 +49,15 @@ public class Freezer extends EnemigosDeLaTierra{
 
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
+	
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		estado.rayoMortal(this, oponente);		
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();
+	}
 
 }

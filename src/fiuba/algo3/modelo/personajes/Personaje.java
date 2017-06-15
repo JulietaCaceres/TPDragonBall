@@ -12,8 +12,6 @@ public abstract class Personaje {
 	protected Coordenada coordenada;
 	protected int velocidad;
 
-
-
 	public void asignarCoordenadas(int fila,int columna)
 	{
 		Coordenada coordenadas = new Coordenada(fila,columna);
@@ -43,6 +41,10 @@ public abstract class Personaje {
 	}
 	
 	public void aumentarKiEn(int kiParaAgregar){
+		this.Ki += kiParaAgregar;
+	}
+	
+	public void disminuirKiEn(int kiParaAgregar){
 		this.Ki += kiParaAgregar;
 	}
 	

@@ -11,4 +11,6 @@ public interface EstadoCell {
 	public abstract void recibirDanio(Cell cell, double danio);
 
 	public abstract void verificarDistancia(Cell cell, int distancia);
+	
+	public abstract void absorberVida(Cell cell, GuerrerosZ oponente);
 }

@@ -17,12 +17,22 @@ public class Cell extends EnemigosDeLaTierra{
 		this.estado = new EstadoCellNormal();
 	}
 	
+	public void aumentarVidaEn(double vida){
+		this.puntosDeVida += vida;
+	}
+	
 	public void absorberA17(){
+		if(this.cantidadDeAbsorciones < 4){
+			throw new ExceptionPrimeraTransformacion();
+		}
 		this.cantidadDeAbsorciones -= 4 ;
 		this.estado = new EstadoCellSemiPerfecto();
 	}
 	
 	public void absorberA18(){
+		if(this.cantidadDeAbsorciones < 8){
+			throw new ExceptionSegundaTransformacion();
+		}
 		this.cantidadDeAbsorciones -= 8;
 		this.estado = new EstadoCellPerfecto();
 	}
@@ -47,5 +57,15 @@ public class Cell extends EnemigosDeLaTierra{
 
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
+	
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		estado.absorberVida(this, oponente);
+	}
+
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();
+	}
 
 }

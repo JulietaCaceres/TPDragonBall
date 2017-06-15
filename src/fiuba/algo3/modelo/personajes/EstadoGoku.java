@@ -12,4 +12,6 @@ public interface EstadoGoku {
 
 	public abstract void recibirDanio(Goku goku, double danio);
 
+	void kamehameha(Goku goku, EnemigosDeLaTierra oponente);
+
 }

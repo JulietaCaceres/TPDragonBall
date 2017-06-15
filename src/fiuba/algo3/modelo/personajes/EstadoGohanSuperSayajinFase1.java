@@ -29,4 +29,13 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		gohan.disminuirPuntosDeVidaEn(danio);
 	}
 
+	@Override
+	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
+	
+		if(gohan.obtenerKi() < 10)
+			throw new ExceptionAtaqueEspecial();
+		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30*25/100 + 30*25/100*(gohan.usarAumentoDeAtaque()), 2);
+		gohan.disminuirKiEn(10);
+	}
+
 }

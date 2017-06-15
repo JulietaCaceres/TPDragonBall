@@ -43,5 +43,17 @@ public class MajinBoo extends EnemigosDeLaTierra {
 
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
+	
+	@Override
+	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
+		if(this.Ki < 30)
+			throw new ExceptionAtaqueEspecial();
+		oponente.convertirseEnChocolate();
+		this.disminuirKiEn(30);
+	}
 
+	@Override
+	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
+		throw new ExceptionAtaqueAMismoEquipo();
+	}
 }
