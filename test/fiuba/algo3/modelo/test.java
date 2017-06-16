@@ -1,358 +1,403 @@
 package fiuba.algo3.modelo;
 
-import static org.junit.Assert.*;
-
-import org.junit.Assert;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import junit.framework.Assert;
+import org.junit.Test;
 import fiuba.algo3.modelo.juego.*;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+
 import fiuba.algo3.modelo.personajes.*;
-
-import org.junit.Test; 
-
 
 public class test {
 
-	// PRIMERA ENTREGA 
-	
-
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
     @Test
-    public void test01seUbicaUnPersonajeEnUnCasilleroSePideQueSeMuevSeVerificaNuevaPosicionAcordeASuModo(){
-        Goku goku = new Goku();
-        int cantidadMovimientosRealizados = 0;
-        Tablero tablero = new Tablero();
-        Casillero casillero = tablero.obtenerCasillero(1,1);
-        casillero.asignarPersonaje(goku);
-        goku.mover(tablero, 1,2);
-        cantidadMovimientosRealizados++;
-        goku.mover(tablero, 1,3);
-        cantidadMovimientosRealizados++;
-        Assert.assertEquals(cantidadMovimientosRealizados, goku.obtenerVelocidad());
-    }
-
-    @Test
-    public void test02seVerificaQueDosPersonajesNoEntranEnUnMismoCasillero()
-    {
-        Tablero tablero = new Tablero ();
-        Goku goku = new Goku();
-        Cell cell = new Cell();
-        Casillero casillero = tablero.obtenerCasillero(3,3);
-        casillero.asignarPersonaje(goku);
-        try
-        {
-            casillero.asignarPersonaje(cell);
-            fail("Deberia haber ocurrido un error");
-        } catch(Exception e){
-            fail("Casillero ocupado");
-        }
-
-        Personaje personaje = casillero.obtenerPersonaje();
-        Assert.assertEquals(personaje.obtenerNombre(),"Goku");
-    }
-
-    @Test
-    public void Test03SeUbicanDosPersonajesYSeVerificaQueNoPuedanPasarUnoEncimaDelOtro()
-    {
-        Tablero tablero = new Tablero();
-        Goku goku = new Goku ();
-        Casillero casillero = tablero.obtenerCasillero(2,2);
-        casillero.asignarPersonaje(goku);
-        Cell cell = new Cell();
-        casillero = tablero.obtenerCasillero(2,3);
-        casillero.asignarPersonaje(cell);        
-        try{
-            cell.mover(tablero, 2,2);
-            fail("Deberia haber dado un error");
-           } catch(Exception e)
-             {
-                fail("no puede pasar por casillero ocupado");
-             }
-    }
-
-    @Test
-    public void test04SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
-    {
-        Tablero tablero = new Tablero();
-        Goku goku = new Goku ();
-        Casillero casillero = tablero.obtenerCasillero(2,2);
-        casillero.asignarPersonaje(goku);
-        goku.aumentarKiEn(20);
-        try
-        {
-            goku.usarKaioKen();
-            fail("Cumple la condicion para transformarse");
-        } catch(Exception e){}
-
-    }
-
-    @Test
-    public void test05SeUbicaAUnPersonajeSeLoTransformaSeLoMueveYSeVerificaQueElMovimientoSeaAcorde()
-    {
-        Tablero tablero = new Tablero();
-        MajinBoo majinBoo = new MajinBoo();
-        int cantidadMovimientosRealizados = 0;
-        Casillero casillero = tablero.obtenerCasillero(3,3);
-        casillero.asignarPersonaje(majinBoo);
-        majinBoo.aumentarKiEn(30);
-        majinBoo.convertirseEnBooMalo();
-        majinBoo.mover(tablero, 3, 4);
-        cantidadMovimientosRealizados++;
-        majinBoo.mover(tablero, 3, 5);
-        cantidadMovimientosRealizados++;
-        majinBoo.mover(tablero, 4, 5);
-        cantidadMovimientosRealizados++;
-        assertEquals(cantidadMovimientosRealizados,majinBoo.obtenerVelocidad());
-
+    public void test00ubicoUnPersonajeEnUnCasilleroVerificoCasilleroOcupado() {
+        Goku unPersonaje = new Goku();
+        Casillero unCasillero = new Casillero(2,2);
+        unCasillero.asignarPersonaje(unPersonaje);
+        assertTrue(unCasillero.ocupado());
     }
     
     @Test
-    public void test06seIniciaUnJuegoCon2JugadoresCadaUnoDeEllosConSus3PersonajesDistribuidosEnElTableroSegunElEnunciado()
+    public void test01seMueveAGokuAUnCasilleroEncontradoAUnaVelocidadAcordeASuModoYSeVerificaQueElCasilleroQuedeOcupado(){
+        Goku goku = new Goku();
+        Casillero casilleroInicial = new Casillero(2,2);
+        casilleroInicial.asignarPersonaje(goku);
+        Casillero casilleroFinal = new Casillero(2,4);
+        casilleroFinal.asignarPersonaje(goku);
+        assertTrue(casilleroFinal.ocupado());
+    }
+
+    @Test (expected = ExceptionCasilleroOcupado.class)
+    public void tet02seVerificaQueNoPuedenHaberDosPersonajesEnElMismoCasillero()
     {
-        Juego juego = new Juego();
+        Goku goku = new Goku();
+        Casillero unCasillero = new Casillero(2,2);
+        unCasillero.asignarPersonaje(goku);
+        Cell cell = new Cell();
+        unCasillero.asignarPersonaje(cell);
+
+    }
+
+
+    @Test(expected = ExceptionCasilleroOcupado.class)
+    public void Test03unPersonajeIntentaMoversePeroNoPuedePasarPorEncimaDeOtro()
+    {
+        Goku goku = new Goku();
+        Cell cell =new Cell();
+        Tablero tablero = new Tablero();
+        tablero.ubicarPersonaje(goku, 2,2);
+        tablero.ubicarPersonaje(cell,2,3);
+        Coordenada unaCoornada = new Coordenada(2,2);
+        Coordenada otraCordenada = new Coordenada(2,1);
+        Coordenada[] recorrido = new Coordenada[2];
+        recorrido[0] = unaCoornada;
+        recorrido[1] = otraCordenada;
+        Movimiento despazar = new Movimiento(tablero);
+        despazar.moverPersonaje(recorrido, cell);
+    }
+
+ @Test
+    public void test04SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
+    {
+        Freezer unFreezer = new Freezer();
+        Freezer otroFreezer = new Freezer();
+        Goku goku = new Goku();
+        Casillero unCasillero = new Casillero(2,2);
+        unCasillero.asignarPersonaje(goku);
+        Casillero otroCasillero = new Casillero(2,3);
+        otroCasillero.asignarPersonaje(unFreezer);
+        Casillero otro = new Casillero(2,1);
+        otro.asignarPersonaje(otroFreezer);
+        
+        goku.atacar(unFreezer);
+        double vidaDeUnFreezerDespuesDePrimerAtaque = unFreezer.obtenerPuntosDeVida();
+        goku.atacar(unFreezer);
+        goku.atacar(unFreezer);
+        goku.atacar(unFreezer);
+        
+        goku.atacar(otroFreezer);
+        boolean menosDanio = (vidaDeUnFreezerDespuesDePrimerAtaque > otroFreezer.obtenerPuntosDeVida());
+        assertTrue("Freezer recibe mas danio con goku transformado",menosDanio);
+
+    }
+
+   @Test
+    public void test05VerificoSiPersonajeSeMueveAcuerdoASuTransformacion()
+    {
+        Tablero tablero = new Tablero();
+        MajinBoo majinBoo = new MajinBoo();
+        Goku goku = new Goku();
+        
+        tablero.ubicarPersonaje(majinBoo,2,2);
+        tablero.ubicarPersonaje(goku,2,3);
+        
+        majinBoo.atacar(goku);
+        majinBoo.atacar(goku);
+        majinBoo.atacar(goku);
+        majinBoo.atacar(goku);
+        
+        Movimiento desplazamiento = new Movimiento(tablero);
+        Coordenada coordenada1 = new Coordenada(3,2);
+        Coordenada coordenada2 = new Coordenada(4,2);
+        Coordenada coordenada3 = new Coordenada(5,2);
+        Coordenada[] coordenadas = new Coordenada[3];
+        coordenadas[0] = coordenada1;
+        coordenadas[1] = coordenada2;
+        coordenadas[2] = coordenada3;
+        desplazamiento.moverPersonaje(coordenadas,majinBoo);
+        Coordenada coordenadaFinal = majinBoo.obtenerCoordenadas();
+        boolean posicionEsperada = ((coordenadaFinal.obtenerFila() == coordenada3.obtenerFila()) &&(coordenadaFinal.obtenerColumna() == coordenada3.obtenerColumna()));
+        assertTrue(posicionEsperada);
+    }
+    
+        @Test
+    public void test06seIniciaUnJuegoYSeVerificanLasCondicionesIniciales()
+    {   Jugador jugador1 = new Jugador("juli");
+        Jugador jugador2 = new Jugador("jime");
+        Juego juego = new Juego(jugador1,jugador2);
+        juego.iniciarTablero();
         Tablero tablero = juego.obtenerTablero();
-        Casillero casillero1 = tablero.obtenerCasillero(0,2);
+        Casillero casillero1 = tablero.obtenerCasillero(2,0);
         Casillero casillero2 = tablero.obtenerCasillero(1,1);
-        Casillero casillero3 = tablero.obtenerCasillero(2,0);
-        Casillero casillero4 = tablero.obtenerCasillero(29,31);
+        Casillero casillero3 = tablero.obtenerCasillero(0,2);
+        Casillero casillero4 = tablero.obtenerCasillero(31,29);
         Casillero casillero5 = tablero.obtenerCasillero(30,30);
         Casillero casillero6 = tablero.obtenerCasillero(29,31);
         boolean posicionCorrecta = (casillero1.ocupado() && casillero2.ocupado() && casillero3.ocupado()
                                      && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado());
-        Assert.assertTrue (posicionCorrecta);
+       assertTrue("se colocaron mal los personajes", posicionCorrecta);
     }
-
-    
-    @Test 
-    public void test07VerificaDaniosLuegoDeAtaques () { 
-        Personaje goku = new Goku(); 
-        Personaje freezer = new Freezer(); 
-        Tablero tablero = new Tablero(); 
-        Casillero casilleroGoku = tablero.obtenerCasillero(1,1);  
-        casilleroGoku.asignarPersonaje(goku); 
-        Casillero casilleroFreezer = tablero.obtenerCasillero(2,2); 
-        casilleroFreezer.asignarPersonaje(freezer); 
         
-        int puntosInicialesDeVidaFreezer = freezer.obtenerPuntosDeVida(); 
-        goku.atacar(freezer, tablero); 
-        assertEquals(freezer.obtenerPuntosDeVida(), puntosInicialesDeVidaFreezer - 20); 
-        
-        Personaje piccolo = new Piccolo(); 
-        Personaje cell = new Cell(); 
-        Casillero casilleroPiccolo = tablero.obtenerCasillero(3,3); 
-        casilleroPiccolo.asignarPersonaje(piccolo); 
-        Casillero casilleroCell = tablero.obtenerCasilero(15,15); 
-        casilleroCell.asignarPersonaje(cell); 
-
-        int puntosInicialesDeVidaCell = cell.obtenerPuntosDeVida(); 
-        try { 
-            piccolo.atacar(cell, tablero); 
-        } catch (Exception e) { 
-            fail ("Los personajes estan muy lejos"); 
-        } 
-        assertEquals(cell.obtenerPuntosDeVida(), puntosInicialesDeVidaCell); 
-    } 
-
-    
-    // SEGUNDA ENTREGA 
-    
-    @Test (expected = SegundaTransformacionException.class)
-    public void test08CompruebaQueGohanNoPuedeLlegarALaSegundaTransformacion() { 
-    	
-    	// Posicionar a los Guerreros Z,
-    	
-    	GuerrerosZ goku = new Goku(); 
-    	GuerrerosZ gohan = new Gohan(); 
-    	GuerrerosZ piccolo = new Piccolo(); 
-    	Tablero tablero = new Tablero(); 
-    	tablero.obtenerCasillero(1, 3).asignarPersonaje(goku);
-    	tablero.obtenerCasillero(2, 2).asignarPersonaje(gohan);
-    	tablero.obtenerCasillero(3, 1).asignarPersonaje(piccolo); 
-    	
-    	// llevar a Gohan a su primera transformaci�n,
-    	
-    	gohan.aumentarKiEn(10); 
-    	// comprobar que no puede llegar a la segunda.
-    	 
-    	// ????????????????????
-    	
-    }
-
     @Test
-    public void test09CompruebaTransformacionCorrectaDeGohan() { 
+    public void test07CrearAGoku(){
+    	Goku goku = new Goku();
+    	assertTrue(500 == goku.obtenerPuntosDeVida());
+    }
+    
+    @Test
+    public void test08CrearAGokuACellYAtacarACell(){
+    	Goku goku = new Goku();
+    	goku.asignarCoordenadas(1, 1);
     	
-    	// Posicionar a los Guerreros Z, 
-    	GuerrerosZ goku = new Goku(); 
-    	GuerrerosZ gohan = new Gohan(); 
-    	GuerrerosZ piccolo = new Piccolo(); 
-    	EnemigosDeLaTierra cell = new Cell(); 
+    	Cell cell = new Cell();
+    	cell.asignarCoordenadas(1, 2);
     	
-    	Tablero tablero = new Tablero(); 
+    	goku.atacar(cell);
     	
-    	tablero.obtenerCasillero(1, 3).asignarPersonaje(goku);
-    	tablero.obtenerCasillero(2, 2).asignarPersonaje(gohan);
-    	tablero.obtenerCasillero(3, 1).asignarPersonaje(piccolo); 
-    	tablero.obtenerCasillero(4, 4).asignarPersonaje(cell);
-
-    	// dejar a Goku y Piccolo con la vida necesaria 
-    	// para la transformaci�n de Gohan, y comprobar que se realiza correctamente.
-
-    	goku.disminuirPuntosDeVidaEn(355);
-    	piccolo.disminuirPuntosDeVidaEn(355);
-
-    	double puntosIniciales = cell.obtenerPuntosDeVida(); 
+    	assertTrue(cell.obtenerPuntosDeVida() == 480);
+    }        
+       
+    @Test(expected = GuerreroZConvertidoEnChocolateException.class)
+    public void test11CrearAGokuMajinBooYConvertirAGokuEnChocolate(){
+    	Goku goku = new Goku();
+    	MajinBoo majinBoo = new MajinBoo();
+    	goku.asignarCoordenadas(1, 1);
+    	majinBoo.asignarCoordenadas(1, 2);
+    	
+    	majinBoo.atacar(goku);
+    	
+    	majinBoo.realizarAtaqueEspecial(goku);
+    	goku.atacar(majinBoo);
+    }
+    
+	@Test
+    public void test12ConvertirAGokuEnChocolateYVolverAEstadoNormal(){
+    	Goku goku = new Goku();
+    	MajinBoo majinBoo = new MajinBoo();
+    	goku.asignarCoordenadas(1, 2);
+    	majinBoo.asignarCoordenadas(1, 3);
+    	majinBoo.atacar(goku);
+    	
+    	majinBoo.realizarAtaqueEspecial(goku);
+    	goku.volverAEstadoNormal();
+    	goku.atacar(majinBoo);
+    	assertTrue(majinBoo.obtenerPuntosDeVida() == 284);
+    }
+    
+    @Test
+    public void test13HacerQueGokuRealiceElKamehamehaACell(){
+    	Goku goku = new Goku();
+    	goku.asignarCoordenadas(1, 1);
+    	
+    	Cell cell = new Cell();
+    	cell.asignarCoordenadas(1, 2);
+    	
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	//Goku pasa a KaioKen
+    	
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 260);
+    	
+    	goku.realizarAtaqueEspecial(cell);
+    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 200);
+    }
+    
+    @Test (expected = ExceptionAtaqueAMismoEquipo.class)
+    public void test14HacerQueGohanAtaqueAPiccolo(){
+    	Gohan gohan = new Gohan();
+    	Piccolo piccolo = new Piccolo();
+    	
+    	gohan.asignarCoordenadas(4, 5);
+    	piccolo.asignarCoordenadas(5, 4);
+    	
+    	gohan.atacar(piccolo);
+    }
+    
+    @Test
+    public void test15CombatirEntreGokuPiccoloYCellYLlevarACellASegundaTransformacion(){
+    	Piccolo piccolo = new Piccolo();
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
+    	
+    	goku.asignarCoordenadas(4, 4);
+    	piccolo.asignarCoordenadas(5, 4);
+    	cell.asignarCoordenadas(5, 5);
+    	
+    	for(int i = 1; i<=4;i++){
+    		cell.atacar(goku);
+    		cell.realizarAtaqueEspecial(piccolo);
+    	}
+    	
+    	assertTrue(420 == goku.obtenerPuntosDeVida());
+    	//Ahora Cell esta en fase SemiPerfecto
+    	
+    	for(int i = 1; i<=8;i++){
+    		cell.atacar(goku);
+    		cell.realizarAtaqueEspecial(piccolo);
+    	}
+    	
+    	assertTrue(100 == goku.obtenerPuntosDeVida());
+    	//Ahora Cell esta en fase Perfecto
+    	cell.atacar(goku);
+    	assertTrue(20 == goku.obtenerPuntosDeVida());
+    }
+    
+    @Test
+    public void test16CombatirEntreGokuGohanPiccoloYCellYVerEvolucionDeGohanHastaSegundaTransformacion(){
+    	Piccolo piccolo = new Piccolo();
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
+    	Gohan gohan = new Gohan();
+    	
+    	gohan.referenciarAGoku(goku);
+    	gohan.referenciarAPiccolo(piccolo);
+    	
+    	goku.asignarCoordenadas(4, 4);
+    	gohan.asignarCoordenadas(4, 5);
+    	piccolo.asignarCoordenadas(5, 4);
+    	cell.asignarCoordenadas(5, 5);
+    	
+    	for(int i = 1; i<=19;i++){
+    		cell.atacar(goku);
+    		cell.atacar(piccolo);
+    	}
+    	
     	gohan.atacar(cell);
-    	double puntosFinales = cell.obtenerPuntosDeVida(); 
-    	Assert.assertTrue(puntosFinales == puntosIniciales - 100);
-
+    	assertTrue(488 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);
+    	assertTrue(476 == cell.obtenerPuntosDeVida());
+    	//Ahora Gohan es Super Sayajin Fase 1
+    	gohan.atacar(cell);
+    	assertTrue(446 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);
+    	assertTrue(416 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);
+    	assertTrue(386 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);    	
+    	assertTrue(356 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);
+    	assertTrue(326 == cell.obtenerPuntosDeVida());
+    	gohan.atacar(cell);
+    	assertTrue(296 == cell.obtenerPuntosDeVida());
+  		gohan.atacar(cell);
+    	assertTrue(266 == cell.obtenerPuntosDeVida());
+    	//Ahora Gohan es Super Sayajin Fase 2
+    	gohan.atacar(cell);
+    	assertTrue(166 == cell.obtenerPuntosDeVida());
     }
     
-    
-    @Test (expected = SegundaTransformacionException.class)
-    public void test10CompruebaQuePiccoloNoPuedeLlegarALaSegundaTransformacion() { 
+    @Test (expected = ExceptionNoAlcanzaAlOponente.class)
+    public void test17CellNoAlcanzaAAtacarAPiccoloConSuAtaqueEspecial(){
+    	Cell cell = new Cell();
+    	Piccolo piccolo = new Piccolo();
     	
-    	// Posicionar a Gohan y Piccolo y llevar a este �ltimo a su primera
-    	// transformaci�n, luego comprobar que no puede llegar a la segunda.
-    	GuerrerosZ gohan = new Gohan(); 
-    	GuerrerosZ piccolo = new Piccolo(); 
-    	Tablero tablero = new Tablero();
-    	tablero.obtenerCasillero(1, 3).asignarPersonaje(gohan);
-    	tablero.obtenerCasillero(2, 2).asignarPersonaje(piccolo);
+    	cell.asignarCoordenadas(3, 3);
+    	piccolo.asignarCoordenadas(10, 10);
     	
-    	piccolo.aumentarKiEn(20);
-    	 // ????????????
-    
+    	cell.atacar(piccolo);
+    	cell.realizarAtaqueEspecial(piccolo);
     }
     
-    @Test 
-    public void test11VerificaLaCorrectaSegundaTransformacionDePiccolo() { 
+    @Test (expected = ExceptionAtaqueAMismoEquipo.class)
+    public void test18MajinBooNoPuedeConvertirEnChocolateAFreezer(){
+    	MajinBoo boo = new MajinBoo();
+    	Freezer freezer = new Freezer();
     	
-    	// Posicionar a Gohan y Piccolo, dejar a Gohan con la vida necesaria 
-    	// para que Piccolo pueda realizar su segunda transformaci�n, comprobar 
-    	// que los cambios se hicieron correctamente.
-    	GuerrerosZ gohan = new Gohan(); 
-    	GuerrerosZ piccolo = new Piccolo(); 
-    	EnemigosDeLaTierra cell = new Cell(); 
-    	Tablero tablero = new Tablero();
-    	tablero.obtenerCasillero(1, 3).asignarPersonaje(gohan);
-    	tablero.obtenerCasillero(2, 2).asignarPersonaje(piccolo);
-    	tablero.obtenerCasillero(5, 5);
+    	boo.asignarCoordenadas(2, 3);
+    	freezer.asignarCoordenadas(3, 2);
     	
-    	gohan.disminuirPuntosDeVidaEn(237);
-
-    	double puntosIniciales = cell.obtenerPuntosDeVida(); 
-    	piccolo.atacar(cell);
-    	double puntosFinales = cell.obtenerPuntosDeVida(); 
-    	Assert.assertTrue(puntosFinales == puntosIniciales - 60);
-    	
+    	boo.realizarAtaqueEspecial(freezer);
     }
     
-    @Test (expected = KiInsuficienteException.class)
-    public void test12CompruebaQueCellNoPuedeRealizarTransformaciones() { 
+    @Test
+    public void test19GokuAumentaDePoderConPocaVida(){
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
     	
-    	// Posicionar a Cell y comprobar que no puede realizar sus transformaciones
-    	EnemigosDeLaTierra cell = new Cell(); 
-    	Tablero tablero = new Tablero(); 
-    	tablero.obtenerCasillero(5, 5); 
-    	cell.aumentarKiEn(20); // debe absorber 4 veces, lo cual requiere 20 ki 
+    	goku.asignarCoordenadas(2, 3);
+    	cell.asignarCoordenadas(3, 2);
     	
-    }
-    
-    @Test 
-    public void test13VerificaFuncionamientoDeAbsorberVida() { 
+    	for (int i = 0; i<20; i++){
+    		cell.atacar(goku);
+    	}
     	
-    	// Posicionar a Cell y a un Guerrero Z, comprobar el correcto 
-    	// funcionamiento de �absorber vida�.
+    	goku.atacar(cell);
     	
-    	EnemigosDeLaTierra cell = new Cell(); 
-    	GuerrerosZ goku = new Goku();
-    	Tablero tablero = new Tablero(); 
-    	tablero.obtenerCasillero(3, 3).asignarPersonaje(cell);
-    	tablero.obtenerCasillero(4, 4).asignarPersonaje(goku);
-
-    	cell.aumentarKiEn(10);
-
-    	int kiInicialCell = cell.obtenerKi(); 
-    	double vidaInicialCell = cell.obtenerPuntosDeVida(); 
-    	double vidaInicialGoku = goku.obtenerPuntosDeVida(); 
-    	cell.absorberVida(goku); 
-    	int kiFinalCell = cell.obtenerKi(); 
-    	double vidaFinalCell = cell.obtenerPuntosDeVida(); 
-    	double vidaFinalGoku = goku.obtenerPuntosDeVida(); 
-    	Assert.assertTrue(vidaFinalCell - vidaInicialCell == 20 && 
-    					  kiInicialCell - kiFinalCell == 5 &&
-    					  vidaInicialGoku - vidaFinalGoku == 20);
-
-    } 
-    
-    @Test 
-    public void test14AbsorbeVidaParaEfectuarTransformacion() { 
-    	
-    	// Posicionar a Cell y a un Guerrero Z, efectuar �absorber vida� 
-    	// las veces necesarias para que pueda transformarse y comprobar que 
-    	// los cambios se hicieron correctamente.
-
-    	EnemigosDeLaTierra cell = new Cell(); 
-    	GuerrerosZ goku = new Goku();
-    	Tablero tablero = new Tablero(); 
-    	tablero.obtenerCasillero(3, 3).asignarPersonaje(cell);
-    	tablero.obtenerCasillero(4, 4).asignarPersonaje(goku);
-
-    	cell.aumentarKiEn(20);
-    	double vidaInicialGoku = goku.obtenerPuntosDeVida(); 
-    	for (int i = 1; i <= 4; i++) 
-    		cell.absorberVida(goku); 
-    	cell.atacar(goku);
-    	double vidaMediaGoku = goku.obtenerPuntosDeVida(); 
-    	Assert.assertTrue(vidaMediaGoku == vidaInicialGoku - 120);//estado semiperfecto 
-    	for (int i = 1; i <= 4; i++)
-    		cell.absorberVida(goku); 
-    	cell.atacar(goku);
-    	double vidaFinalGoku = goku.obtenerPuntosDeVida(); 
-    	Assert.assertTrue(vidaFinalGoku == vidaMediaGoku - 160);
-    	
-
-    }
-    
-    @Test 
-    public void test15VerificaFuncionamientoDeConvierteteEnChocolate() { 
-    	
-    	// Posicionar a Majin Boo, y a un Guerrero Z, comprobar el correcto
-    	// funcionamiento de �Convi�rtete en chocolate�
-    	
-    	EnemigosDeLaTierra majinboo = new MajinBoo(); 
-    	GuerrerosZ goku = new Goku(); 
-    	Tablero tablero = new Tablero(); 
-    	tablero.obtenerCasillero(2, 2).asignarPersonaje(majinboo);
-    	tablero.obtenerCasillero(4, 4).asignarPersonaje(goku);
-
-    	majinboo.aumentarKiEn(30);
-
-    	majinboo.convierteteEnChocolate(goku); // inmoviliza a goku por 3 turnos 
-    											// como se implementa esto?? 
+    	assertTrue(100 == goku.obtenerPuntosDeVida());
+    	assertTrue(476 == cell.obtenerPuntosDeVida());
     	
     }
     
-    @Test 
-    public void test16VerificarAumentoDeDanoAlReducirVida() { 
+    @Test
+    public void test20GokuAtacaYAumentaKi(){
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
     	
-    	// Posicionar a Goku y verificar que su da�o aumenta, 
-    	// al reducir su vida por debajo del 20%.
+    	goku.asignarCoordenadas(2, 3);
+    	cell.asignarCoordenadas(3, 2);
     	
-    	GuerrerosZ goku = new Goku(); 
-    	EnemigosDeLaTierra cell = new Cell();
+    	goku.atacar(cell);
+    }
+    
+    @Test
+    public void test20GokuAtacaYHacePrimeraTransformacion(){
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
     	
-    	double vidaInicialGoku = goku.obtenerPuntosDeVida(); 
-    	cell.atacar(goku);
-    	double danoInicial = vidaInicialGoku - goku.obtenerPuntosDeVida(); 
-    	double vidaMediaGoku = goku.obtenerPuntosDeVida(); 
+    	goku.asignarCoordenadas(2, 3);
+    	cell.asignarCoordenadas(3, 2);
     	
-    	goku.disminuirPuntosDeVidaEn(400);
-    	cell.atacar(goku);
-    	double danoFinal = goku.obtenerPuntosDeVida(); 
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 420);
     	
-    	Assert.assertTrue(danoFinal > danoInicial);
+    	goku.atacar(cell);
+    	assertTrue(cell.obtenerPuntosDeVida() == 380);
+    }
+    
+    @Test
+    public void test21GokuLlegaASuSegundaTransformacion(){
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
     	
+    	goku.asignarCoordenadas(2, 3);
+    	cell.asignarCoordenadas(3, 2);
     	
-    } 
-
- 
-} 
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 420);
+    	
+    	goku.atacar(cell);
+    	assertTrue(cell.obtenerPuntosDeVida() == 380);
+    	cell.comerSemillaDelErmitanio();
+    	assertTrue(cell.obtenerPuntosDeVida() == 480);
+    	
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	goku.atacar(cell);
+    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 160);
+    	
+    	goku.atacar(cell);
+    	
+    	assertTrue(cell.obtenerPuntosDeVida() == 120);
+    	
+    	goku.atacar(cell);
+    	assertTrue(cell.obtenerPuntosDeVida() == 60);
+    }
+}
