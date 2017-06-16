@@ -3,9 +3,13 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
 public class EstadoPiccoloProtector implements EstadoPiccolo {
+
+	private int ki = 0;
+
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 60 + 60*(piccolo.usarAumentoDeAtaque()), 6);
+		this.ki += 5;
 	}
 	/*
 	@Override
@@ -28,9 +32,9 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 	
 	@Override
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
-		if(piccolo.obtenerKi() < 10)
+		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 75, 6);
-		piccolo.disminuirKiEn(10);
+		this.ki -= 10;
 	}
 }

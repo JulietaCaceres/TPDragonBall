@@ -46,7 +46,12 @@ public class EstadoGokuChocolate implements EstadoGoku {
 	
 	@Override
 	public void verificarDistancia(Goku goku, int distancia) {
-		// TODO Auto-generated method stub	
+		turnos--;
+		if(turnos > -1){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		goku.volverAEstadoNormal();
+		goku.verificarDistancia(distancia);	
 	}
 
 }

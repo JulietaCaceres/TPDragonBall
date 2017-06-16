@@ -5,9 +5,13 @@ import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class EstadoCellNormal implements EstadoCell {
 
+	private int ki = 0;
+	private int cantidadDeAbsorciones = 0;
+	
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + 20*(cell.usarAumentoDeAtaque()), 3);
+		this.ki += 5;
 	}
 
 	/*@Override
@@ -25,20 +29,27 @@ public class EstadoCellNormal implements EstadoCell {
 
 	@Override
 	public void absorberVida(Cell cell, GuerrerosZ oponente) {
-		if(cell.obtenerKi() < 5)
+		if(this.ki < 5)
 			throw new ExceptionAtaqueEspecial();
 		double aumentoPorEsferaDelDragon = 20*cell.usarAumentoDeAtaque();
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + 20*(cell.usarAumentoDeAtaque()), 3);
+		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + aumentoPorEsferaDelDragon, 3);
 		cell.aumentarVidaEn(20 + aumentoPorEsferaDelDragon);
-		cell.disminuirKiEn(5);
+		this.ki -= 5;
+		this.cantidadDeAbsorciones ++;
+		this.transformar(cell);
+	}
+
+	private void transformar(Cell cell) {
+		if(this.cantidadDeAbsorciones == 4){
+			EstadoCell nuevaForma = new EstadoCellSemiPerfecto();
+			cell.asignarEstado(nuevaForma);
+		}
 	}
 
 	@Override
 	public void verificarDistancia(Cell cell, int distancia) {
-		
 		if (2*cell.usarAumentoDeVelocidad() < distancia)
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-				
 	}
 
 }

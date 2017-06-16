@@ -46,7 +46,12 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 
 	@Override
 	public void verificarDistancia(Piccolo piccolo, int distancia) {
-		// TODO Auto-generated method stub		
+		turnos--;
+		if(turnos > -1){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		piccolo.volverAEstadoNormal();
+		piccolo.verificarDistancia(distancia);		
 	}
 
 }

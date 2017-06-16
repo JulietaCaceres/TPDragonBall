@@ -4,12 +4,27 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
 public class EstadoGohanNormal implements EstadoGohan {
+	
+	private int ki = 0;
 
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
+		/*if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}*/
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15 + 15*(gohan.usarAumentoDeAtaque()), 2);
+		this.ki += 5;		
+		this.transformar(gohan);
 	}
 	
+	private void transformar(Gohan gohan) {
+		if (this.ki >= 10){
+			EstadoGohanSuperSayajinFase1 nuevaForma = new EstadoGohanSuperSayajinFase1();
+			gohan.asignarEstado(nuevaForma);
+			this.ki -= 10;
+		}
+	}
+
 	/*@Override
 	public void mover(Gohan gohan, int filaDestino, int columnaDestino, Tablero tablero) {
 		tablero.moverA(gohan, filaDestino, columnaDestino, 2*gohan.usarAumentoDeVelocidad());
@@ -31,10 +46,17 @@ public class EstadoGohanNormal implements EstadoGohan {
 	
 	@Override
 	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
-		if(gohan.obtenerKi() < 10)
+		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15*125/100 + 15*125/100*(gohan.usarAumentoDeAtaque()), 2);
-		gohan.disminuirKiEn(10);
+		this.ki -= 10;
 	}
 
+	public void transformarEnSuperSayajin2(Gohan gohan) {
+		if (this.ki >= 30){
+			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
+			gohan.asignarEstado(nuevaForma);
+			this.ki -= 30;
+		}
+	}
 }

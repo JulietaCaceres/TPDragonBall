@@ -6,7 +6,6 @@ public abstract class Personaje {
 	
 	protected String nombre;
 	protected double puntosDeVida;
-	protected int Ki;
 	protected EstadoEsferaDelDragon estadoEsferaDragon;
 	protected EstadoNubeVoladora estadoNubeVoladora;
 	protected Coordenada coordenada;
@@ -36,19 +35,7 @@ public abstract class Personaje {
 		this.puntosDeVida -= danio;
 	}
 	
-	public int obtenerKi() {
-		return this.Ki;
-	}
-	
-	public void aumentarKiEn(int kiParaAgregar){
-		this.Ki += kiParaAgregar;
-	}
-	
-	public void disminuirKiEn(int kiParaAgregar){
-		this.Ki += kiParaAgregar;
-	}
-	
-	protected void comerSemillaDelErmitanio(){
+	public void comerSemillaDelErmitanio(){
 		this.puntosDeVida += 100;
 	}
 	
@@ -87,12 +74,4 @@ public abstract class Personaje {
 			this.estadoNubeVoladora = null;
 		}
 	}
-	
-	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante,double poderDePelea, int alcanceDeAtaque){
-
-		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
-		this.recibirDanio(poderDePelea);
-	}
-	
-	public abstract void recibirDanio(double poderDePelea);	
 }

@@ -1,26 +1,16 @@
 package fiuba.algo3.modelo.personajes;
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
-public class MajinBoo extends EnemigosDeLaTierra {
+public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	private EstadoMajinBoo estado;
 	
 	public MajinBoo(){
 		this.nombre = "Majin Boo";
-		this.puntosDeVida = 500;
-		this.Ki = 0;
+		this.puntosDeVida = 300;
 		this.estado = new EstadoMajinBooNormal();
-	}
-	
-	public void convertirseEnBooMalo(){
-		this.Ki -= 20 ;
-		this.estado = new EstadoMajinBooMalo();
-	}
-	
-	public void regresarASerBooOriginal(){
-		this.Ki -= 50 ;
-		this.estado = new EstadoMajinBooOriginal();
 	}
 	
 	public void recibirDanio(double danio){
@@ -46,14 +36,21 @@ public class MajinBoo extends EnemigosDeLaTierra {
 	
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
-		if(this.Ki < 30)
-			throw new ExceptionAtaqueEspecial();
-		oponente.convertirseEnChocolate();
-		this.disminuirKiEn(30);
+		estado.convertirEnChocolate(oponente);
 	}
 
 	@Override
 	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
+	}
+	
+	@Override
+	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
+		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
+		this.recibirDanio(poderDePelea);
+	}
+	
+	public void asignarEstado(EstadoMajinBoo nuevoEstado){
+		this.estado = nuevoEstado;
 	}
 }

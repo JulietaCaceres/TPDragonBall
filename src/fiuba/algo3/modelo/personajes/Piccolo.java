@@ -1,35 +1,27 @@
 package fiuba.algo3.modelo.personajes;
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
-public class Piccolo extends GuerrerosZ{
+public class Piccolo extends Personaje implements GuerrerosZ{
 	
 	private EstadoPiccolo estado;
+	private Gohan referenciaAGohan;
 	
 	public Piccolo(){
 		this.nombre = "Piccolo";
 		this.puntosDeVida = 500;
-		this.Ki = 0;
 		this.estado = new EstadoPiccoloNormal();
 	}
-		
-	public void pasarAEstadoFortalecido(){
-		if(this.Ki < 20){
-			throw new ExceptionPrimeraTransformacion();
-		}
-		this.Ki -= 20 ;
-		this.estado = new EstadoPiccoloFortalecido();
-	}
-		
-	public void pasarAEstadoProtector(int puntosDeVidaDeGohan){
-		if(puntosDeVidaDeGohan >= 60){
-			throw new ExceptionSegundaTransformacion();
-		}
-		
-		this.estado = new EstadoPiccoloProtector();
+	
+	public void referenciarAGohan(Gohan gohan){
+		this.referenciaAGohan = gohan;
 	}
 	
+	public double verVidaDeGohan(){
+		return this.referenciaAGohan.obtenerPuntosDeVida();
+	}
 	
 	//public void mover(Tablero tablero, int filaDestino, int columnaDestino){
 	//	estado.mover(this, filaDestino, columnaDestino, tablero);
@@ -73,4 +65,13 @@ public class Piccolo extends GuerrerosZ{
 		this.estado = new EstadoPiccoloNormal();
 	}
 
+	@Override
+	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
+		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
+		this.recibirDanio(poderDePelea);
+	}
+
+	public void asignarEstado(EstadoPiccolo nuevoEstado) {
+		this.estado = nuevoEstado;
+	}	
 }

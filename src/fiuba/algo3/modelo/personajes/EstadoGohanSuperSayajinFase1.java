@@ -5,9 +5,16 @@ import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
 public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
+	private int ki = 0;
+
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30 + 30*(gohan.usarAumentoDeAtaque()), 2);
+		this.ki += 5;
+		
 	}
 
 	/*@Override
@@ -31,11 +38,17 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
 	@Override
 	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
-	
-		if(gohan.obtenerKi() < 10)
+		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30*25/100 + 30*25/100*(gohan.usarAumentoDeAtaque()), 2);
-		gohan.disminuirKiEn(10);
+		this.ki -= 10;
 	}
-
+	
+	public void transformarEnSuperSayajin2(Gohan gohan) {
+		if (this.ki >= 30){
+			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
+			gohan.asignarEstado(nuevaForma);
+			this.ki -= 30;
+		}
+	}
 }

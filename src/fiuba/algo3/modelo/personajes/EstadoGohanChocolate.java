@@ -46,7 +46,11 @@ public class EstadoGohanChocolate implements EstadoGohan {
 
 	@Override
 	public void verificarDistancia(Gohan gohan, int distancia) {
-		// TODO Auto-generated method stub
-		
+		turnos--;
+		if(turnos > -1){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		gohan.volverAEstadoNormal();
+		gohan.verificarDistancia(distancia);
 	}
 }

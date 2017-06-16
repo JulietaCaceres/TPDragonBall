@@ -1,28 +1,18 @@
 package fiuba.algo3.modelo.personajes;
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
-public class Goku extends GuerrerosZ{
+public class Goku extends Personaje implements GuerrerosZ{
 	
 	private EstadoGoku estado;
 	
 	public Goku(){
 		this.nombre = "Goku";
 		this.puntosDeVida = 500;
-		this.Ki = 0;
 		this.estado = new EstadoGokuNormal();
 		this.estadoEsferaDragon = null;
-	}
-	
-	public void usarKaioKen(){
-		this.Ki -= 20 ;
-		this.estado = new EstadoGokuKaioKen();
-	}
-	
-	public void convertirseEnSuperSayajin(){
-		this.Ki -= 50 ;
-		this.estado = new EstadoGokuSuperSayajin();
 	}
 	
 	
@@ -49,10 +39,10 @@ public class Goku extends GuerrerosZ{
 	@Override
 	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
 
-	public int aumentoDePoderPorAdrenalina() {
-		int aumento = 1;
-		if(this.puntosDeVida < this.puntosDeVida*30/100){
-			aumento = 1 + 20/100;
+	public double aumentoDePoderPorAdrenalina() {
+		double aumento = 1;
+		if(this.puntosDeVida < 150){
+			aumento = 1.2;
 		}
 		return aumento;
 	}
@@ -75,5 +65,15 @@ public class Goku extends GuerrerosZ{
 	@Override
 	public void volverAEstadoNormal() {
 		this.estado = new EstadoGokuNormal();
+	}
+	
+	@Override
+	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
+		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
+		this.recibirDanio(poderDePelea);
+	}
+	
+	public void asignarEstado(EstadoGoku nuevoEstado){
+		this.estado = nuevoEstado;
 	}
 }

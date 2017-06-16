@@ -5,10 +5,14 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
 public class EstadoGokuNormal implements EstadoGoku {
-
+	
+	private int ki = 0;
+		
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
-		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 20 + 20*(goku.usarAumentoDeAtaque()), 2);
+		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 20*goku.aumentoDePoderPorAdrenalina() + 20*(goku.usarAumentoDeAtaque()), 2);
+		this.ki += 5;
+		this.transformar(goku);
 	}
 
 	/*@Override
@@ -32,10 +36,16 @@ public class EstadoGokuNormal implements EstadoGoku {
 	
 	@Override
 	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
-		if(goku.obtenerKi()<20)
+		if(this.ki<20)
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 30*goku.aumentoDePoderPorAdrenalina() + 30*(goku.usarAumentoDeAtaque()), 2);
-		goku.disminuirKiEn(20);
+		this.ki -= 20;
 	}
 
+	public void transformar(Goku goku){
+		if(this.ki == 20){
+			EstadoGoku nuevaForma = new EstadoGokuKaioKen();
+			goku.asignarEstado(nuevaForma);
+		}
+	}
 }

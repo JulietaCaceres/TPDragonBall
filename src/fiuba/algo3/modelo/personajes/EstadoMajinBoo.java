@@ -11,4 +11,6 @@ public interface EstadoMajinBoo {
 	void verificarDistancia(MajinBoo majinBoo, int distancia);
 
 	public void recibirDanio(MajinBoo majinBoo, double danio);
+
+	public void convertirEnChocolate(GuerrerosZ oponente);
 }

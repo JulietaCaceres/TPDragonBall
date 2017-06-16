@@ -4,10 +4,13 @@ import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class EstadoFreezerFormaOriginal implements EstadoFreezer {
-
+	
+	private int ki = 0;
+	
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente){
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 50 + 50*(freezer.usarAumentoDeAtaque()), 3);
+		this.ki += 5;
 	}
 
 	/*@Override
@@ -31,10 +34,10 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 	
 	@Override
 	public void rayoMortal(Freezer freezer, GuerrerosZ oponente) {
-		if(freezer.obtenerKi() < 20)
+		if(this.ki < 20)
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 75 + 75*(freezer.usarAumentoDeAtaque()), 3);
-		freezer.disminuirKiEn(20);
+		this.ki -= 20;
 	}
 
 }

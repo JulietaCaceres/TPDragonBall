@@ -5,9 +5,13 @@ import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class EstadoMajinBooNormal implements EstadoMajinBoo {
 	
+	private int ki;
+
 	@Override
 	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(majinBoo.obtenerCoordenadas(),30 + 30*(majinBoo.usarAumentoDeAtaque()), 2);
+		this.ki += 5;
+		this.transformar(majinBoo);
 	}
 
 	/*@Override
@@ -28,4 +32,18 @@ public class EstadoMajinBooNormal implements EstadoMajinBoo {
 		majinBoo.disminuirPuntosDeVidaEn(danio);
 	}
 
+	public void transformar(MajinBoo majinBoo) {
+		if(this.ki == 20){
+			EstadoMajinBooMalo nuevaForma = new EstadoMajinBooMalo(); 
+			majinBoo.asignarEstado(nuevaForma);
+		}
+	}
+	
+	@Override
+	public void convertirEnChocolate(GuerrerosZ oponente) {
+		if (this.ki < 5){
+			throw new ExceptionAtaqueEspecial();
+		}
+		oponente.convertirseEnChocolate();
+	}
 }
