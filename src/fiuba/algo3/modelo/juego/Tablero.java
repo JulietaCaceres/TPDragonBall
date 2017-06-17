@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Tablero {
 
-	public Fila filas[];
 	private static final int CANTIDAD_COLUMNAS = 32;
 	private static final int CANTIDAD_FILAS = 32;
 	public Coordenada coordenadas[][] = new Coordenada[CANTIDAD_FILAS][CANTIDAD_COLUMNAS] ;
