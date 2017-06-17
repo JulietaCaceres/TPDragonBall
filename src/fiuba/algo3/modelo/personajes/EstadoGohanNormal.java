@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
@@ -9,11 +10,11 @@ public class EstadoGohanNormal implements EstadoGohan {
 
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
-		/*if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
-			this.transformarEnSuperSayajin2(gohan);
-		}*/
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15 + 15*(gohan.usarAumentoDeAtaque()), 2);
-		this.ki += 5;		
+		this.ki += 5;
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}
 		this.transformar(gohan);
 	}
 	
@@ -23,17 +24,6 @@ public class EstadoGohanNormal implements EstadoGohan {
 			gohan.asignarEstado(nuevaForma);
 			this.ki -= 10;
 		}
-	}
-
-	/*@Override
-	public void mover(Gohan gohan, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(gohan, filaDestino, columnaDestino, 2*gohan.usarAumentoDeVelocidad());
-	}
-*/
-	public  void verificarDistancia(Gohan gohan, int distancia)
-	{
-		if (2*gohan.usarAumentoDeVelocidad() < distancia)
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 	}
 
 	@Override
@@ -57,6 +47,23 @@ public class EstadoGohanNormal implements EstadoGohan {
 			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
 			gohan.asignarEstado(nuevaForma);
 			this.ki -= 30;
+		}
+	}
+	
+	@Override
+	public void mover(Gohan gohan, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		gohan.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
+		this.transformar(gohan);
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
 		}
 	}
 }

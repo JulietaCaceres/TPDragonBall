@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 
 public class EstadoGokuChocolate implements EstadoGoku {
@@ -16,15 +17,15 @@ public class EstadoGokuChocolate implements EstadoGoku {
 		goku.atacar(oponente);
 	}
 
-	/*@Override
-	public void mover(Goku goku, int filaDestino, int columnaDestino, Tablero tablero) {
+	@Override
+	public void mover(Goku goku, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
 		turnos--;
 		if(turnos > -1){
 			throw new GuerreroZConvertidoEnChocolateException();
 		}
 		goku.volverAEstadoNormal();
-		goku.mover(tablero, filaDestino, columnaDestino);
-	}*/
+		goku.mover(coordenadaFinal);
+	}
 
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
@@ -43,15 +44,4 @@ public class EstadoGokuChocolate implements EstadoGoku {
 		goku.volverAEstadoNormal();
 		goku.realizarAtaqueEspecial(oponente);		
 	}
-	
-	@Override
-	public void verificarDistancia(Goku goku, int distancia) {
-		turnos--;
-		if(turnos > -1){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-		goku.volverAEstadoNormal();
-		goku.verificarDistancia(distancia);	
-	}
-
 }

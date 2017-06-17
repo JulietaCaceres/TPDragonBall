@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 
@@ -13,18 +14,7 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 		this.ki += 5;
 		this.transformar(goku);
 	}
-
-	/*@Override
-	public void mover(Goku goku, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(goku, filaDestino, columnaDestino, 3*goku.usarAumentoDeVelocidad());
-	}
-*/
-	public  void verificarDistancia(Goku goku, int distancia)
-	{
-		if (3*goku.usarAumentoDeVelocidad() < distancia)
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-	}
-
+	
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
 		if(danio < 40){
@@ -46,5 +36,19 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 			EstadoGoku nuevaForma = new EstadoGokuSuperSayajin();
 			goku.asignarEstado(nuevaForma);
 		}
+	}
+	
+	@Override
+	public void mover(Goku goku, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 3 || distanciaVertical > 3){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		goku.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
+		this.transformar(goku);
 	}
 }

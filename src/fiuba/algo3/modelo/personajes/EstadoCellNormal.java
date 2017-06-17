@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
@@ -13,12 +14,7 @@ public class EstadoCellNormal implements EstadoCell {
 		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + 20*(cell.usarAumentoDeAtaque()), 3);
 		this.ki += 5;
 	}
-
-	/*@Override
-	public void mover(Cell cell, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(cell, filaDestino, columnaDestino, 2*cell.usarAumentoDeVelocidad());
-	}*/
-
+	
 	@Override
 	public void recibirDanio(Cell cell, double danio) {
 		if(danio < 20){
@@ -47,9 +43,15 @@ public class EstadoCellNormal implements EstadoCell {
 	}
 
 	@Override
-	public void verificarDistancia(Cell cell, int distancia) {
-		if (2*cell.usarAumentoDeVelocidad() < distancia)
+	public void mover(Cell cell, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		cell.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
 	}
-
 }

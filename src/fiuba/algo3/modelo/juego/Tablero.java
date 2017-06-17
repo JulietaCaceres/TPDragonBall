@@ -9,23 +9,18 @@ public class Tablero {
 	public Fila filas[];
 	private static final int CANTIDAD_COLUMNAS = 32;
 	private static final int CANTIDAD_FILAS = 32;
-	private static Tablero instance = null;
+	public Coordenada coordenadas[][] = new Coordenada[CANTIDAD_FILAS][CANTIDAD_COLUMNAS] ;
 
 	public Tablero() {
-		filas = new Fila[CANTIDAD_FILAS];
 		for (int i = 0; i < CANTIDAD_FILAS; i++) {
-			filas[i] = new Fila(i, CANTIDAD_COLUMNAS);
+			for (int j = 0; j < CANTIDAD_COLUMNAS; j++){
+				this.coordenadas[i][j] = new Coordenada(i,j);
+			}
 		}
 	}
 
-	public Fila obtenerFila(int posicion){
-		return filas[posicion];
-	}
-
 	public void ubicarPersonaje(Personaje unPersonaje, int unaFila, int unaColumna){
-
-		obtenerFila(unaFila).agregarPersonaje(unaColumna,unPersonaje);
-		unPersonaje.asignarCoordenadas(unaFila, unaColumna);
+		unPersonaje.asignarCoordenadas(this.coordenadas[unaFila][unaColumna]);
 	}
 
 	public void iniciarTablero(ArrayList<Personaje>guerreros, ArrayList<Personaje> enemigos)
@@ -39,8 +34,12 @@ public class Tablero {
 
 	}
 
-	public Casillero obtenerCasillero(int fila,int columna)
+	public Coordenada obtenerCoordenada(int fila,int columna)
 	{
-      return obtenerFila(fila).obtenerCasillero(fila,columna);
+      return this.coordenadas[fila][columna];
+	}
+
+	public Casillero obtenerCasillero(int i, int j) {
+		return this.obtenerCoordenada(i, j).obtenerCasillero();
 	}
 }

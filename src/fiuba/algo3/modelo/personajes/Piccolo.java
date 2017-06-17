@@ -20,12 +20,12 @@ public class Piccolo extends Personaje implements GuerrerosZ{
 	}
 	
 	public double verVidaDeGohan(){
-		return this.referenciaAGohan.obtenerPuntosDeVida();
+		double vida = 100;
+		if (this.referenciaAGohan != null){
+			vida = this.referenciaAGohan.obtenerPuntosDeVida();
+		}
+		return vida;
 	}
-	
-	//public void mover(Tablero tablero, int filaDestino, int columnaDestino){
-	//	estado.mover(this, filaDestino, columnaDestino, tablero);
-	//}
 	
 	@Override
 	public void atacar(GuerrerosZ oponente) {
@@ -42,9 +42,6 @@ public class Piccolo extends Personaje implements GuerrerosZ{
 		estado.recibirDanio(this, poderDePelea);		
 	}
 
-	@Override
-	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
-	
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();		
@@ -73,5 +70,10 @@ public class Piccolo extends Personaje implements GuerrerosZ{
 
 	public void asignarEstado(EstadoPiccolo nuevoEstado) {
 		this.estado = nuevoEstado;
+	}
+
+	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, this.obtenerCoordenadas(), coordenada);
 	}	
 }

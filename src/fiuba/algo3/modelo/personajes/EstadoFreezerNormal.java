@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
@@ -21,16 +22,6 @@ public class EstadoFreezerNormal implements EstadoFreezer {
 		}
 	}
 
-	/*@Override
-	public void mover(Freezer freezer, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(freezer, filaDestino, columnaDestino, 4*freezer.usarAumentoDeVelocidad());
-	}
-*/
-	public  void verificarDistancia(Freezer freezer, int distancia)
-	{
-		if (4*freezer.usarAumentoDeVelocidad() < distancia)
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-	}
 	@Override
 	public void recibirDanio(Freezer freezer, double danio) {
 		if(danio < 20){
@@ -45,6 +36,20 @@ public class EstadoFreezerNormal implements EstadoFreezer {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 30 + 30*(freezer.usarAumentoDeAtaque()), 2);
 		this.ki -= 20;
+	}
+	
+	@Override
+	public void mover(Freezer freezer, Coordenada coordenadaFinal, Coordenada coordenadaInicial) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 4 || distanciaVertical > 4){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		freezer.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
+		this.transformar(freezer);
 	}
 
 }

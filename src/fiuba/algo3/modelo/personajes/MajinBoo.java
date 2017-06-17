@@ -30,9 +30,6 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	public void atacar(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
-
-	@Override
-	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
 	
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
@@ -52,5 +49,10 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	
 	public void asignarEstado(EstadoMajinBoo nuevoEstado){
 		this.estado = nuevoEstado;
+	}
+
+	@Override
+	public void mover(Coordenada coordenada){
+		estado.mover(this, this.obtenerCoordenadas(), coordenada);
 	}
 }

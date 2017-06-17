@@ -17,10 +17,6 @@ public class Freezer extends Personaje implements EnemigosDeLaTierra{
 		estado.recibirDanio(this, danio);
 	}
 
-	//public void mover(Tablero tablero, int filaDestino, int columnaDestino){
-	//estado.mover(this, filaDestino, columnaDestino, tablero);
-	//}
-
 	@Override
 	public void atacar(GuerrerosZ oponente) {
 		estado.atacar(this, oponente);
@@ -31,9 +27,6 @@ public class Freezer extends Personaje implements EnemigosDeLaTierra{
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
 
-	@Override
-	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
-	
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
 		estado.rayoMortal(this, oponente);		
@@ -52,5 +45,10 @@ public class Freezer extends Personaje implements EnemigosDeLaTierra{
 
 	public void asignarEstado(EstadoFreezer nuevaForma) {
 		this.estado = nuevaForma;
+	}
+
+	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, this.obtenerCoordenadas(), coordenada);
 	}
 }

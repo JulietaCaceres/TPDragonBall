@@ -1,4 +1,5 @@
 package fiuba.algo3.modelo.personajes;
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
@@ -13,16 +14,6 @@ public class EstadoMajinBooMalo implements EstadoMajinBoo {
 		this.transformar(majinBoo);
 	}
 	
-	/*@Override
-	public void mover(MajinBoo majinBoo, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(majinBoo, filaDestino, columnaDestino, 3*majinBoo.usarAumentoDeVelocidad());
-	}
-	*/
-	public  void verificarDistancia(MajinBoo majinBoo, int distancia)
-	{
-		if (3*majinBoo.usarAumentoDeVelocidad() < distancia)
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-	}
 	@Override
 	public void recibirDanio(MajinBoo majinBoo, double danio) {
 		if(danio < 50){
@@ -46,4 +37,17 @@ public class EstadoMajinBooMalo implements EstadoMajinBoo {
 		oponente.convertirseEnChocolate();
 	}
 
+	@Override
+	public void mover(MajinBoo majinBoo, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 3 || distanciaVertical > 3){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		majinBoo.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
+		this.transformar(majinBoo);
+	}
 }

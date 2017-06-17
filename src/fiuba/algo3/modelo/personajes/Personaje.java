@@ -11,18 +11,13 @@ public abstract class Personaje {
 	protected Coordenada coordenada;
 	protected int velocidad;
 
-	public void asignarCoordenadas(int fila,int columna)
-	{
-		Coordenada coordenadas = new Coordenada(fila,columna);
-		coordenada = coordenadas;
+	public void asignarCoordenadas(Coordenada coordenada){
+		this.coordenada = coordenada;
+		this.coordenada.asignarPersonajeACasillero(this);
 	}
+	
+	public abstract void mover(Coordenada coordenada);
 
-	public abstract void verificarDistancia(int distancia);
-
-	public void verificarCoordenadasDeMovimiento(Coordenada[] coordenadas)
-	{   verificarDistancia(coordenadas.length);
-		coordenada.verificarCoordenadasFuturas(coordenadas);
-	}
 	public Coordenada obtenerCoordenadas(){
 		return this.coordenada;
 	}

@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
@@ -13,11 +14,6 @@ public class EstadoCellSemiPerfecto implements EstadoCell {
 		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),40 + 40*(cell.usarAumentoDeAtaque()), 4);
 		this.ki += 5;
 	}
-
-	/*@Override
-	public void mover(Cell cell, int filaDestino, int columnaDestino, Tablero tablero) {
-		tablero.moverA(cell, filaDestino, columnaDestino, 3*cell.usarAumentoDeVelocidad());
-	}*/
 	
 	@Override
 	public void recibirDanio(Cell cell, double danio) {
@@ -39,19 +35,24 @@ public class EstadoCellSemiPerfecto implements EstadoCell {
 		this.transformar(cell);
 	}
 	
-	@Override
-	public void verificarDistancia(Cell cell, int distancia) {
-		
-		if (3*cell.usarAumentoDeVelocidad() < distancia)
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-				
-	}
-	
 	private void transformar(Cell cell) {
 		if(this.cantidadDeAbsorciones == 8){
 			EstadoCell nuevaForma = new EstadoCellPerfecto();
 			cell.asignarEstado(nuevaForma);
 		}
+	}
+
+	@Override
+	public void mover(Cell cell, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
+		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
+		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+		
+		if(distanciaHorizontal > 3 || distanciaVertical > 3){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		coordenadaInicial.vaciarCasillero();
+		cell.asignarCoordenadas(coordenadaFinal);
+		this.ki += 5;
 	}
 
 }

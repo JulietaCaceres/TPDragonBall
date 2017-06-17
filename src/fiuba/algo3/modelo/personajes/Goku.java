@@ -15,12 +15,6 @@ public class Goku extends Personaje implements GuerrerosZ{
 		this.estadoEsferaDragon = null;
 	}
 	
-	
-	//public void mover(Tablero tablero, int filaDestino, int columnaDestino){
-
-	//estado.mover(this, filaDestino, columnaDestino, tablero);
-	//}
-	
 	@Override
 	public void atacar(GuerrerosZ oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
@@ -35,9 +29,6 @@ public class Goku extends Personaje implements GuerrerosZ{
 	public void recibirDanio(double poderDePelea) {
 		estado.recibirDanio(this, poderDePelea);		
 	}
-
-	@Override
-	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
 
 	public double aumentoDePoderPorAdrenalina() {
 		double aumento = 1;
@@ -75,5 +66,10 @@ public class Goku extends Personaje implements GuerrerosZ{
 	
 	public void asignarEstado(EstadoGoku nuevoEstado){
 		this.estado = nuevoEstado;
+	}
+
+	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, this.obtenerCoordenadas(), coordenada);
 	}
 }

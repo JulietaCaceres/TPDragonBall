@@ -22,10 +22,6 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 	public void recibirDanio(double danio){
 		estado.recibirDanio(this, danio);
 	}
-	
-	//public void mover(Tablero tablero, int filaDestino, int columnaDestino){
-	//	estado.mover(this, filaDestino, columnaDestino, tablero);
-	//}
 
 	@Override
 	public void atacar(GuerrerosZ oponente) {
@@ -36,9 +32,6 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 	public void atacar(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
-
-	@Override
-	public void verificarDistancia(int distancia){ estado.verificarDistancia(this,distancia);}
 	
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
@@ -58,5 +51,10 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 
 	public void asignarEstado(EstadoCell nuevaForma) {
 		this.estado = nuevaForma;
+	}
+
+	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, this.obtenerCoordenadas(), coordenada);
 	}
 }
