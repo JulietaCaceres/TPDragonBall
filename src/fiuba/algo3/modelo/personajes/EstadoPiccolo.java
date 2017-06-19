@@ -10,5 +10,11 @@ public interface EstadoPiccolo {
 
 	public abstract void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente);
 
-	public abstract void mover(Piccolo piccolo, Coordenada coordenadaInicial, Coordenada coordenadaFinal);
+	public abstract void mover(Piccolo piccolo, Coordenada coordenadaDestino);
+
+	void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada);
+
+	void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+
+	void convertir(Piccolo piccolo);
 }

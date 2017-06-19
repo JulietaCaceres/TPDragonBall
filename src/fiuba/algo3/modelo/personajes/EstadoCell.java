@@ -5,11 +5,15 @@ import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public interface EstadoCell {
 	
-	public abstract void atacar(Cell cell, GuerrerosZ oponente);
+	public void atacar(Cell cell, GuerrerosZ oponente);
 
-	public abstract void recibirDanio(Cell cell, double danio);
+	public void recibirDanio(Cell cell, double danio);
 	
-	public abstract void absorberVida(Cell cell, GuerrerosZ oponente);
+	public void absorberVida(Cell cell, GuerrerosZ oponente);
 
-	public abstract void mover(Cell cell, Coordenada coordenadaInicial, Coordenada coordenadaFinal);
+	public void mover(Cell cell, Coordenada coordenadaDestino);
+
+	public void asignarCoordenadas(Cell cell, Coordenada coordenada);
+
+	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
 }

@@ -11,5 +11,11 @@ public interface EstadoGohan {
 
 	void masenko(Gohan gohan, EnemigosDeLaTierra oponente);
 
-	public abstract void mover(Gohan gohan, Coordenada coordenadaInicial, Coordenada coordenadaFinal);
+	public abstract void mover(Gohan gohan, Coordenada coordenadaDestino);
+
+	public abstract void asignarCoordenadas(Gohan gohan, Coordenada coordenada);
+
+	public abstract void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+
+	void convertir(Gohan gohan);
 }

@@ -2,10 +2,12 @@ package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
+import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoPiccoloProtector implements EstadoPiccolo {
 
 	private int ki = 0;
+	private Coordenada coordenada;
 
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
@@ -25,20 +27,46 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
-		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 75, 6);
+		oponente.recibirAtaqueDe(this.coordenada, 75, 6);
 		this.ki -= 10;
 	}
 	
 	@Override
-	public void mover(Piccolo piccolo, Coordenada coordenadaInicial, Coordenada coordenadaFinal){
-		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
-		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 4 || distanciaVertical > 4){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		coordenadaInicial.vaciarCasillero();
-		piccolo.asignarCoordenadas(coordenadaFinal);
+		this.coordenada.vaciarCasillero();
+		this.coordenada = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(piccolo);
 		this.ki += 5;
 	}
+
+	@Override
+	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
+		this.coordenada = coordenada;
+		coordenada.asignarPersonajeACasillero(piccolo);
+	}
+	
+	@Override
+	public void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea){
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
+			throw new ExceptionNoAlcanzaAlOponente();
+		}
+		this.recibirDanio(piccolo, poderDePelea);
+	}
+
+	@Override
+	public void convertir(Piccolo piccolo) {
+		EstadoPiccolo formaChocolate = new EstadoPiccoloChocolate();
+		this.coordenada.obtenerCasillero().liberarDePersonaje();
+		formaChocolate.asignarCoordenadas(piccolo, this.coordenada);
+		piccolo.asignarEstado(formaChocolate);
+	}
+	
 }

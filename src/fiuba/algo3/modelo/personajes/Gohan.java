@@ -69,16 +69,10 @@ public class Gohan extends Personaje implements GuerrerosZ{
 	public void convertirseEnChocolate() {
 		this.estado = new EstadoGohanChocolate();		
 	}
-
-	@Override
-	public void volverAEstadoNormal() {
-		this.estado = new EstadoGohanNormal();
-	}
 	
 	@Override
 	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
-		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
-		this.recibirDanio(poderDePelea);
+		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
 
 	public void asignarEstado(EstadoGohan nuevaForma) {
@@ -87,6 +81,13 @@ public class Gohan extends Personaje implements GuerrerosZ{
 
 	@Override
 	public void mover(Coordenada coordenada) {
-		estado.mover(this, this.obtenerCoordenadas(), coordenada);
+		estado.mover(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
+	}
+
+	@Override
+	public void asignarCoordenadas(Coordenada coordenada) {
+		estado.asignarCoordenadas(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 }

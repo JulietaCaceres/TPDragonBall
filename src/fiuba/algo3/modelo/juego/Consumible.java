@@ -1,11 +1,9 @@
 package fiuba.algo3.modelo.juego;
 
-public class Consumible {
-	String nombre;
-	String efecto;
+import fiuba.algo3.modelo.personajes.Personaje;
+
+public interface Consumible {
 	
-	Consumible(String nombre,String efecto){
-		this.nombre = nombre;
-		this.efecto = efecto;
-	}
+	public abstract void aplicarEfecto(Personaje personaje);
+	
 }

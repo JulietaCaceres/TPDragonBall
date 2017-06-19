@@ -2,15 +2,17 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
+import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class EstadoCellPerfecto implements EstadoCell {
 	
 	private int ki;
+	private Coordenada coordenada;
 	
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),80 + 80*(cell.usarAumentoDeAtaque()), 4);
+		oponente.recibirAtaqueDe(this.coordenada,80 + 80*(cell.usarAumentoDeAtaque()), 4);
 		this.ki +=5;
 	}
 	
@@ -27,22 +29,37 @@ public class EstadoCellPerfecto implements EstadoCell {
 		if(this.ki < 5)
 			throw new ExceptionAtaqueEspecial();
 		double aumentoPorEsferaDelDragon = 80*cell.usarAumentoDeAtaque();
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),80 + 80*(cell.usarAumentoDeAtaque()), 4);
+		oponente.recibirAtaqueDe(this.coordenada,80 + 80*(cell.usarAumentoDeAtaque()), 4);
 		cell.aumentarVidaEn(80 + aumentoPorEsferaDelDragon);
 		this.ki -= 5;
 	}
 
 	@Override
-	public void mover(Cell cell, Coordenada coordenadaInicial, Coordenada coordenadaFinal) {
-		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
-		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+	public void mover(Cell cell, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 4 || distanciaVertical > 4){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		coordenadaInicial.vaciarCasillero();
-		cell.asignarCoordenadas(coordenadaFinal);
+		this.coordenada.vaciarCasillero();
+		coordenadaDestino.asignarPersonajeACasillero(cell);
 		this.ki += 5;
 	}
 
+	@Override
+	public void asignarCoordenadas(Cell cell, Coordenada coordenada) {
+		this.coordenada = coordenada;
+		coordenada.asignarPersonajeACasillero(cell);
+	}
+	
+	@Override
+	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
+			throw new ExceptionNoAlcanzaAlOponente();
+		}
+		this.recibirDanio(cell, poderDePelea);
+	}
 }

@@ -45,8 +45,7 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 	
 	@Override
 	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
-		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
-		this.recibirDanio(poderDePelea);
+		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
 
 	public void asignarEstado(EstadoCell nuevaForma) {
@@ -55,6 +54,13 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 
 	@Override
 	public void mover(Coordenada coordenada) {
-		estado.mover(this, this.obtenerCoordenadas(), coordenada);
+		estado.mover(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
+	}
+	
+	@Override
+	public void asignarCoordenadas(Coordenada coordenada) {
+		estado.asignarCoordenadas(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 }

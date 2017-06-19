@@ -7,7 +7,6 @@ public interface GuerrerosZ{
 	public abstract void atacar(EnemigosDeLaTierra oponente);
 	public abstract void realizarAtaqueEspecial(EnemigosDeLaTierra oponente);
 	public abstract void convertirseEnChocolate();
-	public abstract void volverAEstadoNormal();
 	public abstract void recibirDanio(double poderDePelea);
 	public abstract void recibirAtaqueDe(Coordenada coordenadasDeAtacante,double poderDePelea, int alcanceDeAtaque);
 	

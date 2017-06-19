@@ -2,11 +2,13 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
+import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class EstadoFreezerSegundaForma implements EstadoFreezer {
 
 	private int ki = 0;
+	private Coordenada coordenada;
 
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente) {
@@ -18,6 +20,8 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 	private void transformar(Freezer freezer) {
 		if(this.ki == 50){
 			EstadoFreezerFormaOriginal nuevaForma = new EstadoFreezerFormaOriginal();
+			this.coordenada.obtenerCasillero().liberarDePersonaje();
+			nuevaForma.asignarCoordenadas(freezer, this.coordenada);
 			freezer.asignarEstado(nuevaForma);
 		}
 	}
@@ -34,22 +38,37 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 	public void rayoMortal(Freezer freezer, GuerrerosZ oponente) {
 		if(this.ki < 20)
 			throw new ExceptionAtaqueEspecial();
-		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 60 + 60*(freezer.usarAumentoDeAtaque()), 3);
+		oponente.recibirAtaqueDe(this.coordenada, 60 + 60*(freezer.usarAumentoDeAtaque()), 3);
 		this.ki  -= 20;
 	}
 	
 	@Override
-	public void mover(Freezer freezer, Coordenada coordenadaFinal, Coordenada coordenadaInicial) {
-		int distanciaHorizontal = Math.abs(coordenadaInicial.obtenerColumna() - coordenadaFinal.obtenerColumna());
-		int distanciaVertical = Math.abs(coordenadaInicial.obtenerFila() - coordenadaFinal.obtenerFila());
+	public void mover(Freezer freezer, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 6 || distanciaVertical > 6){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		coordenadaInicial.vaciarCasillero();
-		freezer.asignarCoordenadas(coordenadaFinal);
+		this.coordenada.vaciarCasillero();
+		this.coordenada = coordenadaDestino;
 		this.ki += 5;
 		this.transformar(freezer);
 	}
 
+	@Override
+	public void asignarCoordenadas(Freezer freezer, Coordenada coordenada) {
+		this.coordenada = coordenada;
+		coordenada.asignarPersonajeACasillero(freezer);
+	}
+	
+	@Override
+	public void recibirAtaque(Freezer freezer, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
+			throw new ExceptionNoAlcanzaAlOponente();
+		}
+		this.recibirDanio(freezer, poderDePelea);
+	}
 }

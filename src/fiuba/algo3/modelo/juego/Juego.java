@@ -24,7 +24,6 @@ public class Juego {
 		enemigos.add(new Freezer());
 		enemigos.add(new MajinBoo());
 		enemigos.add(new Cell());
-
 	}
 
 	public void iniciarTablero()

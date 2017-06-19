@@ -50,18 +50,12 @@ public class Goku extends Personaje implements GuerrerosZ{
 
 	@Override
 	public void convertirseEnChocolate() {
-		this.estado = new EstadoGokuChocolate();
-	}
-
-	@Override
-	public void volverAEstadoNormal() {
-		this.estado = new EstadoGokuNormal();
+		estado.convertir(this);
 	}
 	
 	@Override
 	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
-		coordenada.verificarDistanciaAtaque(coordenadasDeAtacante, alcanceDeAtaque);
-		this.recibirDanio(poderDePelea);
+		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
 	
 	public void asignarEstado(EstadoGoku nuevoEstado){
@@ -70,6 +64,13 @@ public class Goku extends Personaje implements GuerrerosZ{
 
 	@Override
 	public void mover(Coordenada coordenada) {
-		estado.mover(this, this.obtenerCoordenadas(), coordenada);
+		estado.mover(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
+	}
+
+	@Override
+	public void asignarCoordenadas(Coordenada coordenada) {
+		estado.asignarCoordenadas(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 }

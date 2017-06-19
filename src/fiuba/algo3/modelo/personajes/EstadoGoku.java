@@ -11,5 +11,11 @@ public interface EstadoGoku {
 
 	void kamehameha(Goku goku, EnemigosDeLaTierra oponente);
 	
-	public abstract void mover(Goku goku, Coordenada coordenadaInicial, Coordenada coordenadaFinal);
+	public abstract void mover(Goku goku, Coordenada coordenadaDestino);
+
+	public abstract void asignarCoordenadas(Goku goku, Coordenada coordenada);
+
+	public abstract void recibirAtaque(Goku goku, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+
+	public abstract void convertir(Goku goku);
 }
