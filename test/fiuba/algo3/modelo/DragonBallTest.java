@@ -43,7 +43,7 @@ public class DragonBallTest {
     }
     
     @Test(expected = ExceptionCasilleroOcupado.class)
-    public void Test03unPersonajeIntentaMoversePeroNoPuedePasarPorEncimaDeOtro()
+    public void test03unPersonajeIntentaMoversePeroNoPuedePasarPorEncimaDeOtro()
     {
         Goku goku = new Goku();
         Cell cell =new Cell();
@@ -95,7 +95,7 @@ public class DragonBallTest {
         //Majin Boo se transforma en Majin Boo Malo, con velocidad 3
         majinBoo.mover(tablero.obtenerCoordenada(5, 5));
         
-        assertTrue(majinBoo.obtenerCoordenadas().obtenerColumna() == 5);
+        assertTrue(tablero.obtenerCoordenada(5, 5).obtenerCasillero().ocupado());
     }
     
     @Test
@@ -113,7 +113,7 @@ public class DragonBallTest {
         Casillero casillero6 = tablero.obtenerCasillero(29,31);
         boolean posicionCorrecta = (casillero1.ocupado() && casillero2.ocupado() && casillero3.ocupado()
                                      && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado());
-       assertTrue("se colocaron mal los personajes", posicionCorrecta);
+       assertTrue(posicionCorrecta);
     }
         
     @Test
@@ -139,7 +139,7 @@ public class DragonBallTest {
     }        
        
     @Test(expected = GuerreroZConvertidoEnChocolateException.class)
-    public void test11CrearAGokuMajinBooYConvertirAGokuEnChocolate(){
+    public void test09CrearAGokuMajinBooYConvertirAGokuEnChocolate(){
     	Goku goku = new Goku();
     	MajinBoo majinBoo = new MajinBoo();
     	Coordenada coordenadaGoku = new Coordenada(1, 1);
@@ -153,8 +153,8 @@ public class DragonBallTest {
     	goku.atacar(majinBoo);
     }
     
-	@Test
-    public void test12ConvertirAGokuEnChocolateYVolverAEstadoNormal(){
+	@Test(expected = GuerreroZConvertidoEnChocolateException.class)
+    public void test10ConvertirAGokuEnChocolateYVolverAEstadoNormal(){
     	Goku goku = new Goku();
     	MajinBoo majinBoo = new MajinBoo();
     	Coordenada coordenadaInicialGoku = new Coordenada(1, 2);
@@ -165,13 +165,15 @@ public class DragonBallTest {
     	majinBoo.atacar(goku);
     	
     	majinBoo.realizarAtaqueEspecial(goku);
-    	goku.volverAEstadoNormal();
     	goku.atacar(majinBoo);
-    	assertTrue(majinBoo.obtenerPuntosDeVida() == 284);
+    	goku.atacar(majinBoo);
+    	goku.atacar(majinBoo);
+    	goku.atacar(majinBoo);
+    	assertEquals(284,majinBoo.obtenerPuntosDeVida(),0);
     }
     
     @Test
-    public void test13HacerQueGokuRealiceElKamehamehaACell(){
+    public void test11HacerQueGokuRealiceElKamehamehaACell(){
     	Goku goku = new Goku();
     	Coordenada coordenadaInicialGoku = new Coordenada(5, 4);
     	goku.asignarCoordenadas(coordenadaInicialGoku);
@@ -199,7 +201,7 @@ public class DragonBallTest {
     }
     
     @Test (expected = ExceptionAtaqueAMismoEquipo.class)
-    public void test14HacerQueGohanAtaqueAPiccolo(){
+    public void test12HacerQueGohanAtaqueAPiccolo(){
     	Gohan gohan = new Gohan();
     	Piccolo piccolo = new Piccolo();
     	
@@ -212,7 +214,7 @@ public class DragonBallTest {
     }
     
     @Test
-    public void test15CombatirEntreGokuPiccoloYCellYLlevarACellASegundaTransformacion(){
+    public void test13CombatirEntreGokuPiccoloYCellYLlevarACellASegundaTransformacion(){
     	Piccolo piccolo = new Piccolo();
     	Goku goku = new Goku();
     	Cell cell = new Cell();
@@ -245,7 +247,7 @@ public class DragonBallTest {
     }
     
     @Test
-    public void test16CombatirEntreGokuGohanPiccoloYCellYVerEvolucionDeGohanHastaSegundaTransformacion(){
+    public void test14CombatirEntreGokuGohanPiccoloYCellYVerEvolucionDeGohanHastaSegundaTransformacion(){
     	Piccolo piccolo = new Piccolo();
     	Goku goku = new Goku();
     	Cell cell = new Cell();
@@ -263,36 +265,35 @@ public class DragonBallTest {
     	gohan.asignarCoordenadas(coordenadaInicialGohan);
     	goku.asignarCoordenadas(coordenadaInicialGoku);
     	
-    	
     	for(int i = 1; i<=19;i++){
     		cell.atacar(goku);
     		cell.atacar(piccolo);
     	}
     	
     	gohan.atacar(cell);
-    	assertTrue(488 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),488, 0);
     	gohan.atacar(cell);
-    	assertTrue(476 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),476, 0);
     	//Ahora Gohan es Super Sayajin Fase 1
     	gohan.atacar(cell);
-    	assertTrue(446 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),446, 0);
     	gohan.atacar(cell);
-    	assertTrue(416 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),416, 0);
     	gohan.atacar(cell);
-    	assertTrue(386 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),386, 0);
     	gohan.atacar(cell);    	
-    	assertTrue(356 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),356, 0);
     	gohan.atacar(cell);
-    	assertTrue(326 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),326, 0);
     	gohan.atacar(cell);
-    	assertTrue(296 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),296, 0);
     	//Ahora Gohan es Super Sayajin Fase 2
   		gohan.atacar(cell);
-    	assertTrue(196 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
     }
     
     @Test (expected = ExceptionNoAlcanzaAlOponente.class)
-    public void test17CellNoAlcanzaAAtacarAPiccoloConSuAtaqueEspecial(){
+    public void test15CellNoAlcanzaAAtacarAPiccoloConSuAtaqueEspecial(){
     	Cell cell = new Cell();
     	Piccolo piccolo = new Piccolo();
     	
@@ -306,7 +307,7 @@ public class DragonBallTest {
     }
     
     @Test (expected = ExceptionAtaqueAMismoEquipo.class)
-    public void test18MajinBooNoPuedeConvertirEnChocolateAFreezer(){
+    public void test16MajinBooNoPuedeConvertirEnChocolateAFreezer(){
     	MajinBoo boo = new MajinBoo();
     	Freezer freezer = new Freezer();
     	
@@ -319,7 +320,7 @@ public class DragonBallTest {
     }
     
     @Test
-    public void test19GokuAumentaDePoderConPocaVida(){
+    public void test17GokuAumentaDePoderConPocaVida(){
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	
@@ -334,13 +335,12 @@ public class DragonBallTest {
     	
     	goku.atacar(cell);
     	
-    	assertTrue(100 == goku.obtenerPuntosDeVida());
-    	assertTrue(476 == cell.obtenerPuntosDeVida());
-    	
+    	assertEquals(cell.obtenerPuntosDeVida(),476, 0);
+    	assertEquals(goku.obtenerPuntosDeVida(),100, 0);    	
     }
     
     @Test
-    public void test20GokuAtacaAumentaKiYHaceElKamehameha(){
+    public void test18GokuAtacaAumentaKiYHaceElKamehameha(){
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	
@@ -354,20 +354,20 @@ public class DragonBallTest {
     	goku.atacar(cell);
     	goku.atacar(cell);
     	//Goku llega a Kaioken, Cell tiene 420 de vida
-    	assertTrue(420 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),420, 0);
     	
     	goku.atacar(cell);
     	goku.atacar(cell);
     	goku.atacar(cell);
     	goku.atacar(cell);
-    	assertTrue(260 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),260, 0);
     	
     	goku.realizarAtaqueEspecial(cell);
-    	assertTrue(200 == cell.obtenerPuntosDeVida());
+    	assertEquals(cell.obtenerPuntosDeVida(),200, 0);
     }
     
     @Test
-    public void test20GokuAtacaYHacePrimeraTransformacion(){
+    public void test19GokuAtacaYHacePrimeraTransformacion(){
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	
@@ -380,15 +380,15 @@ public class DragonBallTest {
     	goku.atacar(cell);
     	goku.atacar(cell);
     	goku.atacar(cell);
-    	    	
-    	assertTrue(cell.obtenerPuntosDeVida() == 420);
+    	
+    	assertEquals(cell.obtenerPuntosDeVida(),420, 0);
     	
     	goku.atacar(cell);
-    	assertTrue(cell.obtenerPuntosDeVida() == 380);
+    	assertEquals(cell.obtenerPuntosDeVida(),380, 0);
     }
     
     @Test
-    public void test21GokuLlegaASuSegundaTransformacion(){
+    public void test20GokuLlegaASuSegundaTransformacion(){
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	
@@ -401,13 +401,13 @@ public class DragonBallTest {
     	goku.atacar(cell);
     	goku.atacar(cell);
     	goku.atacar(cell);
-    	    	
-    	assertTrue(cell.obtenerPuntosDeVida() == 420);
+    	
+    	assertEquals(cell.obtenerPuntosDeVida(),420, 0);
     	
     	goku.atacar(cell);
-    	assertTrue(cell.obtenerPuntosDeVida() == 380);
+    	assertEquals(cell.obtenerPuntosDeVida(),380, 0);
     	cell.comerSemillaDelErmitanio();
-    	assertTrue(cell.obtenerPuntosDeVida() == 480);
+    	assertEquals(cell.obtenerPuntosDeVida(),480, 0);
     	
     	goku.atacar(cell);
     	goku.atacar(cell);
@@ -418,18 +418,18 @@ public class DragonBallTest {
     	goku.atacar(cell);
     	goku.atacar(cell);
     	
-    	assertTrue(cell.obtenerPuntosDeVida() == 160);
+    	assertEquals(cell.obtenerPuntosDeVida(),160, 0);
     	
     	goku.atacar(cell);
     	
-    	assertTrue(cell.obtenerPuntosDeVida() == 120);
+    	assertEquals(cell.obtenerPuntosDeVida(),120, 0);
     	
     	goku.atacar(cell);
-    	assertTrue(cell.obtenerPuntosDeVida() == 60);
+    	assertEquals(cell.obtenerPuntosDeVida(),60, 0);
     }
     
     @Test
-    public void test22MoverAGokuDosCoordenadasMasAdelante(){
+    public void test21MoverAGokuDosCoordenadasMasAdelante(){
     	Goku goku = new Goku();
     	Coordenada coordenadaInicial = new Coordenada (1,1);
     	Coordenada coordenadaFinal = new Coordenada (1,3);
@@ -438,11 +438,12 @@ public class DragonBallTest {
     	
     	goku.mover(coordenadaFinal);
     	
-    	assertTrue(goku.obtenerCoordenadas().obtenerColumna() == 3);
+    	assertTrue(!coordenadaInicial.obtenerCasillero().ocupado());
+    	assertTrue(coordenadaFinal.obtenerCasillero().ocupado());
     }
     
     @Test
-    public void test23AsignarAGokuEnCasilleroMoverloYVerQueElPrimerCasilleroEstaVacio(){
+    public void test22AsignarAGokuEnCasilleroMoverloYVerQueElPrimerCasilleroEstaVacio(){
     	Goku goku = new Goku();
     	Coordenada coordenadaInicial = new Coordenada (1,1);
     	Coordenada coordenadaFinal = new Coordenada (1,3);
@@ -451,16 +452,17 @@ public class DragonBallTest {
     	
     	goku.mover(coordenadaFinal);
     	
-    	assertTrue(goku.obtenerCoordenadas().obtenerColumna() == 3);
+    	assertTrue(coordenadaFinal.obtenerCasillero().ocupado());
+    	assertTrue(!coordenadaInicial.obtenerCasillero().ocupado());
     	
     	Freezer freezer = new Freezer();
     	freezer.asignarCoordenadas(coordenadaInicial);
     	
-    	assertTrue(freezer.obtenerCoordenadas().obtenerColumna() == 1);
+    	assertTrue(coordenadaInicial.obtenerCasillero().ocupado());
     }
     
     @Test
-    public void test24HacerTransformarAPiccoloMoviendoloEntreCoordenadas(){
+    public void test23HacerTransformarAPiccoloMoviendoloEntreCoordenadas(){
     	Piccolo piccolo = new Piccolo();
     	Coordenada coordenada1 = new Coordenada(1,1);
     	Coordenada coordenada2 = new Coordenada(1,3);
@@ -478,6 +480,64 @@ public class DragonBallTest {
     	//Piccolo esta en estado fortalecido
     	piccolo.mover(coordenada6);
     	
-    	assertTrue(piccolo.obtenerCoordenadas().obtenerColumna() == 12);
+    	assertTrue(coordenada6.obtenerCasillero().ocupado());
+    }
+    
+    @Test
+    public void test24AtacarConConsumibleEsferaDelDragon(){
+    	Goku goku = new Goku();
+    	Freezer freezer = new Freezer();
+    	
+    	EsferaDelDragon esfera = new EsferaDelDragon();
+    	
+    	Coordenada coordenadaGoku = new Coordenada(1,1);
+    	Coordenada coordenadaFreezer = new Coordenada(1,2);
+    	coordenadaGoku.obtenerCasillero().asignarConsumible(esfera);
+    	
+    	goku.asignarCoordenadas(coordenadaGoku);
+    	freezer.asignarCoordenadas(coordenadaFreezer);
+    	
+    	goku.atacar(freezer);
+    	assertEquals(freezer.obtenerPuntosDeVida(),375, 0);
+    }
+    
+    @Test
+    public void test25GokuMueveConNubeVoladora(){
+    	Goku goku = new Goku();
+    	Coordenada coordenadaGoku = new Coordenada(1,1);
+    	NubeVoladora nube = new NubeVoladora();
+    	coordenadaGoku.obtenerCasillero().asignarConsumible(nube);
+    	
+    	goku.asignarCoordenadas(coordenadaGoku);
+    	
+    	Coordenada coordenadaGokuConNube = new Coordenada(1,5);
+    	
+    	goku.mover(coordenadaGokuConNube);
+    }
+    
+    @Test
+    public void test26PiccoloUsaSemillaDelErmitanio(){
+    	Piccolo majunia = new Piccolo();
+    	Cell cell = new Cell();
+    	
+    	Coordenada coordenadaPiccolo = new Coordenada(1,1);
+    	Coordenada coordenadaCell = new Coordenada(1,2);
+    	Coordenada coordenadaSemilla = new Coordenada(2,2);
+    	SemillaDelErmitanio semilla = new SemillaDelErmitanio();
+    	coordenadaSemilla.obtenerCasillero().asignarConsumible(semilla);
+    	
+    	majunia.asignarCoordenadas(coordenadaPiccolo);
+    	cell.asignarCoordenadas(coordenadaCell);
+    	cell.atacar(majunia);
+    	cell.atacar(majunia);
+    	cell.atacar(majunia);
+    	cell.atacar(majunia);
+    	cell.atacar(majunia);
+    	
+    	assertEquals(400,majunia.obtenerPuntosDeVida(),0);
+    	majunia.mover(coordenadaSemilla);
+    	//assertTrue(coordenadaSemilla.obtenerCasillero().liberarConsumible() == null);
+    	
+    	assertEquals(500,majunia.obtenerPuntosDeVida(),0);
     }
 }
