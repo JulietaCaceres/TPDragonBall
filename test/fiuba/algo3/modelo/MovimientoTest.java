@@ -1,8 +1,12 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
+import fiuba.algo3.modelo.personajes.Cell;
 import fiuba.algo3.modelo.personajes.Freezer;
 import fiuba.algo3.modelo.personajes.Goku;
 import fiuba.algo3.modelo.personajes.Piccolo;
@@ -64,5 +68,60 @@ public class MovimientoTest {
 
     	assertTrue(coordenada6.obtenerCasillero().ocupado());
     }
+
+
+@Test
+    public void suponiendoQueLaDistanciaPermtidaDeMovimientoEsDosSeIntentaCambiarDeCoordenadasValidas()
+
+   {   Coordenada unaCoordenada = new Coordenada(4,4);
+       Coordenada otraCoordenada = new Coordenada(6,4);
+       unaCoordenada.cambiarCoordenadas(otraCoordenada);
+       assertEquals(6,unaCoordenada.obtenerFila());
+   }
+
+
+   @Test
+    public void unPersonajeCambiaSuCoordenadaAOtraUbicadaAUnaDistanciaAcordeASuVelocidadYSeVerficaSuNuevaCoordenada()
+   {
+       Goku goku = new Goku();
+       Coordenada unaCoordenada = new Coordenada(2,2);
+       goku.asignarCoordenadas(unaCoordenada);
+       Coordenada otraCoordenada = new Coordenada(3,2);
+       goku.cambiarCoordenadas(otraCoordenada);
+       assertEquals(3,goku.obtenerCoordenadas().obtenerFila());
+   }
+
+   @Test (expected = ExceptionLaDistanciaEntreLasCoordenadasNoEsValida.class)
+    public void unPersonajeIntentaCambiaSuCoordenadaAOtraUbicadaAUnaDistanciaNoAcordeASuVelocidadYFalla(){
+
+       Goku goku = new Goku();
+       Coordenada unaCoordenada = new Coordenada(2,2);
+       goku.asignarCoordenadas(unaCoordenada);
+       Coordenada otraCoordenada = new Coordenada(8,2);
+       goku.cambiarCoordenadas(otraCoordenada);
+
+
+   }
+
+   @Test
+   public void leAsignoUnaNuevaCoordenadaACellYElCasilleroDeLaMismaCoordenadaQuedaOcupadoPorqueEstabaVacio()
+   {
+       Cell unCell = new Cell();
+       Coordenada unaCoordenada = new Coordenada(2,2);
+       unCell.asignarCoordenadas(unaCoordenada);
+       assertTrue(unaCoordenada.obtenerCasillero().ocupado());
+   }
+
+   @Test (expected = ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado.class)
+   public void  intentoAsiganarleUnaCoordenadaInicialAFreezerPeroNoPuedePorqueElCasilleroConLaMismaCoordenadaEstabaOcupado()
+   {
+
+       Cell Cell = new Cell();
+       Coordenada unaCoordenada = new Coordenada(2,2);
+       Cell.asignarCoordenadas(unaCoordenada);
+       Freezer freezer = new Freezer();
+       freezer.asignarCoordenadas(unaCoordenada);
+   }
+
 
 }
