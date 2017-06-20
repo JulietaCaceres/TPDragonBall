@@ -16,4 +16,6 @@ public interface EstadoMajinBoo {
 	public void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada);
 
 	public void recibirAtaque(MajinBoo majinBoo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+
+    void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
 }

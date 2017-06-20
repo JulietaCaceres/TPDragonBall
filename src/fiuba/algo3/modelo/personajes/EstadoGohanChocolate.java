@@ -52,7 +52,17 @@ public class EstadoGohanChocolate implements EstadoGohan {
 		gohan.asignarEstado(formaNormal);
 	}
 
-	@Override
+    @Override
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaFutura) {
+
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+
+    }
+
+    @Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
 		this.coordenada = coordenada;
 	}

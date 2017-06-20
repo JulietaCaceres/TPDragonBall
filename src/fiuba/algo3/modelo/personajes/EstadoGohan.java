@@ -18,4 +18,6 @@ public interface EstadoGohan {
 	public abstract void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
 
 	void convertir(Gohan gohan);
+
+    void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaFutura);
 }

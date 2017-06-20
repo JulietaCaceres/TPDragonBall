@@ -1,15 +1,12 @@
 package fiuba.algo3.modelo.personajes;
 
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
+import fiuba.algo3.modelo.juego.*;
 
 public class EstadoGokuSuperSayajin implements EstadoGoku {
 	
 	private int ki = 0;
 	private Coordenada coordenada = new Coordenada(0,0);
-	
+	private int velocidad = 5;
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(this.coordenada, 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque()), 4);
@@ -68,5 +65,16 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		this.coordenada.obtenerCasillero().liberarDePersonaje();
 		formaChocolate.asignarCoordenadas(goku, this.coordenada);
 		goku.asignarEstado(formaChocolate);		
+	}
+
+    @Override
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+	private void aumentarKi() { ki = ki + 5;
 	}
 }

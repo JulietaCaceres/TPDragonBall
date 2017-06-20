@@ -1,15 +1,12 @@
 package fiuba.algo3.modelo.personajes;
 
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 	
 	private int ki = 0;
 	private Coordenada coordenada;
-	
+	private int velocidad = 6;
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente){
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 50 + 50*(freezer.usarAumentoDeAtaque()), 3);
@@ -59,5 +56,16 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
 		this.recibirDanio(freezer, poderDePelea);
+	}
+
+    @Override
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+	private void aumentarKi() { ki = ki + 5;
 	}
 }

@@ -1,16 +1,13 @@
 package fiuba.algo3.modelo.personajes;
 
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class EstadoCellSemiPerfecto implements EstadoCell {
 	
 	private int cantidadDeAbsorciones = 0;
 	private int ki;
 	private Coordenada coordenada;
-
+    private int velocidad = 3;
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(this.coordenada,40 + 40*(cell.usarAumentoDeAtaque()), 4);
@@ -74,5 +71,16 @@ public class EstadoCellSemiPerfecto implements EstadoCell {
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
 		this.recibirDanio(cell, poderDePelea);
+	}
+
+    @Override
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+	private void aumentarKi() { ki = ki + 5;
 	}
 }

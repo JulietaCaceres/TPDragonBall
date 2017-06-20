@@ -16,4 +16,6 @@ public interface EstadoCell {
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada);
 
 	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaNueva);
 }

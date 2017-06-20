@@ -52,7 +52,15 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 		piccolo.asignarEstado(formaNormal);
 	}
 
-	@Override
+    @Override
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada nuevaCoordenada) {
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+    }
+
+    @Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
 		this.coordenada = coordenada;
 	}

@@ -57,10 +57,15 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 		estado.mover(this, coordenada);
 		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
-	
-	@Override
+
+    @Override
+    public void cambiarCoordenadas(Coordenada coordenadaNueva) {
+        estado.cambiarCoordenadas(coordenada,coordenadaNueva);
+    }
+
+    /*@Override
 	public void asignarCoordenadas(Coordenada coordenada) {
 		estado.asignarCoordenadas(this, coordenada);
 		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}
+	}*/
 }

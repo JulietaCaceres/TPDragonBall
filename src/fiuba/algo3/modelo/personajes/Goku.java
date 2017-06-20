@@ -68,9 +68,10 @@ public class Goku extends Personaje implements GuerrerosZ{
 		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 
-	@Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}
+    @Override
+    public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
+		estado.cambiarCoordenadas(coordenada, nuevaCoordenada);
+    }
+
+
 }

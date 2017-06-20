@@ -67,4 +67,12 @@ public class EstadoGokuChocolate implements EstadoGoku {
 		formaNormal.asignarCoordenadas(goku, this.coordenada);
 		goku.asignarEstado(formaNormal);
 	}
+
+    @Override
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada) {
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+    }
 }

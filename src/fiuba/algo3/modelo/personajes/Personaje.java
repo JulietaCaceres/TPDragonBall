@@ -12,11 +12,12 @@ public abstract class Personaje {
 	protected int velocidad;
 	private Consumible consumible;
 
-	public abstract void asignarCoordenadas(Coordenada coordenada);/*{
-		this.coordenada = coordenada;
-		this.coordenada.asignarPersonajeACasillero(this);
-		this.tomarConsumibleDe(coordenada.obtenerCasillero());
-	}*/
+	public void asignarCoordenadas(Coordenada unaCoordenada){
+		if(unaCoordenada.obtenerCasillero().ocupado())
+        throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
+		coordenada = unaCoordenada;
+		coordenada.obtenerCasillero().asignarPersonaje(this);
+	}
 	
 	protected void tomarConsumibleDe(Casillero casillero) {
 		this.consumible = casillero.liberarConsumible();
@@ -78,4 +79,7 @@ public abstract class Personaje {
 	public void tomarNubeVoladora() {
 		this.estadoNubeVoladora = new EstadoNubeVoladora();
 	}
+
+	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
+
 }

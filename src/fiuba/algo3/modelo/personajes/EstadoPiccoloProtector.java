@@ -1,14 +1,11 @@
 package fiuba.algo3.modelo.personajes;
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
+import fiuba.algo3.modelo.juego.*;
 
 public class EstadoPiccoloProtector implements EstadoPiccolo {
 
 	private int ki = 0;
 	private Coordenada coordenada;
-
+    private int velocidad = 4;
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 60 + 60*(piccolo.usarAumentoDeAtaque()), 6);
@@ -68,5 +65,17 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 		formaChocolate.asignarCoordenadas(piccolo, this.coordenada);
 		piccolo.asignarEstado(formaChocolate);
 	}
-	
+
+    @Override
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+	private void aumentarKi() { ki = ki + 5;
+	}
+
+
 }

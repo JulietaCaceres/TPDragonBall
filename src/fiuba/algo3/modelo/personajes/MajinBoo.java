@@ -1,8 +1,5 @@
 package fiuba.algo3.modelo.personajes;
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	private EstadoMajinBoo estado;
@@ -52,7 +49,12 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 
-	@Override
+    @Override
+    public void cambiarCoordenadas(Coordenada coordenadaNueva) {
+		estado.cambiarCoordenadas(coordenada, coordenadaNueva);
+    }
+
+    @Override
 	public void asignarCoordenadas(Coordenada coordenada) {
 		estado.asignarCoordenadas(this, coordenada);
 		tomarConsumibleDe(coordenada.obtenerCasillero());

@@ -41,4 +41,8 @@ public class Casillero {
 	public void liberarDePersonaje() {
 		this.personaje = null;
 	}
+
+    public void ocuparCasilleroConPersonaje() {
+         //asignarPersonaje();
+	}
 }

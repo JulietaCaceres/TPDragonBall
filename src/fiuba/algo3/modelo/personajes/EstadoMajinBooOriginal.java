@@ -1,15 +1,12 @@
 package fiuba.algo3.modelo.personajes;
 
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.ExceptionCantidadDeCasillerosSuperaVelocidad;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class EstadoMajinBooOriginal implements EstadoMajinBoo {
 	
 	private int ki = 0;
 	private Coordenada coordenada;
-	
+	private int velocidad = 4;
 	@Override
 	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(this.coordenada,60 + 60*(majinBoo.usarAumentoDeAtaque()), 3);
@@ -61,4 +58,17 @@ public class EstadoMajinBooOriginal implements EstadoMajinBoo {
 		}
 		this.recibirDanio(majinBoo, poderDePelea);
 	}
+
+    @Override
+
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+	private void aumentarKi() { ki = ki + 5;
+	}
+
 }

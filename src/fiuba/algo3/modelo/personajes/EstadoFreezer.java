@@ -16,5 +16,6 @@ public interface EstadoFreezer {
 	void asignarCoordenadas(Freezer freezer, Coordenada coordenada);
 
 	void recibirAtaque(Freezer freezer, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
-	
+
+    void cambiarCoordenadas(Coordenada coordenada, Coordenada coordenadaNueva);
 }

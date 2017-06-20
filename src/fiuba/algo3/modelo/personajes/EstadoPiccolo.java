@@ -17,4 +17,6 @@ public interface EstadoPiccolo {
 	void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
 
 	void convertir(Piccolo piccolo);
+
+    void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
 }

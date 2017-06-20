@@ -44,4 +44,27 @@ public class Coordenada {
 	public Casillero obtenerCasillero() {
 		return this.casillero;
 	}
+
+    public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
+        if(nuevaCoordenada.obtenerCasillero().ocupado())
+           throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
+        obtenerCasillero().liberarDePersonaje();
+        asignarCoordenadas(nuevaCoordenada.obtenerFila(),nuevaCoordenada.obtenerColumna());
+        casillero = nuevaCoordenada.obtenerCasillero();
+
+    }
+
+    public void asignarCoordenadas(int unaFila,int unaColumna) {
+        fila = unaFila;
+        columna = unaColumna;
+    }
+
+
+    public void intercambiarCoordenada(Coordenada nuevaCoordenada) {
+
+    }
+
+    public void ocuparCasillero() {
+        obtenerCasillero().ocuparCasilleroConPersonaje();
+    }
 }
