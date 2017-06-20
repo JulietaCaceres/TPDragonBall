@@ -1,3 +1,5 @@
+package fiuba.algo3.modelo;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
