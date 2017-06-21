@@ -60,7 +60,7 @@ public class TransformacionesTest {
         //Majin Boo se transforma en Majin Boo Malo, con velocidad 3
         majinBoo.cambiarCoordenadas(tablero.obtenerCoordenada(5, 5));
 
-        assertTrue(tablero.obtenerCoordenada(5, 5).obtenerCasillero().ocupado());
+        assertEquals(5,majinBoo.obtenerCoordenadas().obtenerFila());
     }
 
    @Test(expected = GuerreroZConvertidoEnChocolateException.class)
