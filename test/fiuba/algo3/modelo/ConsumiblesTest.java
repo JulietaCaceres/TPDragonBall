@@ -47,7 +47,7 @@ public class ConsumiblesTest {
 		Coordenada coordenadaGokuConNube = new Coordenada(1,5);
 
 		goku.cambiarCoordenadas(coordenadaGokuConNube);
-		assertTrue(coordenadaGokuConNube.obtenerCasillero().ocupado());
+		assertEquals(goku.obtenerCoordenadas().obtenerColumna(),5);
 	}
 
 	@Test
