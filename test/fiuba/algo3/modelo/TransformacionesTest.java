@@ -135,6 +135,38 @@ public class TransformacionesTest {
     	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
     }
     
+    @Test
+    public void ubicarAGohanPiccoloYFreezerYHacerQuePiccoloLlegueALaSegundaTransformacion(){
+    	Piccolo piccolo = new Piccolo();
+    	Freezer freezer = new Freezer();
+    	Gohan gohan = new Gohan();
+    	Personaje guerreros [] = {gohan,piccolo};
+    	
+    	piccolo.asignarReferenciaAEquipo(guerreros);
+
+    	Coordenada coordenadaInicialFreezer = new Coordenada(5, 5);
+    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
+    	Coordenada coordenadaInicialGoku = new Coordenada(4, 4);
+    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
+    	freezer.asignarCoordenadas(coordenadaInicialFreezer);
+    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
+    	gohan.asignarCoordenadas(coordenadaInicialGohan);
+    	
+    	for(int i = 1; i<=19;i++){
+    		freezer.atacar(gohan);
+    	}
+
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	//Ahora Piccolo esta en estado Fortalecido
+    	piccolo.atacar(freezer);
+    	//Ahora Piccolo esta en estado Protector
+    	piccolo.atacar(freezer);
+    	assertEquals(freezer.obtenerPuntosDeVida(),220, 0);
+    }
+    
     @Test (expected = ExceptionVidaDeCompanierosPorEncimaDeLoPedido.class)
     public void test15ubicarALosGuerrerosZACellYVerQueGohanNoLlegaALaSegundaTransformacion(){
     	Piccolo piccolo = new Piccolo();
@@ -165,7 +197,30 @@ public class TransformacionesTest {
     	gohan.atacar(cell);
     	//Ahora Gohan trata de convertirse en Super Sayajin 2
   		gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
+    }
+    
+    @Test (expected = ExceptionVidaDeCompanierosPorEncimaDeLoPedido.class)
+    public void ubicarAGohanPiccoloYFreezerYVerQuePiccoloNoLlegaALaSegundaTransformacion(){
+    	Piccolo piccolo = new Piccolo();
+    	Freezer freezer = new Freezer();
+    	Gohan gohan = new Gohan();
+    	Personaje guerreros [] = {gohan,piccolo};
+    	
+    	piccolo.asignarReferenciaAEquipo(guerreros);
+
+    	Coordenada coordenadaInicialFreezer = new Coordenada(5, 5);
+    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
+    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
+    	freezer.asignarCoordenadas(coordenadaInicialFreezer);
+    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
+    	gohan.asignarCoordenadas(coordenadaInicialGohan);
+
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	piccolo.atacar(freezer);
+    	//Ahora Piccolo esta en estado Fortalecido
+    	piccolo.atacar(freezer);
     }
 
     @Test
@@ -208,5 +263,4 @@ public class TransformacionesTest {
     	goku.atacar(cell);
     	assertEquals(cell.obtenerPuntosDeVida(),60, 0);
     }
-
 }

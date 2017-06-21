@@ -1,6 +1,6 @@
 package fiuba.algo3.modelo;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -47,6 +47,7 @@ public class ConsumiblesTest {
 		Coordenada coordenadaGokuConNube = new Coordenada(1,5);
 
 		goku.mover(coordenadaGokuConNube);
+		assertTrue(coordenadaGokuConNube.obtenerCasillero().ocupado());
 	}
 
 	@Test

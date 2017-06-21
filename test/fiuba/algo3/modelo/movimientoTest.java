@@ -9,7 +9,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class MovimientoTest {
+public class movimientoTest {
 
 @Test
     public void suponiendoQueLaDistanciaPermtidaDeMovimientoEsDosSeIntentaCambiarDeCoordenadasValidas()
@@ -54,7 +54,7 @@ public class MovimientoTest {
    }
 
    @Test (expected = ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado.class)
-   public void  intentoAsiganarleUnaCoordenadaInicialAFreezerPeroNoPuedePorqueElCasilleroConLaMismaCoordenadaEstabaOcupado()
+   public void intentoAsiganarleUnaCoordenadaInicialAFreezerPeroNoPuedePorqueElCasilleroConLaMismaCoordenadaEstabaOcupado()
    {
 
        Cell Cell = new Cell();
@@ -73,7 +73,6 @@ public class MovimientoTest {
     }
 
     @Test
-
     public void ubicoPersonajeEnTableroYPidoQueSeMuevaAUnaDistanciaValidaYVerificoQueElCasilleroInicialSeHayaVaciado()
     {
         Tablero tablero = new Tablero();
