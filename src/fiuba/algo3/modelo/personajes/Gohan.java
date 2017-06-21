@@ -15,14 +15,6 @@ public class Gohan extends Personaje implements GuerrerosZ{
 		this.puntosDeVida = 300;
 		this.estado = new EstadoGohanNormal();
 	}
-	
-	public void referenciarAGoku(Goku goku){
-		this.referenciaAGoku = goku;
-	}
-	
-	public void referenciarAPiccolo(Piccolo piccolo){
-		this.referenciaAPiccolo = piccolo;
-	}
 
 	@Override
 	public void atacar(GuerrerosZ oponente) {
@@ -90,9 +82,8 @@ public class Gohan extends Personaje implements GuerrerosZ{
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
     }
 
-   /* @Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}*/
+	@Override
+	public double porcentajeDeVida() {
+		return this.puntosDeVida*300/100;
+	}
 }

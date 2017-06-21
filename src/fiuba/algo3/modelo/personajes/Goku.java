@@ -72,6 +72,9 @@ public class Goku extends Personaje implements GuerrerosZ{
     public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
 		estado.cambiarCoordenadas(coordenada, nuevaCoordenada);
     }
-
-
+    
+    @Override
+	public double porcentajeDeVida() {
+		return this.puntosDeVida*100/500;
+	}
 }

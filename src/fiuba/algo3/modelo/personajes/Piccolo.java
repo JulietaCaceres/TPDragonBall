@@ -76,6 +76,9 @@ public class Piccolo extends Personaje implements GuerrerosZ{
     public void cambiarCoordenadas(Coordenada coordenadaNueva) {
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
     }
-
-
+    
+    @Override
+	public double porcentajeDeVida() {
+    	return this.puntosDeVida*100/500;
+	}
 }

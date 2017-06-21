@@ -7,13 +7,11 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 	private int ki = 0;
 	private int velocidad = 2;
 	private EstadoPiccolo estado = null;
+	
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 20 + 20*(piccolo.usarAumentoDeAtaque()), 2);
-		this.ki +=5;
-		if(piccolo.verVidaDeGohan() < 90){
-			this.transformarEnPiccoloProtector(piccolo);
-		}
+		aumentarKi();
 		this.transformar(piccolo);
 	}
 
@@ -24,13 +22,6 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 			nuevoEstado.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
 			piccolo.asignarEstado(nuevoEstado);
 		}
-	}
-
-	private void transformarEnPiccoloProtector(Piccolo piccolo) {
-		EstadoPiccoloProtector nuevoEstado = new EstadoPiccoloProtector();
-		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-		nuevoEstado.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
-		piccolo.asignarEstado(nuevoEstado);
 	}
 
 	@Override
@@ -106,8 +97,7 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		aumentarKi();
 	}
 
-	private void aumentarKi() { ki = ki + 5;
-	if (ki == 20) estado = new EstadoPiccoloFortalecido();
+	private void aumentarKi() { 
+		ki = ki + 5;
 	}
-
 }

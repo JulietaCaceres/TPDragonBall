@@ -60,5 +60,8 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
     }
 
-
+    @Override
+	public double porcentajeDeVida() {
+		return this.puntosDeVida*100/500;
+	}
 }

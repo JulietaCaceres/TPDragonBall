@@ -11,6 +11,11 @@ public abstract class Personaje {
 	protected Coordenada coordenada;
 	protected int velocidad;
 	private Consumible consumible;
+	protected Personaje[] companieros;
+	
+	public String obtenerNombre(){
+		return this.nombre;
+	}
 
 	public void asignarCoordenadas(Coordenada unaCoordenada){
 		if(unaCoordenada.obtenerCasillero().ocupado())
@@ -82,4 +87,32 @@ public abstract class Personaje {
 
 	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
 
+	public void asignarReferenciaAEquipo(Personaje[] companieros) {
+		this.companieros = companieros;
+		
 	}
+	
+	public double[] obtenerPorcentajeVidaDeCompanieros(String[] nombreDeCompanieros){
+	   double vida[] = new double[nombreDeCompanieros.length];
+	   int j=0;
+	   for(int i = 0; i<this.companieros.length; i++){
+		   if(this.companieros[i].obtenerNombre() == nombreDeCompanieros[j]){
+			   vida[j] = this.companieros[i].porcentajeDeVida();
+			   j++;
+		   }
+	   }			   
+	   return vida;
+	}
+	
+	protected double obtenerPorcentajeVidaDeCompaniero(String nombreDeCompaniero){
+		double vida = 0;
+		for(int i = 0; i<this.companieros.length; i++){
+		   if(this.companieros[i].obtenerNombre() == nombreDeCompaniero){
+			   vida = this.companieros[i].porcentajeDeVida();
+		   }
+		}			   
+		return vida;
+	}
+	
+	public abstract double porcentajeDeVida();
+}

@@ -53,5 +53,10 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra {
 	public void cambiarCoordenadas(Coordenada coordenadaNueva) {
 		estado.cambiarCoordenadas(coordenada, coordenadaNueva);
 	}
+	
+	@Override
+	public double porcentajeDeVida() {
+		return this.puntosDeVida*100/300;
+	}
 }
 
