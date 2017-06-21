@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import fiuba.algo3.modelo.juego.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
 import org.junit.Test;
-
 import fiuba.algo3.modelo.juego.Casillero;
 import fiuba.algo3.modelo.juego.ExceptionCasilleroOcupado;
 import fiuba.algo3.modelo.juego.Tablero;
@@ -12,8 +11,6 @@ import fiuba.algo3.modelo.personajes.Cell;
 import fiuba.algo3.modelo.personajes.Goku;
 
 public class UbicacionEnCasillerosTest {
-
-
 
     @Test
     public void test00ubicoUnPersonajeEnUnCasilleroVerificoCasilleroOcupado() {
@@ -42,6 +39,4 @@ public class UbicacionEnCasillerosTest {
         Cell cell = new Cell();
         tablero.ubicarPersonaje(cell,2,2);
     }
-
-
 }

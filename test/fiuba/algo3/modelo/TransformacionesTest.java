@@ -13,6 +13,7 @@ import fiuba.algo3.modelo.personajes.Gohan;
 import fiuba.algo3.modelo.personajes.Goku;
 import fiuba.algo3.modelo.personajes.GuerreroZConvertidoEnChocolateException;
 import fiuba.algo3.modelo.personajes.MajinBoo;
+import fiuba.algo3.modelo.personajes.Personaje;
 import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class TransformacionesTest {
@@ -101,9 +102,9 @@ public class TransformacionesTest {
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	Gohan gohan = new Gohan();
-
-    	gohan.referenciarAGoku(goku);
-    	gohan.referenciarAPiccolo(piccolo);
+    	Personaje guerreros [] = {goku,gohan,piccolo};
+    	
+    	gohan.asignarReferenciaAEquipo(guerreros);
 
     	Coordenada coordenadaInicialCell = new Coordenada(5, 5);
     	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
@@ -120,27 +121,18 @@ public class TransformacionesTest {
     	}
 
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),488, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),476, 0);
     	//Ahora Gohan es Super Sayajin Fase 1
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),446, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),416, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),386, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),356, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),326, 0);
     	gohan.atacar(cell);
-    	assertEquals(cell.obtenerPuntosDeVida(),296, 0);
     	//Ahora Gohan es Super Sayajin Fase 2
   		gohan.atacar(cell);
     	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
     }
-
 
     @Test
     public void test20GokuLlegaASuSegundaTransformacion(){

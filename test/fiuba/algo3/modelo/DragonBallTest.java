@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 public class DragonBallTest {
 
-    @Rule
+    /*@Rule
     public ExpectedException thrown = ExpectedException.none();
     
     /*@Test
@@ -51,7 +51,7 @@ public class DragonBallTest {
         tablero.ubicarPersonaje(cell,2,3);
         cell.mover(tablero.obtenerCoordenada(2, 2));
     }
-*/
+
     @Test
     public void SeUbicaUnPersonajeSeLoTransformaSeVerificaQueSePuedaTransformar()
     {
@@ -461,7 +461,7 @@ public class DragonBallTest {
     	
     	assertTrue(coordenadaInicial.obtenerCasillero().ocupado());
     }
-    */
+    
     @Test
     public void test23HacerTransformarAPiccoloMoviendoloEntreCoordenadas(){
     	Piccolo piccolo = new Piccolo();
@@ -534,5 +534,5 @@ public class DragonBallTest {
     	//assertTrue(coordenadaSemilla.obtenerCasillero().liberarConsumible() == null);
     	
     	assertEquals(500,majunia.obtenerPuntosDeVida(),0);
-    }
+    }*/
 }
