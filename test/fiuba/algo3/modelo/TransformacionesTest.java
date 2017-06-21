@@ -8,6 +8,7 @@ import org.junit.Test;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.Tablero;
 import fiuba.algo3.modelo.personajes.Cell;
+import fiuba.algo3.modelo.personajes.ExceptionVidaDeCompanierosPorEncimaDeLoPedido;
 import fiuba.algo3.modelo.personajes.Freezer;
 import fiuba.algo3.modelo.personajes.Gohan;
 import fiuba.algo3.modelo.personajes.Goku;
@@ -130,6 +131,39 @@ public class TransformacionesTest {
     	gohan.atacar(cell);
     	gohan.atacar(cell);
     	//Ahora Gohan es Super Sayajin Fase 2
+  		gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
+    }
+    
+    @Test (expected = ExceptionVidaDeCompanierosPorEncimaDeLoPedido.class)
+    public void test15ubicarALosGuerrerosZACellYVerQueGohanNoLlegaALaSegundaTransformacion(){
+    	Piccolo piccolo = new Piccolo();
+    	Goku goku = new Goku();
+    	Cell cell = new Cell();
+    	Gohan gohan = new Gohan();
+    	Personaje guerreros [] = {goku,gohan,piccolo};
+    	
+    	gohan.asignarReferenciaAEquipo(guerreros);
+
+    	Coordenada coordenadaInicialCell = new Coordenada(5, 5);
+    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
+    	Coordenada coordenadaInicialGoku = new Coordenada(4, 4);
+    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
+    	cell.asignarCoordenadas(coordenadaInicialCell);
+    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
+    	gohan.asignarCoordenadas(coordenadaInicialGohan);
+    	goku.asignarCoordenadas(coordenadaInicialGoku);
+
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	//Ahora Gohan es Super Sayajin Fase 1
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	gohan.atacar(cell);
+    	//Ahora Gohan trata de convertirse en Super Sayajin 2
   		gohan.atacar(cell);
     	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
     }
