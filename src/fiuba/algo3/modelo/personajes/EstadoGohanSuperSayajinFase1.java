@@ -72,7 +72,7 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-
+    	cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
 	}
 
     @Override

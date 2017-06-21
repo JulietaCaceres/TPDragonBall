@@ -17,8 +17,8 @@ public interface EstadoGoku {
 
 	public abstract void convertir(Goku goku);
 
-    void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada nuevaCoordenada);
+    void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada nuevaCoordenada, int aumentoDeVelocidad);
 
-	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumentoDeVelocidad);
 
 }

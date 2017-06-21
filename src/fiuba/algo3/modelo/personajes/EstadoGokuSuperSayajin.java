@@ -54,14 +54,14 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 	}
 
     @Override
-	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
+		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva, aumento);
 	}
 
     @Override
-
-    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad*aumento)
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad*aumento))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();

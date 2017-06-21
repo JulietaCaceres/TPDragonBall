@@ -65,18 +65,20 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 	}
 
     @Override
-	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-          if (estadoSiguiente== null) cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
-			else estadoSiguiente.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
-		}
+    public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva, int aumentoDeVelocidad) {
+	     if (estadoSiguiente == null) 
+	    	 cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva, aumentoDeVelocidad);
+	     else
+	    	 estadoSiguiente.cambiarCoordenadas(coordenadaActual,coordenadaNueva, aumentoDeVelocidad);
+	}
 
     @Override
-    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumentoDeVelocidad){
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad*aumentoDeVelocidad) 
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad*aumentoDeVelocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
-
 	}
 
     private void aumentarKi() {

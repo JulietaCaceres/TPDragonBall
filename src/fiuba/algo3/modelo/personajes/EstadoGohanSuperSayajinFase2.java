@@ -62,4 +62,9 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 
 	private void aumentarKi() { ki = ki + 5;
 	}
+
+	@Override
+	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
+		// TODO Auto-generated method stub
+	}
 }

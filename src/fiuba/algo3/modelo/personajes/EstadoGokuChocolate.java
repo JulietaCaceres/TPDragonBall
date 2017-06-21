@@ -60,12 +60,12 @@ public class EstadoGokuChocolate implements EstadoGoku {
 	}
 
     @Override
-    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenada);
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada, int aumento) {
+		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenada, aumento);
     }
 
     @Override
-    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
 		turnos--;
 		if(turnos > 0){
 			throw new GuerreroZConvertidoEnChocolateException();
