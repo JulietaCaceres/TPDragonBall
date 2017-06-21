@@ -7,6 +7,7 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	private int ki = 0;
     private EstadoPiccolo estado = null;
     private int velocidad = 3;
+    
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 40 + 40*(piccolo.usarAumentoDeAtaque()), 4);

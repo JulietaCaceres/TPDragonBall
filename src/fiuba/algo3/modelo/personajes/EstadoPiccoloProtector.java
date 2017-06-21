@@ -5,7 +5,7 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 
 	private int ki = 0;
     private int velocidad = 4;
-	private EstadoPiccolo estado = new EstadoPiccoloProtector();
+    
     @Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 60 + 60*(piccolo.usarAumentoDeAtaque()), 6);
@@ -68,8 +68,8 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if (estado == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
-		if(estado !=null)estado.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
+		/*if (estado == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+		if(estado !=null)estado.cambiarCoordenadas(coordenadaActual,coordenadaNueva);*/
 
 	}
 
@@ -80,8 +80,7 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
 	}
-	private void aumentarKi() { ki = ki + 5;
+	private void aumentarKi() { 
+		ki = ki + 5;
 	}
-
-
 }
