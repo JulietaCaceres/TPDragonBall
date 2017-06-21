@@ -67,14 +67,9 @@ public class Piccolo extends Personaje implements GuerrerosZ{
 	}
 
 	@Override
-	public void mover(Coordenada coordenada) {
-		estado.mover(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}
-
-    @Override
     public void cambiarCoordenadas(Coordenada coordenadaNueva) {
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
+        this.tomarConsumibleDe(coordenadaNueva.obtenerCasillero());
     }
     
     @Override

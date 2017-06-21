@@ -39,24 +39,6 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 25, 2);
 		this.ki -= 10;
 	}
-
-	@Override
-	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
-		/*int distanciaHorizontal = Math.abs(this.piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(this.piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2 || distanciaVertical > 2){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		this.piccolo.obtenerCoordenadas().vaciarCasillero();
-		this.piccolo.obtenerCoordenadas() = coordenadaDestino;
-		coordenadaDestino.asignarPersonajeACasillero(piccolo);
-		if(piccolo.verVidaDeGohan() < 90){
-			this.transformarEnPiccoloProtector(piccolo);
-		}
-		this.ki += 5;
-		this.transformar(piccolo);
-	*/}
 	
 	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {

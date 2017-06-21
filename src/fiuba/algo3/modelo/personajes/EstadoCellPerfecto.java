@@ -32,19 +32,6 @@ public class EstadoCellPerfecto implements EstadoCell {
 	}
 
 	@Override
-	public void mover(Cell cell, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(cell.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(cell.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 4 || distanciaVertical > 4){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		cell.obtenerCoordenadas().vaciarCasillero();
-		coordenadaDestino.asignarPersonajeACasillero(cell);
-		this.ki += 5;
-	}
-
-	@Override
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada) {
 		//cell.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(cell);

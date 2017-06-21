@@ -44,20 +44,6 @@ public class EstadoCellSemiPerfecto implements EstadoCell {
 	}
 
 	@Override
-	public void mover(Cell cell, Coordenada coordenadaDestino){
-		int distanciaHorizontal = Math.abs(cell.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(cell.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 3 || distanciaVertical > 3){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		cell.obtenerCoordenadas().vaciarCasillero();
-		//cell.obtenerCoordenadas() = coordenadaDestino;
-		coordenadaDestino.asignarPersonajeACasillero(cell);
-		this.ki += 5;
-	}
-
-	@Override
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada) {
 		//this.cell.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(cell);

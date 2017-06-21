@@ -40,20 +40,6 @@ public class EstadoGohanNormal implements EstadoGohan {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15*125/100 + 15*125/100*(gohan.usarAumentoDeAtaque()), 2);
 		this.ki -= 10;
 	}
-	
-	@Override
-	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2 || distanciaVertical > 2){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		gohan.obtenerCoordenadas().vaciarCasillero();
-		//gohan.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-		//this.transformar(gohan);
-	}
 
 	@Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {

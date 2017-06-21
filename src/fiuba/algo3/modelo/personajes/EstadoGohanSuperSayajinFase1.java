@@ -46,19 +46,6 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		nuevoEstado.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
 		gohan.asignarEstado(nuevoEstado);
 	}
-	
-	@Override
-	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2 || distanciaVertical > 2){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//this.gohan.obtenerCoordenadas().vaciarCasillero();
-		//this.gohan.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-	}
 
 	@Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {

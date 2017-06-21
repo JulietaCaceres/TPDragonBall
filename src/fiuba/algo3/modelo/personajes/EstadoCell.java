@@ -11,8 +11,6 @@ public interface EstadoCell {
 	
 	public void absorberVida(Cell cell, GuerrerosZ oponente);
 
-	public void mover(Cell cell, Coordenada coordenadaDestino);
-
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada);
 
 	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);

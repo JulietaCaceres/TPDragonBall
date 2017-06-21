@@ -28,24 +28,6 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 125 + 125*(gohan.usarAumentoDeAtaque()), 4);
 		this.ki -= 10;
 	}
-
-	@Override
-	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2 || distanciaVertical > 2){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//this.gohan.obtenerCoordenadas().vaciarCasillero();
-		//.gohan.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-	}
-
-	@Override
-	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
-		//gohan.obtenerCoordenadas() = coordenada;
-	}
 	
 	@Override
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {

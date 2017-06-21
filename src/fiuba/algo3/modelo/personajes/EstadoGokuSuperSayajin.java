@@ -30,20 +30,6 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 	}
 	
 	@Override
-	public void mover(Goku goku, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 5 || distanciaVertical > 5){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		this.coordenada.vaciarCasillero();
-		this.coordenada = coordenadaDestino;
-		coordenadaDestino.asignarPersonajeACasillero(goku);
-		this.ki += 5;
-	}
-	
-	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		this.coordenada = coordenada;
 		coordenada.asignarPersonajeACasillero(goku);

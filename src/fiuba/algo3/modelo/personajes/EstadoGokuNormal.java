@@ -39,22 +39,7 @@ public class EstadoGokuNormal implements EstadoGoku {
 			goku.asignarEstado(nuevaForma);
 		}
 	}
-
-	@Override
-	public void mover(Goku goku, Coordenada coordenadaDestino){
-		int distanciaHorizontal = Math.abs(goku.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(goku.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2*goku.usarAumentoDeVelocidad() || distanciaVertical > 2*goku.usarAumentoDeVelocidad()){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//goku.obtenerCoordenadas().vaciarCasillero();
-		//this.goku.obtenerCoordenadas() = coordenadaDestino;
-		coordenadaDestino.asignarPersonajeACasillero(goku);
-		this.ki += 5;
-		this.transformar(goku);
-	}
-
+	
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		//this.goku.obtenerCoordenadas() = coordenada;
@@ -87,11 +72,11 @@ public class EstadoGokuNormal implements EstadoGoku {
 
     @Override
     public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) 
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
-
 	}
 
     private void aumentarKi() {

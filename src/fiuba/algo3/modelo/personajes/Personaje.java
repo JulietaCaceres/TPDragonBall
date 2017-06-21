@@ -19,9 +19,10 @@ public abstract class Personaje {
 
 	public void asignarCoordenadas(Coordenada unaCoordenada){
 		if(unaCoordenada.obtenerCasillero().ocupado())
-        throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
+			throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
 		coordenada = unaCoordenada;
 		coordenada.obtenerCasillero().asignarPersonaje(this);
+		this.tomarConsumibleDe(unaCoordenada.obtenerCasillero());
 	}
 	
 	public void tomarConsumibleDe(Casillero casillero) {
@@ -34,8 +35,6 @@ public abstract class Personaje {
 			this.consumible.aplicarEfecto(this);
 		}
 	}
-
-	public abstract void mover(Coordenada coordenada);
 
 	public Coordenada obtenerCoordenadas(){
 		return this.coordenada;

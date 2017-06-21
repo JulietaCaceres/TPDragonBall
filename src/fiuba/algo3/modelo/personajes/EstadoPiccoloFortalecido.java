@@ -42,19 +42,6 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	}
 	
 	@Override
-	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
-		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 3 || distanciaVertical > 3){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//this.piccolo.obtenerCoordenadas().vaciarCasillero();
-		coordenadaDestino.asignarPersonajeACasillero(piccolo);
-		this.ki += 5;
-	}
-	
-	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
 		//piccolo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(piccolo);

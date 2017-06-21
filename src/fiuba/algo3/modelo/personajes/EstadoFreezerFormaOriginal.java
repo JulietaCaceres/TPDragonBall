@@ -28,19 +28,6 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 75 + 75*(freezer.usarAumentoDeAtaque()), 3);
 		this.ki -= 20;
 	}
-
-	@Override
-	public void mover(Freezer freezer, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(freezer.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(freezer.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 6 || distanciaVertical > 6){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		freezer.obtenerCoordenadas().vaciarCasillero();
-		//freezer.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-	}
 	
 	@Override
 	public void asignarCoordenadas(Freezer freezer, Coordenada coordenada) {
