@@ -58,7 +58,7 @@ public class TransformacionesTest {
         majinBoo.atacar(goku);
         majinBoo.atacar(goku);
         //Majin Boo se transforma en Majin Boo Malo, con velocidad 3
-        majinBoo.mover(tablero.obtenerCoordenada(5, 5));
+        majinBoo.cambiarCoordenadas(tablero.obtenerCoordenada(5, 5));
 
         assertTrue(tablero.obtenerCoordenada(5, 5).obtenerCasillero().ocupado());
     }

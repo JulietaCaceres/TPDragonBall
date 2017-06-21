@@ -46,7 +46,7 @@ public class ConsumiblesTest {
 
 		Coordenada coordenadaGokuConNube = new Coordenada(1,5);
 
-		goku.mover(coordenadaGokuConNube);
+		goku.cambiarCoordenadas(coordenadaGokuConNube);
 		assertTrue(coordenadaGokuConNube.obtenerCasillero().ocupado());
 	}
 
@@ -70,7 +70,7 @@ public class ConsumiblesTest {
 		cell.atacar(majunia);
 
 		assertEquals(400,majunia.obtenerPuntosDeVida(),0);
-		majunia.mover(coordenadaSemilla);
+		majunia.cambiarCoordenadas(coordenadaSemilla);
 		//assertTrue(coordenadaSemilla.obtenerCasillero().liberarConsumible() == null);
 
 		assertEquals(500,majunia.obtenerPuntosDeVida(),0);
