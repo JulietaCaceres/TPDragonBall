@@ -19,7 +19,7 @@ public abstract class Personaje {
 		coordenada.obtenerCasillero().asignarPersonaje(this);
 	}
 	
-	protected void tomarConsumibleDe(Casillero casillero) {
+	public void tomarConsumibleDe(Casillero casillero) {
 		this.consumible = casillero.liberarConsumible();
 		this.consumir(this.consumible);
 	}
@@ -82,4 +82,4 @@ public abstract class Personaje {
 
 	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
 
-}
+	}

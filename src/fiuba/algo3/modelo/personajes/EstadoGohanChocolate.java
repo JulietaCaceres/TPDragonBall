@@ -6,7 +6,7 @@ import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanChocolate implements EstadoGohan {
 	private int turnos = 3;
-	private Coordenada coordenada;
+
 	
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
@@ -47,8 +47,8 @@ public class EstadoGohanChocolate implements EstadoGohan {
 	@Override
 	public void convertir(Gohan gohan) {
 		EstadoGohan formaNormal = new EstadoGohanNormal();
-		this.coordenada.obtenerCasillero().liberarDePersonaje();
-		formaNormal.asignarCoordenadas(gohan, this.coordenada);
+		gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		formaNormal.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
 		gohan.asignarEstado(formaNormal);
 	}
 
@@ -64,13 +64,13 @@ public class EstadoGohanChocolate implements EstadoGohan {
 
     @Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
-		this.coordenada = coordenada;
+		//this.gohan.obtenerCoordenadas() = coordenada;
 	}
 
 	@Override
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}

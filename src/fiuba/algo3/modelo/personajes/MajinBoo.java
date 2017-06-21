@@ -1,16 +1,16 @@
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.*;
 
-public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
+public class MajinBoo extends Personaje implements EnemigosDeLaTierra {
 	private EstadoMajinBoo estado;
-	
-	public MajinBoo(){
+
+	public MajinBoo() {
 		this.nombre = "Majin Boo";
 		this.puntosDeVida = 300;
 		this.estado = new EstadoMajinBooNormal();
 	}
-	
-	public void recibirDanio(double danio){
+
+	public void recibirDanio(double danio) {
 		estado.recibirDanio(this, danio);
 	}
 
@@ -23,7 +23,7 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	public void atacar(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
-	
+
 	@Override
 	public void realizarAtaqueEspecial(GuerrerosZ oponente) {
 		estado.convertirEnChocolate(oponente);
@@ -33,30 +33,25 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra{
 	public void realizarAtaqueEspecial(EnemigosDeLaTierra oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
-	
+
 	@Override
 	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
 		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
-	
-	public void asignarEstado(EstadoMajinBoo nuevoEstado){
+
+	public void asignarEstado(EstadoMajinBoo nuevoEstado) {
 		this.estado = nuevoEstado;
 	}
 
 	@Override
-	public void mover(Coordenada coordenada){
+	public void mover(Coordenada coordenada) {
 		estado.mover(this, coordenada);
 		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 
-    @Override
-    public void cambiarCoordenadas(Coordenada coordenadaNueva) {
+	@Override
+	public void cambiarCoordenadas(Coordenada coordenadaNueva) {
 		estado.cambiarCoordenadas(coordenada, coordenadaNueva);
-    }
-
-    @Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
 }
+

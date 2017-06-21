@@ -2,6 +2,7 @@ package fiuba.algo3.modelo;
 
 import static org.junit.Assert.assertTrue;
 
+import fiuba.algo3.modelo.juego.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
 import org.junit.Test;
 
 import fiuba.algo3.modelo.juego.Casillero;
@@ -32,25 +33,15 @@ public class UbicacionEnCasillerosTest {
         assertTrue(casilleroFinal.ocupado());
     }
 
-    @Test (expected = ExceptionCasilleroOcupado.class)
+    @Test (expected = ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado.class)
     public void tet02seVerificaQueNoPuedenHaberDosPersonajesEnElMismoCasillero()
     {
         Goku goku = new Goku();
-        Casillero unCasillero = new Casillero();
-        unCasillero.asignarPersonaje(goku);
+        Tablero tablero = new Tablero();
+        tablero.ubicarPersonaje(goku,2,2);
         Cell cell = new Cell();
-        unCasillero.asignarPersonaje(cell);
+        tablero.ubicarPersonaje(cell,2,2);
     }
 
-    @Test(expected = ExceptionCasilleroOcupado.class)
-    public void test03unPersonajeIntentaMoversePeroNoPuedePasarPorEncimaDeOtro()
-    {
-        Goku goku = new Goku();
-        Cell cell =new Cell();
-        Tablero tablero = new Tablero();
-        tablero.ubicarPersonaje(goku, 2,2);
-        tablero.ubicarPersonaje(cell,2,3);
-        cell.mover(tablero.obtenerCoordenada(2, 2));
-    }
 
 }

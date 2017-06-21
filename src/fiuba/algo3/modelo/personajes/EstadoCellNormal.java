@@ -6,12 +6,11 @@ public class EstadoCellNormal implements EstadoCell {
 
 	private int ki = 0;
 	private int cantidadDeAbsorciones = 0;
-	private Coordenada coordenada;
 	private int velocidad = 2;
 	
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(this.coordenada,20 + 20*(cell.usarAumentoDeAtaque()), 3);
+		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + 20*(cell.usarAumentoDeAtaque()), 3);
 		this.ki += 5;
 	}
 	
@@ -28,7 +27,7 @@ public class EstadoCellNormal implements EstadoCell {
 		if(this.ki < 5)
 			throw new ExceptionAtaqueEspecial();
 		double aumentoPorEsferaDelDragon = 20*cell.usarAumentoDeAtaque();
-		oponente.recibirAtaqueDe(this.coordenada,20 + aumentoPorEsferaDelDragon, 3);
+		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + aumentoPorEsferaDelDragon, 3);
 		cell.aumentarVidaEn(20 + aumentoPorEsferaDelDragon);
 		this.ki -= 5;
 		this.cantidadDeAbsorciones ++;
@@ -38,35 +37,35 @@ public class EstadoCellNormal implements EstadoCell {
 	private void transformar(Cell cell) {
 		if(this.cantidadDeAbsorciones == 4){
 			EstadoCell nuevaForma = new EstadoCellSemiPerfecto();
-			this.coordenada.obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(cell, this.coordenada);
+			cell.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+			nuevaForma.asignarCoordenadas(cell, cell.obtenerCoordenadas());
 			cell.asignarEstado(nuevaForma);
 		}
 	}
 
 	@Override
 	public void mover(Cell cell, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
+		int distanciaHorizontal = Math.abs(cell.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(cell.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 2 || distanciaVertical > 2){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		this.coordenada.vaciarCasillero();
+		cell.obtenerCoordenadas().vaciarCasillero();
 		coordenadaDestino.asignarPersonajeACasillero(cell);
 		this.ki += 5;
 	}
 
 	@Override
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada) {
-		this.coordenada = coordenada;
+		//this.cell.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(cell);
 	}
 	
 	@Override
 	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(cell.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(cell.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}

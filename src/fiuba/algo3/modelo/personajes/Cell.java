@@ -1,9 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class Cell extends Personaje implements EnemigosDeLaTierra{
 	
@@ -63,9 +60,5 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
     }
 
-    /*@Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}*/
+
 }

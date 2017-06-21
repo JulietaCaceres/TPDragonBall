@@ -5,10 +5,9 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoPiccoloChocolate implements EstadoPiccolo {
-	
+
 	private int turnos = 3;
-	private Coordenada coordenada;
-	
+
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		turnos--;
@@ -47,8 +46,8 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 	@Override
 	public void convertir(Piccolo piccolo) {
 		EstadoPiccolo formaNormal = new EstadoPiccoloNormal();
-		this.coordenada.obtenerCasillero().liberarDePersonaje();
-		formaNormal.asignarCoordenadas(piccolo, this.coordenada);
+		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		formaNormal.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
 		piccolo.asignarEstado(formaNormal);
 	}
 
@@ -60,15 +59,21 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 		}
     }
 
-    @Override
+	@Override
+	public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+
+	}
+
+
+	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
-		this.coordenada = coordenada;
+		//this.piccolo.obtenerCoordenadas() = coordenada;
 	}
 
 	@Override
 	public void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}

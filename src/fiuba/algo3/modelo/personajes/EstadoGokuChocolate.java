@@ -7,7 +7,7 @@ import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 public class EstadoGokuChocolate implements EstadoGoku {
 	
 	private int turnos = 3;
-	private Coordenada coordenada;
+
 	
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
@@ -47,13 +47,13 @@ public class EstadoGokuChocolate implements EstadoGoku {
 
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
-		this.coordenada = coordenada;
+		//goku.obtenerCoordenadas() = coordenada;
 	}
 
 	@Override
 	public void recibirAtaque(Goku goku, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(goku.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(goku.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
@@ -63,8 +63,8 @@ public class EstadoGokuChocolate implements EstadoGoku {
 	@Override
 	public void convertir(Goku goku) {
 		EstadoGoku formaNormal = new EstadoGokuNormal();
-		this.coordenada.obtenerCasillero().liberarDePersonaje();
-		formaNormal.asignarCoordenadas(goku, this.coordenada);
+		goku.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		formaNormal.asignarCoordenadas(goku, goku.obtenerCoordenadas());
 		goku.asignarEstado(formaNormal);
 	}
 

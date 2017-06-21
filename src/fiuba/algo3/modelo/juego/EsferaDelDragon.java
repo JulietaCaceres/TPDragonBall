@@ -8,5 +8,5 @@ public class EsferaDelDragon implements Consumible{
 	public void aplicarEfecto(Personaje personaje) {
 		personaje.tomarEsferaDelDragon();
 	}
-
+	
 }

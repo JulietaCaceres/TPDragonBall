@@ -50,7 +50,7 @@ public class Coordenada {
            throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
         obtenerCasillero().liberarDePersonaje();
         asignarCoordenadas(nuevaCoordenada.obtenerFila(),nuevaCoordenada.obtenerColumna());
-        casillero = nuevaCoordenada.obtenerCasillero();
+
 
     }
 

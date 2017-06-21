@@ -28,11 +28,11 @@ public class Casillero {
 	}
 
 	public void asignarPersonaje(Personaje unPersonaje) {
-		if (!ocupado()) {
-			this.personaje = unPersonaje;
-		}
-		else throw new ExceptionCasilleroOcupado();
-	}
+
+		this.personaje = unPersonaje;
+		if (consumible != null) personaje.tomarConsumibleDe(this);
+
+				}
 
 	public boolean ocupado() {
 		return (this.personaje != null);

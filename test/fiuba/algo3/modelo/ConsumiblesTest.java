@@ -18,59 +18,60 @@ public class ConsumiblesTest {
 
     @Test
     public void test24AtacarConConsumibleEsferaDelDragon(){
-    	Goku goku = new Goku();
-    	Freezer freezer = new Freezer();
+		Goku goku = new Goku();
+		Freezer freezer = new Freezer();
 
-    	EsferaDelDragon esfera = new EsferaDelDragon();
+		EsferaDelDragon esfera = new EsferaDelDragon();
 
-    	Coordenada coordenadaGoku = new Coordenada(1,1);
-    	Coordenada coordenadaFreezer = new Coordenada(1,2);
-    	coordenadaGoku.obtenerCasillero().asignarConsumible(esfera);
+		Coordenada coordenadaGoku = new Coordenada(1,1);
+		Coordenada coordenadaFreezer = new Coordenada(1,2);
+		coordenadaGoku.obtenerCasillero().asignarConsumible(esfera);
 
-    	goku.asignarCoordenadas(coordenadaGoku);
-    	freezer.asignarCoordenadas(coordenadaFreezer);
+		goku.asignarCoordenadas(coordenadaGoku);
+		freezer.asignarCoordenadas(coordenadaFreezer);
 
-    	goku.atacar(freezer);
-    	assertEquals(freezer.obtenerPuntosDeVida(),375, 0);
-    }
+		goku.atacar(freezer);
+		assertEquals(freezer.obtenerPuntosDeVida(),375, 0);
+	}
 
-    @Test
+
+	@Test
     public void test25GokuMueveConNubeVoladora(){
-    	Goku goku = new Goku();
-    	Coordenada coordenadaGoku = new Coordenada(1,1);
-    	NubeVoladora nube = new NubeVoladora();
-    	coordenadaGoku.obtenerCasillero().asignarConsumible(nube);
+		Goku goku = new Goku();
+		Coordenada coordenadaGoku = new Coordenada(1,1);
+		NubeVoladora nube = new NubeVoladora();
+		coordenadaGoku.obtenerCasillero().asignarConsumible(nube);
 
-    	goku.asignarCoordenadas(coordenadaGoku);
+		goku.asignarCoordenadas(coordenadaGoku);
 
-    	Coordenada coordenadaGokuConNube = new Coordenada(1,5);
+		Coordenada coordenadaGokuConNube = new Coordenada(1,5);
 
-    	goku.mover(coordenadaGokuConNube);
-    }
+		goku.mover(coordenadaGokuConNube);
+	}
 
-    @Test
+	@Test
     public void test26PiccoloUsaSemillaDelErmitanio(){
-    	Piccolo majunia = new Piccolo();
-    	Cell cell = new Cell();
+		Piccolo majunia = new Piccolo();
+		Cell cell = new Cell();
 
-    	Coordenada coordenadaPiccolo = new Coordenada(1,1);
-    	Coordenada coordenadaCell = new Coordenada(1,2);
-    	Coordenada coordenadaSemilla = new Coordenada(2,2);
-    	SemillaDelErmitanio semilla = new SemillaDelErmitanio();
-    	coordenadaSemilla.obtenerCasillero().asignarConsumible(semilla);
+		Coordenada coordenadaPiccolo = new Coordenada(1,1);
+		Coordenada coordenadaCell = new Coordenada(1,2);
+		Coordenada coordenadaSemilla = new Coordenada(2,2);
+		SemillaDelErmitanio semilla = new SemillaDelErmitanio();
+		coordenadaSemilla.obtenerCasillero().asignarConsumible(semilla);
 
-    	majunia.asignarCoordenadas(coordenadaPiccolo);
-    	cell.asignarCoordenadas(coordenadaCell);
-    	cell.atacar(majunia);
-    	cell.atacar(majunia);
-    	cell.atacar(majunia);
-    	cell.atacar(majunia);
-    	cell.atacar(majunia);
+		majunia.asignarCoordenadas(coordenadaPiccolo);
+		cell.asignarCoordenadas(coordenadaCell);
+		cell.atacar(majunia);
+		cell.atacar(majunia);
+		cell.atacar(majunia);
+		cell.atacar(majunia);
+		cell.atacar(majunia);
 
-    	assertEquals(400,majunia.obtenerPuntosDeVida(),0);
-    	majunia.mover(coordenadaSemilla);
-    	//assertTrue(coordenadaSemilla.obtenerCasillero().liberarConsumible() == null);
+		assertEquals(400,majunia.obtenerPuntosDeVida(),0);
+		majunia.mover(coordenadaSemilla);
+		//assertTrue(coordenadaSemilla.obtenerCasillero().liberarConsumible() == null);
 
-    	assertEquals(500,majunia.obtenerPuntosDeVida(),0);
-    }
+		assertEquals(500,majunia.obtenerPuntosDeVida(),0);
+	}
 }

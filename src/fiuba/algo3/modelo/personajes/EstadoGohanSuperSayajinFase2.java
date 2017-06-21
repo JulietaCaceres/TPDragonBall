@@ -5,11 +5,11 @@ import fiuba.algo3.modelo.juego.*;
 public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 
 	private int ki = 0;
-	private Coordenada coordenada;
+
 	private int velocidad = 2;
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
-		oponente.recibirAtaqueDe(this.coordenada, 100 + 100*(gohan.usarAumentoDeAtaque()), 4);
+		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 100 + 100*(gohan.usarAumentoDeAtaque()), 4);
 		this.ki += 5;
 	}
 
@@ -25,32 +25,32 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
-		oponente.recibirAtaqueDe(this.coordenada, 125 + 125*(gohan.usarAumentoDeAtaque()), 4);
+		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 125 + 125*(gohan.usarAumentoDeAtaque()), 4);
 		this.ki -= 10;
 	}
 
 	@Override
 	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
+		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 2 || distanciaVertical > 2){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		this.coordenada.vaciarCasillero();
-		this.coordenada = coordenadaDestino;
+		//this.gohan.obtenerCoordenadas().vaciarCasillero();
+		//.gohan.obtenerCoordenadas() = coordenadaDestino;
 		this.ki += 5;
 	}
 
 	@Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
-		this.coordenada = coordenada;
+		//this.gohan.obtenerCoordenadas() = coordenada;
 	}
 	
 	@Override
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
-		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
@@ -60,8 +60,8 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 	@Override
 	public void convertir(Gohan gohan) {
 		EstadoGohan formaChocolate = new EstadoGohanChocolate();
-		this.coordenada.obtenerCasillero().liberarDePersonaje();
-		formaChocolate.asignarCoordenadas(gohan, this.coordenada);
+		gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		formaChocolate.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
 		gohan.asignarEstado(formaChocolate);
 	}
 

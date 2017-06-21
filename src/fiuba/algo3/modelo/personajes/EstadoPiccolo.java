@@ -19,4 +19,6 @@ public interface EstadoPiccolo {
 	void convertir(Piccolo piccolo);
 
     void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
+
+    void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
 }

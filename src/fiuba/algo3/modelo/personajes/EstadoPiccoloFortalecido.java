@@ -5,7 +5,7 @@ import fiuba.algo3.modelo.juego.*;
 public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	
 	private int ki = 0;
-	private Coordenada coordenadas;
+    private EstadoPiccolo estado = null;
     private int velocidad = 3;
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
@@ -36,19 +36,19 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
 			throw new ExceptionAtaqueEspecial();
-		oponente.recibirAtaqueDe(this.coordenadas, 50, 4);
+		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 50, 4);
 		this.ki -= 10;
 	}
 	
 	@Override
 	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
-		int distanciaHorizontal = Math.abs(this.coordenadas.obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenadas.obtenerFila() - coordenadaDestino.obtenerFila());
+		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
 		
 		if(distanciaHorizontal > 3 || distanciaVertical > 3){
 			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
 		}
-		this.coordenadas.vaciarCasillero();
+		//this.piccolo.obtenerCoordenadas().vaciarCasillero();
 		coordenadaDestino.asignarPersonajeACasillero(piccolo);
 		this.ki += 5;
 		if(piccolo.verVidaDeGohan() < 90){
@@ -58,14 +58,14 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	
 	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
-		this.coordenadas = coordenada;
+		//piccolo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(piccolo);
 	}
 	
 	@Override
 	public void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea){
-		int distanciaHorizontal = Math.abs(this.coordenadas.obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
-		int distanciaVertical = Math.abs(this.coordenadas.obtenerFila() - coordenadasDeAtacante.obtenerFila());
+		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
+		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
 		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
@@ -75,19 +75,24 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	@Override
 	public void convertir(Piccolo piccolo) {
 		EstadoPiccolo formaChocolate = new EstadoPiccoloChocolate();
-		this.coordenadas.obtenerCasillero().liberarDePersonaje();
-		formaChocolate.asignarCoordenadas(piccolo, this.coordenadas);
+		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		formaChocolate.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
 		piccolo.asignarEstado(formaChocolate);		
 	}
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		if(estado == null) cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+		if(estado != null)	estado.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
+	}
+
+	@Override
+	public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
 	}
-
 	private void aumentarKi() { ki = ki + 5;
 	}
 
