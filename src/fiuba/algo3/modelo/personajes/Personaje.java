@@ -2,7 +2,7 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public abstract class Personaje {
+public abstract class Personaje{
 	
 	protected String nombre;
 	protected double puntosDeVida;
@@ -22,7 +22,6 @@ public abstract class Personaje {
 
 	public void asignarReferenciaAEquipo(Personaje[] companieros) {
 		this.companieros = companieros;
-
 	}
 
 	public void tomarConsumibleDe(Casillero casillero) {
@@ -77,6 +76,7 @@ public abstract class Personaje {
 	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
 
 	public double[] obtenerPorcentajeVidaDeCompanieros(String[] nombreDeCompanieros){
+		
 		double vida[] = new double[nombreDeCompanieros.length];
 		int j=0;
 		for(int i = 0; i<this.companieros.length; i++){
@@ -100,5 +100,7 @@ public abstract class Personaje {
 
 	public abstract double porcentajeDeVida();
 
-	public  boolean estaVivo(){ return (puntosDeVida != 0);}
+	public  boolean estaVivo(){ 
+		return (puntosDeVida != 0);
+	}
 }

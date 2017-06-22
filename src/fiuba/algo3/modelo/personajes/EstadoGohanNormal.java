@@ -12,18 +12,13 @@ public class EstadoGohanNormal implements EstadoGohan {
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15 + 15*(gohan.usarAumentoDeAtaque()), 2);
-		this.ki += 5;
-		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
-			this.transformarEnSuperSayajin2(gohan);
-		}
+		this.aumentarKi();
 		this.transformar(gohan);
 	}
 	
 	private void transformar(Gohan gohan) {
 		if (this.ki >= 10){
 			EstadoGohanSuperSayajinFase1 nuevaForma = new EstadoGohanSuperSayajinFase1();
-			gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
 			gohan.asignarEstado(nuevaForma);
 			this.ki -= 10;
 		}
@@ -115,6 +110,5 @@ public class EstadoGohanNormal implements EstadoGohan {
 
     private void aumentarKi() {
 		ki = ki + 5;
-		if (ki == 20 ) estadoSiguiente = new EstadoGohanSuperSayajinFase1();
 	}
 }

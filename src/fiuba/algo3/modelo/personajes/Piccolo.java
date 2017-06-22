@@ -1,3 +1,4 @@
+
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
@@ -77,5 +78,7 @@ public class Piccolo extends Personaje implements GuerrerosZ{
     }
 
 	@Override
-	public double porcentajeDeVida() { return this.puntosDeVida*100/500; }
+	public double porcentajeDeVida() { 
+		return this.puntosDeVida*100/500; 
+	}
 }

@@ -1,9 +1,6 @@
 package fiuba.algo3.modelo.juego;
 
-import fiuba.algo3.modelo.personajes.Cell;
 import fiuba.algo3.modelo.personajes.Personaje;
-
-import java.util.ArrayList;
 
 public class Tablero {
 
@@ -45,7 +42,7 @@ public class Tablero {
 	}
 
 	public void moverPersonaje(Personaje unPersonaje, int fila, int columna) {
-	unPersonaje.cambiarCoordenadas(obtenerCoordenada(fila,columna));
-	obtenerCasillero(fila,columna).asignarPersonaje(unPersonaje);
+		unPersonaje.cambiarCoordenadas(obtenerCoordenada(fila,columna));
+		obtenerCasillero(fila,columna).asignarPersonaje(unPersonaje);
 	}
 }

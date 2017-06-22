@@ -35,8 +35,6 @@ public class EstadoGokuNormal implements EstadoGoku {
 	public void transformar(Goku goku){
 		if(this.ki == 20){
 			EstadoGoku nuevaForma = new EstadoGokuKaioKen();
-			goku.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(goku, goku.obtenerCoordenadas());
 			goku.asignarEstado(nuevaForma);
 		}
 	}

@@ -63,6 +63,4 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
     public double porcentajeDeVida() {
         return 0;
     }
-
-
 }

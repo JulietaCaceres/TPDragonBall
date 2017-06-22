@@ -5,6 +5,7 @@ import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class Freezer extends Personaje implements EnemigosDeLaTierra{
+	
 	private EstadoFreezer estado;
 	
 	public Freezer(){
@@ -59,13 +60,5 @@ public class Freezer extends Personaje implements EnemigosDeLaTierra{
 	@Override
 	public double porcentajeDeVida() {
 		return 0;
-	}
-
-    /*@Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}*/
-	
-	
+	}	
 }

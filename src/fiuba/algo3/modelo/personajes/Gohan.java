@@ -90,11 +90,7 @@ public class Gohan extends Personaje implements GuerrerosZ{
     }
 
 	@Override
-	public double porcentajeDeVida() { return this.puntosDeVida*300/100; }
-
-   /* @Override
-	public void asignarCoordenadas(Coordenada coordenada) {
-		estado.asignarCoordenadas(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}*/
+	public double porcentajeDeVida() { 
+		return this.puntosDeVida*300/100;
+	}
 }

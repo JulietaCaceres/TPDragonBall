@@ -35,8 +35,6 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 	public void transformar(Goku goku){
 		if(this.ki == 50){
 			EstadoGoku nuevaForma = new EstadoGokuSuperSayajin();
-			goku.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(goku,goku.obtenerCoordenadas());
 			goku.asignarEstado(nuevaForma);
 		}
 	}

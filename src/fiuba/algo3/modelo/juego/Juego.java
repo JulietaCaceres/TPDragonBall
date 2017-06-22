@@ -2,7 +2,6 @@ package fiuba.algo3.modelo.juego;
 
 import fiuba.algo3.modelo.personajes.*;
 
-import java.util.ArrayList;
 
 public class Juego {
 
@@ -33,17 +32,20 @@ public class Juego {
 		turno = new Turno(jugadorGuerrero,jugadorEnemigo);
 	}
 
-    public void iniciarPartida(){ partida = new Partida(jugadorEnemigo,jugadorGuerrero,tablero);}
+    public void iniciarPartida(){ 
+    	partida = new Partida(jugadorEnemigo,jugadorGuerrero,tablero);
+    }
 
-    public void iniciarTablero() { partida.iniciarTablero();}
-
+    public void iniciarTablero() { 
+    	partida.iniciarTablero();
+    }
 
     public void iniciarJuego(){
     	iniciarPartida();
     	iniciarTablero();
     	while (!turno.ganoJugador()){
     		turno.cambiarJugador();
-    		turno.jugadorActualJugar();
+    		turno.jugadorActualJugar(tablero);
 		}
 	}
 

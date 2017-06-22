@@ -6,6 +6,7 @@ public class Turno {
      private Jugador jugadorDos;
      private Jugador jugadorActual;
      private MenuAcciones menuAcciones;
+     
      public Turno(Jugador jugadorGuerrero, Jugador jugadorEnemigo){
          jugadorUno = jugadorGuerrero;
          jugadorDos = jugadorEnemigo;
@@ -16,10 +17,11 @@ public class Turno {
          return (jugadorActual.obtenerOtroJugador().noTienePersonajesVivos());
     }
 
-    public void cambiarJugador() { jugadorActual = jugadorActual.obtenerOtroJugador();
+    public void cambiarJugador() { 
+    	jugadorActual = jugadorActual.obtenerOtroJugador();
     }
 
-    public void jugadorActualJugar() {
-        jugadorActual.elegirAccion(menuAcciones);
+    public void jugadorActualJugar(Tablero tablero) {
+        jugadorActual.elegirAccion(tablero);
     }
 }

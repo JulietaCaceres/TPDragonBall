@@ -2,10 +2,12 @@ package fiuba.algo3.modelo.juego;
 
 import fiuba.algo3.modelo.personajes.*;
 public class Partida {
-    private Tablero tablero;
+    
+	private Tablero tablero;
     private Jugador jugadorZ;
     private Jugador jugadorE;
     Personaje[] guerreros = new Personaje[3];
+    
     public  Partida (Jugador jugadorEnemigo,Jugador jugadorGuerrero,Tablero unTablero)
     {   tablero = unTablero;
         jugadorZ = jugadorGuerrero;

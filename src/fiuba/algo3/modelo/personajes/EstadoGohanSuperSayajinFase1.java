@@ -9,13 +9,12 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
     private EstadoGohan estadoSiguiente = null;
     
 	private EstadoNubeVoladora nubeVoladora;
+
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30 + 30*(gohan.usarAumentoDeAtaque()), 2);
 		this.ki += 5;
-		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
-			this.transformarEnSuperSayajin2(gohan);
-		}
+		this.transformarEnSuperSayajin2(gohan);
 	}
 
 	@Override
@@ -34,15 +33,22 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		this.ki -= 10;
 	}
 	
-	public void transformarEnSuperSayajin2(Gohan gohan) {
-		if (this.ki >= 30){
-				EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
-				gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-				nuevaForma.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
-				gohan.asignarEstado(nuevaForma);
-				this.ki -= 30;
-			estadoSiguiente = new EstadoGohanSuperSayajinFase2();
-			this.ki -= 30;
+	private boolean vidaDeCompanierosMenorA30PorCiento(Gohan gohan){
+		boolean todosMenorATreinta = true;
+		String nombresCompanieros[] = {"Goku", "Piccolo"};
+		double vidaDeCompanieros[] = gohan.obtenerPorcentajeVidaDeCompanieros(nombresCompanieros);
+		for (int i = 0; i< vidaDeCompanieros.length; i++){
+			if(vidaDeCompanieros[i] > 30){
+				todosMenorATreinta = false;
+			}
+		}
+		return todosMenorATreinta;
+	}
+	
+	private void transformarEnSuperSayajin2(Gohan gohan) {
+		if (this.ki >= 30 && this.vidaDeCompanierosMenorA30PorCiento(gohan)){
+			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
+			gohan.asignarEstado(nuevaForma);
 		}
 	}
 	
