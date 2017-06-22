@@ -12,6 +12,7 @@ import fiuba.algo3.modelo.personajes.Goku;
 import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class ConsumiblesTest {
+	
 	@Test
 	public void test24AtacarConConsumibleEsferaDelDragon() {
 		Goku goku = new Goku();

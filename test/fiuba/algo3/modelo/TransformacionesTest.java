@@ -13,6 +13,7 @@ import fiuba.algo3.modelo.personajes.Gohan;
 import fiuba.algo3.modelo.personajes.Goku;
 import fiuba.algo3.modelo.personajes.GuerreroZConvertidoEnChocolateException;
 import fiuba.algo3.modelo.personajes.MajinBoo;
+import fiuba.algo3.modelo.personajes.Personaje;
 import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class TransformacionesTest {
@@ -101,10 +102,11 @@ public class TransformacionesTest {
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	Gohan gohan = new Gohan();
-
-    	gohan.referenciarAGoku(goku);
-    	gohan.referenciarAPiccolo(piccolo);
-
+    	
+    	Personaje[] companierosDeGohan = {goku, piccolo};
+    	
+    	gohan.asignarReferenciaAEquipo(companierosDeGohan);
+    	
     	Coordenada coordenadaInicialCell = new Coordenada(5, 5);
     	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
     	Coordenada coordenadaInicialGoku = new Coordenada(4, 4);

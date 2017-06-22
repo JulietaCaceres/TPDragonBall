@@ -17,8 +17,6 @@ import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class AtaquesTest {
 
-
-
     @Test
     public void test08CrearAGokuACellYAtacarACell(){
 		Goku goku = new Goku();
@@ -108,6 +106,7 @@ public class AtaquesTest {
 		cell.atacar(goku);
 		assertTrue(20 == goku.obtenerPuntosDeVida());
 	}
+    
     @Test (expected = ExceptionNoAlcanzaAlOponente.class)
     public void test15CellNoAlcanzaAAtacarAPiccoloConSuAtaqueEspecial(){
 		Cell cell = new Cell();
@@ -134,7 +133,6 @@ public class AtaquesTest {
 
 		boo.realizarAtaqueEspecial(freezer);
 	}
-
 
     @Test
     public void test17GokuAumentaDePoderConPocaVida(){
@@ -182,7 +180,6 @@ public class AtaquesTest {
 		goku.realizarAtaqueEspecial(cell);
 		assertEquals(cell.obtenerPuntosDeVida(),200, 0);
 	}
-
 
 	@Test
     public void test19GokuAtacaYHacePrimeraTransformacion(){
