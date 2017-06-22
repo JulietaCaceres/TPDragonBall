@@ -2,13 +2,13 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoPiccoloNormal implements EstadoPiccolo {
-	
+public class EstadoPiccoloNormal extends EstadoPiccolo {
+
 	private int ki = 0;
 	private int velocidad = 2;
 	private EstadoPiccolo estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora;
-	
+
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 20 + 20*(piccolo.usarAumentoDeAtaque()), 2);
@@ -42,7 +42,7 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		}
 		piccolo.disminuirPuntosDeVidaEn(danio);
 	}
-	
+
 	@Override
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
@@ -50,13 +50,13 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 25, 2);
 		this.ki -= 10;
 	}
-	
+
 	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
 	    //	this.piccolo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(piccolo);
 	}
-	
+
 	@Override
 	public void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea){
 		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
@@ -72,7 +72,7 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		EstadoPiccolo formaChocolate = new EstadoPiccoloChocolate();
 		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
 		formaChocolate.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
-		piccolo.asignarEstado(formaChocolate);		
+		piccolo.asignarEstado(formaChocolate);
 	}
 
     @Override

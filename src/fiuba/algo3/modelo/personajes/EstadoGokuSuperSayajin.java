@@ -2,13 +2,13 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoGokuSuperSayajin implements EstadoGoku {
-	
+public class EstadoGokuSuperSayajin extends EstadoGoku {
+
 	private int ki = 0;
 	private Coordenada coordenada = new Coordenada(0,0);
 	private int velocidad = 5;
 	private EstadoNubeVoladora nubeVoladora;
-	
+
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(this.coordenada, 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque()), 4);
@@ -22,7 +22,7 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
-	
+
 	@Override
 	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
 		if(this.ki<20)
@@ -30,7 +30,7 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		oponente.recibirAtaqueDe(this.coordenada, 90*goku.aumentoDePoderPorAdrenalina() + 90*(goku.usarAumentoDeAtaque()), 4);
 		this.ki -= 20;
 	}
-	
+
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		this.coordenada = coordenada;
@@ -46,13 +46,13 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		}
 		this.recibirDanio(goku, poderDePelea);
 	}
-	
+
 	@Override
 	public void convertir(Goku goku) {
 		EstadoGoku formaChocolate = new EstadoGokuChocolate();
 		this.coordenada.obtenerCasillero().liberarDePersonaje();
 		formaChocolate.asignarCoordenadas(goku, this.coordenada);
-		goku.asignarEstado(formaChocolate);		
+		goku.asignarEstado(formaChocolate);
 	}
 
     @Override
@@ -65,7 +65,7 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
 		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
 	}
-    
+
 	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();

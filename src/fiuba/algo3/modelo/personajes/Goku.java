@@ -2,29 +2,29 @@ package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.*;
 
 public class Goku extends Personaje implements GuerrerosZ{
-	
+
 	private EstadoGoku estado;
-	
+
 	public Goku(){
 		this.nombre = "Goku";
 		this.puntosDeVida = 500;
 		this.estado = new EstadoGokuNormal();
 		this.estadoEsferaDragon = null;
 	}
-	
+
 	@Override
 	public void atacar(GuerrerosZ oponente) {
 		throw new ExceptionAtaqueAMismoEquipo();
 	}
-	
+
 	@Override
 	public void atacar(EnemigosDeLaTierra oponente) {
 		estado.atacar(this, oponente);
 	}
-	
+
 	@Override
 	public void recibirDanio(double poderDePelea) {
-		estado.recibirDanio(this, poderDePelea);		
+		estado.recibirDanio(this, poderDePelea);
 	}
 
 	public double aumentoDePoderPorAdrenalina() {
@@ -49,12 +49,12 @@ public class Goku extends Personaje implements GuerrerosZ{
 	public void convertirseEnChocolate() {
 		estado.convertir(this);
 	}
-	
+
 	@Override
 	public void recibirAtaqueDe(Coordenada coordenadasDeAtacante, double poderDePelea, int alcanceDeAtaque) {
 		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
-	
+
 	public void asignarEstado(EstadoGoku nuevoEstado){
 		this.estado = nuevoEstado;
 	}
@@ -69,4 +69,9 @@ public class Goku extends Personaje implements GuerrerosZ{
     public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
 		estado.cambiarCoordenadas(coordenada, nuevaCoordenada);
     }
+
+	public void mover(Coordenada coordenadaGokuConNube) {
+		// TODO Auto-generated method stub
+
+	}
 }

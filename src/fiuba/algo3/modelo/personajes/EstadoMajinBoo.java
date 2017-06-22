@@ -1,26 +1,27 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.Estado;
 import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
-public interface EstadoMajinBoo {
-	
-	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente);
+public abstract class EstadoMajinBoo extends Estado {
 
-	public void recibirDanio(MajinBoo majinBoo, double danio);
+	public abstract void atacar(MajinBoo majinBoo, GuerrerosZ oponente);
 
-	public void convertirEnChocolate(GuerrerosZ oponente);
+	public abstract void recibirDanio(MajinBoo majinBoo, double danio);
 
-	public void mover(MajinBoo majinBoo, Coordenada coordenadaDestino);
+	public abstract void convertirEnChocolate(GuerrerosZ oponente);
 
-	public void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada);
+	public abstract void mover(MajinBoo majinBoo, Coordenada coordenadaDestino);
 
-	public void recibirAtaque(MajinBoo majinBoo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
+	public abstract void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada);
 
-    void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
+	public abstract void recibirAtaque(MajinBoo majinBoo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
 
-	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+    public abstract void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
 
-	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
+	public abstract void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+
+	public abstract void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 }

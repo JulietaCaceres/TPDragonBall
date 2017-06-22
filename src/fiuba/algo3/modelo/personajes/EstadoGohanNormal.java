@@ -2,7 +2,7 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoGohanNormal implements EstadoGohan {
+public class EstadoGohanNormal extends EstadoGohan {
 
 	private int ki = 0;
     private EstadoGohan estadoSiguiente = null;
@@ -18,7 +18,7 @@ public class EstadoGohanNormal implements EstadoGohan {
 		}
 		this.transformar(gohan);
 	}
-	
+
 	private void transformar(Gohan gohan) {
 		if (this.ki >= 10){
 			EstadoGohanSuperSayajinFase1 nuevaForma = new EstadoGohanSuperSayajinFase1();
@@ -36,7 +36,7 @@ public class EstadoGohanNormal implements EstadoGohan {
 		}
 		gohan.disminuirPuntosDeVidaEn(danio);
 	}
-	
+
 	@Override
 	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
@@ -60,7 +60,7 @@ public class EstadoGohanNormal implements EstadoGohan {
 		//gohan.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(gohan);
 	}
-	
+
 	@Override
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
 		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());

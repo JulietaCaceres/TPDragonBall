@@ -2,8 +2,8 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoCellPerfecto implements EstadoCell {
-	
+public class EstadoCellPerfecto extends EstadoCell {
+
 	private int ki;
 
     private int velocidad = 4;
@@ -14,15 +14,15 @@ public class EstadoCellPerfecto implements EstadoCell {
 		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),80 + 80*(cell.usarAumentoDeAtaque()), 4);
 		this.ki +=5;
 	}
-	
+
 	@Override
 	public void recibirDanio(Cell cell, double danio) {
 		if(danio < 80){
 			danio = danio*80/100;
 		}
-		cell.disminuirPuntosDeVidaEn(danio);		
+		cell.disminuirPuntosDeVidaEn(danio);
 	}
-	
+
 	@Override
 	public void absorberVida(Cell cell, GuerrerosZ oponente) {
 		if(this.ki < 5)
@@ -38,7 +38,7 @@ public class EstadoCellPerfecto implements EstadoCell {
 		//cell.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(cell);
 	}
-	
+
 	@Override
 	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
 		int distanciaHorizontal = Math.abs(cell.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());

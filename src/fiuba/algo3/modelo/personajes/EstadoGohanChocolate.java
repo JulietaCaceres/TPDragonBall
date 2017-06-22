@@ -5,10 +5,10 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
-public class EstadoGohanChocolate implements EstadoGohan {
+public class EstadoGohanChocolate extends EstadoGohan {
 	private int turnos = 3;
 
-	
+
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		turnos--;
@@ -25,14 +25,14 @@ public class EstadoGohanChocolate implements EstadoGohan {
 		}
 		gohan.disminuirPuntosDeVidaEn(danio);
 	}
-	
+
 	@Override
 	public void masenko(Gohan gohan, EnemigosDeLaTierra oponente) {
 		turnos--;
 		if(turnos > -1){
 			throw new GuerreroZConvertidoEnChocolateException();
 		}
-		this.convertir(gohan);		
+		this.convertir(gohan);
 	}
 
 	@Override
@@ -75,6 +75,6 @@ public class EstadoGohanChocolate implements EstadoGohan {
 
 	@Override
 	public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
-		
+
 	}
 }

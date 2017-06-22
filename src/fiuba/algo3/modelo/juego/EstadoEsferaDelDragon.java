@@ -2,9 +2,9 @@ package fiuba.algo3.modelo.juego;
 
 import fiuba.algo3.modelo.personajes.Personaje;
 
-public class EstadoEsferaDelDragon {
+public class EstadoEsferaDelDragon extends Estado {
 	private int cantidadDeAtaques = 2;
-	
+
 	public double obtenerAumentoDeAtaque(Personaje personaje){
 		if(this.cantidadDeAtaques == 0){
 			personaje.gastarEsferaDelDragon();
