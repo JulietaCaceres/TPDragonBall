@@ -67,7 +67,7 @@ public class ConsumiblesTest {
 		Coordenada coordenadaGoku = new Coordenada(1, 1);
 		NubeVoladora nube = new NubeVoladora();
 		coordenadaGoku.obtenerCasillero().
-				asignarConsumible(nube);
+		asignarConsumible(nube);
 		goku.asignarCoordenadas(coordenadaGoku);
 		Tablero tablero = new Tablero();
 		tablero.ubicarPersonaje(goku,1,1);

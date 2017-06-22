@@ -17,8 +17,6 @@ import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class AtaquesTest {
 
-
-
     @Test
     public void test08CrearAGokuACellYAtacarACell(){
 		Goku goku = new Goku();

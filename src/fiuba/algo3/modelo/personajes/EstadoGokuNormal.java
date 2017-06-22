@@ -2,13 +2,13 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoGokuNormal extends EstadoGoku {
+public class EstadoGokuNormal implements EstadoGoku {
 
 	private int ki = 0;
     private EstadoGoku estadoSiguiente = null;
     private EstadoNubeVoladora nubeVoladora = null;
 	private int velocidad = 2;
-
+		
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 20*(goku.aumentoDePoderPorAdrenalina() + goku.usarAumentoDeAtaque()), 2);
@@ -23,7 +23,7 @@ public class EstadoGokuNormal extends EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
-
+	
 	@Override
 	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
 		if(this.ki<20)
@@ -40,13 +40,13 @@ public class EstadoGokuNormal extends EstadoGoku {
 			goku.asignarEstado(nuevaForma);
 		}
 	}
-
+	
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		//this.goku.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(goku);
 	}
-
+	
 	@Override
 	public void recibirAtaque(Goku goku, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
 		int distanciaHorizontal = Math.abs(goku.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
@@ -62,7 +62,7 @@ public class EstadoGokuNormal extends EstadoGoku {
 		EstadoGoku formaChocolate = new EstadoGokuChocolate();
 		goku.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
 		formaChocolate.asignarCoordenadas(goku,goku.obtenerCoordenadas());
-		goku.asignarEstado(formaChocolate);
+		goku.asignarEstado(formaChocolate);		
 	}
 
     @Override

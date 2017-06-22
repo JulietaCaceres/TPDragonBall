@@ -2,8 +2,8 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoGokuKaioKen extends EstadoGoku {
-
+public class EstadoGokuKaioKen implements EstadoGoku {
+	
 	private int ki = 0;
 	private EstadoGoku estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora = null;
@@ -15,7 +15,7 @@ public class EstadoGokuKaioKen extends EstadoGoku {
 		this.ki += 5;
 		this.transformar(goku);
 	}
-
+	
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
 		if(danio < 40){
@@ -23,7 +23,7 @@ public class EstadoGokuKaioKen extends EstadoGoku {
 		}
 		goku.disminuirPuntosDeVidaEn(danio);
 	}
-
+	
 	@Override
 	public void kamehameha(Goku goku, EnemigosDeLaTierra oponente) {
 		if(this.ki<20)
@@ -43,7 +43,7 @@ public class EstadoGokuKaioKen extends EstadoGoku {
 
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
-
+		
 	}
 
 
@@ -56,13 +56,13 @@ public class EstadoGokuKaioKen extends EstadoGoku {
 		}
 		this.recibirDanio(goku, poderDePelea);
 	}
-
+	
 	@Override
 	public void convertir(Goku goku) {
 		EstadoGoku formaChocolate = new EstadoGokuChocolate();
 		goku.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
 		formaChocolate.asignarCoordenadas(goku, goku.obtenerCoordenadas());
-		goku.asignarEstado(formaChocolate);
+		goku.asignarEstado(formaChocolate);		
 	}
 
     @Override
@@ -76,7 +76,7 @@ public class EstadoGokuKaioKen extends EstadoGoku {
 		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
 		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
 	}
-
+    
 	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();

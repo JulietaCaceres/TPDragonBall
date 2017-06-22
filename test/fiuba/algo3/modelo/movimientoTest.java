@@ -40,8 +40,6 @@ public class movimientoTest {
        goku.asignarCoordenadas(unaCoordenada);
        Coordenada otraCoordenada = new Coordenada(8,2);
        goku.cambiarCoordenadas(otraCoordenada);
-
-
    }
 
    @Test

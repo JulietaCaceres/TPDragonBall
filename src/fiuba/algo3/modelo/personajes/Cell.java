@@ -45,19 +45,16 @@ public class Cell extends Personaje implements EnemigosDeLaTierra{
 		estado.recibirAtaque(this, coordenadasDeAtacante, alcanceDeAtaque, poderDePelea);
 	}
 
-	public void asignarEstado(EstadoCell nuevaForma) {
-		this.estado = nuevaForma;
+	public void asignarEstado(EstadoCell nuevoEstado) {
+		this.estado = nuevoEstado;
 	}
 
     @Override
     public void tomarNubeVoladora() {
-
     }
 
     @Override
     public void cambiarCoordenadas(Coordenada coordenadaNueva) {
         estado.cambiarCoordenadas(coordenada,coordenadaNueva);
     }
-
-
 }

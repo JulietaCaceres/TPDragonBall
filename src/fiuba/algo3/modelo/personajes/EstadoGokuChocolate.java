@@ -5,20 +5,20 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
-public class EstadoGokuChocolate extends EstadoGoku {
-
+public class EstadoGokuChocolate implements EstadoGoku {
+	
 	private int turnos = 3;
-
+	
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		turnos--;
 		if(turnos > 0){
 			throw new GuerreroZConvertidoEnChocolateException();
-
+			
 		}
 		this.convertir(goku);
 	}
-
+	
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
 		if(danio < 20){
@@ -33,7 +33,7 @@ public class EstadoGokuChocolate extends EstadoGoku {
 		if(turnos > 0){
 			throw new GuerreroZConvertidoEnChocolateException();
 		}
-		this.convertir(goku);
+		this.convertir(goku);		
 	}
 
 	@Override

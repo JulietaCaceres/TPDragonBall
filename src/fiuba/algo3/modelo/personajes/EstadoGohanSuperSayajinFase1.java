@@ -2,12 +2,12 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoGohanSuperSayajinFase1 extends EstadoGohan {
+public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
 	private int ki = 0;
     private int velocidad = 2;
     private EstadoGohan estadoSiguiente = null;
-
+    
 	private EstadoNubeVoladora nubeVoladora;
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
@@ -33,7 +33,7 @@ public class EstadoGohanSuperSayajinFase1 extends EstadoGohan {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30*25/100 + 30*25/100*(gohan.usarAumentoDeAtaque()), 2);
 		this.ki -= 10;
 	}
-
+	
 	public void transformarEnSuperSayajin2(Gohan gohan) {
 		if (this.ki >= 30){
 				EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
@@ -45,12 +45,12 @@ public class EstadoGohanSuperSayajinFase1 extends EstadoGohan {
 			this.ki -= 30;
 		}
 	}
-
+	
 	@Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
 		//gohan.obtenerCoordenadas() = coordenada;
 	}
-
+	
 	@Override
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
 		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());

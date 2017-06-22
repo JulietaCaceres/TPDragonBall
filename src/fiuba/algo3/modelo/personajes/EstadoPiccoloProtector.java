@@ -1,18 +1,18 @@
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoPiccoloProtector extends EstadoPiccolo {
+public class EstadoPiccoloProtector implements EstadoPiccolo {
 
 	private int ki = 0;
     private int velocidad = 4;
 	private EstadoNubeVoladora nubeVoladora;
-
+	
     @Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 60 + 60*(piccolo.usarAumentoDeAtaque()), 6);
 		this.ki += 5;
 	}
-
+	
 	@Override
 	public void recibirDanio(Piccolo piccolo, double danio) {
 		if(danio < 60){
@@ -20,7 +20,7 @@ public class EstadoPiccoloProtector extends EstadoPiccolo {
 		}
 		piccolo.disminuirPuntosDeVidaEn(danio);
 	}
-
+	
 	@Override
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		if(this.ki < 10)
@@ -34,7 +34,7 @@ public class EstadoPiccoloProtector extends EstadoPiccolo {
 		//thispiccolo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(piccolo);
 	}
-
+	
 	@Override
 	public void recibirAtaque(Piccolo piccolo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea){
 		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());

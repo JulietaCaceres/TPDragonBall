@@ -2,13 +2,13 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
 
-public class EstadoFreezerNormal extends EstadoFreezer {
-
+public class EstadoFreezerNormal implements EstadoFreezer {
+	
 	private int ki = 0;
 	private int velocidad = 4;
 	private EstadoFreezer estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora;
-
+	
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 20 + 20*(freezer.usarAumentoDeAtaque()), 2);
@@ -29,7 +29,7 @@ public class EstadoFreezerNormal extends EstadoFreezer {
 		}
 		freezer.disminuirPuntosDeVidaEn(danio);
 	}
-
+	
 	@Override
 	public void rayoMortal(Freezer freezer, GuerrerosZ oponente) {
 		if(this.ki < 20)
@@ -43,7 +43,7 @@ public class EstadoFreezerNormal extends EstadoFreezer {
 		//this.freezer.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(freezer);
 	}
-
+	
 	@Override
 	public void recibirAtaque(Freezer freezer, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea){
 		int distanciaHorizontal = Math.abs(freezer.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
@@ -65,7 +65,7 @@ public class EstadoFreezerNormal extends EstadoFreezer {
 		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
 		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
 	}
-
+    
 	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();

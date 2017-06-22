@@ -11,10 +11,11 @@ public abstract class Personaje {
 	protected Coordenada coordenada;
 	protected int velocidad;
 	private Consumible consumible;
+	protected Estado estado = null;
 
 	public void asignarCoordenadas(Coordenada unaCoordenada){
 		if(unaCoordenada.obtenerCasillero().ocupado())
-        throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
+			throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
 		coordenada = unaCoordenada;
 		coordenada.obtenerCasillero().asignarPersonaje(this);
 	}
@@ -66,4 +67,4 @@ public abstract class Personaje {
 
 	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
 
-	}
+}

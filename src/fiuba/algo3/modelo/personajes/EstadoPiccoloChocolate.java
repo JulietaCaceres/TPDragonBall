@@ -5,7 +5,7 @@ import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
-public class EstadoPiccoloChocolate extends EstadoPiccolo {
+public class EstadoPiccoloChocolate implements EstadoPiccolo {
 
 	private int turnos = 3;
 
@@ -34,7 +34,7 @@ public class EstadoPiccoloChocolate extends EstadoPiccolo {
 		}
 		this.convertir(piccolo);
 	}
-
+	
 	@Override
 	public void convertir(Piccolo piccolo) {
 		EstadoPiccolo formaNormal = new EstadoPiccoloNormal();
@@ -74,6 +74,6 @@ public class EstadoPiccoloChocolate extends EstadoPiccolo {
 
 	@Override
 	public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
-
+		
 	}
 }
