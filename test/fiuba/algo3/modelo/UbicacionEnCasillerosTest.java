@@ -13,8 +13,6 @@ import fiuba.algo3.modelo.personajes.Goku;
 
 public class UbicacionEnCasillerosTest {
 
-
-
     @Test
     public void test00ubicoUnPersonajeEnUnCasilleroVerificoCasilleroOcupado() {
         Goku unPersonaje = new Goku();

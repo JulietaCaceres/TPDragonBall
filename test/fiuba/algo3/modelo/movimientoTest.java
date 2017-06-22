@@ -9,8 +9,7 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-public class
-movimientoTest {
+public class movimientoTest {
 
 @Test
     public void suponiendoQueLaDistanciaPermtidaDeMovimientoEsDosSeIntentaCambiarDeCoordenadasValidas()
