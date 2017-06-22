@@ -1,6 +1,7 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public interface EstadoCell {
@@ -11,8 +12,6 @@ public interface EstadoCell {
 	
 	public void absorberVida(Cell cell, GuerrerosZ oponente);
 
-	public void mover(Cell cell, Coordenada coordenadaDestino);
-
 	public void asignarCoordenadas(Cell cell, Coordenada coordenada);
 
 	public void recibirAtaque(Cell cell, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
@@ -20,5 +19,7 @@ public interface EstadoCell {
     public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaNueva);
 
 	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+
+	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 
 }

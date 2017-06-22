@@ -60,23 +60,13 @@ public class Goku extends Personaje implements GuerrerosZ{
 	}
 
 	@Override
-	public void mover(Coordenada coordenada) {
-		estado.mover(this, coordenada);
-		tomarConsumibleDe(coordenada.obtenerCasillero());
-	}
-
-	@Override
 	public void tomarNubeVoladora() {
-
-			estadoNubeVoladora = new EstadoNubeVoladora();
-			estado.tomarNubeVoladora(estadoNubeVoladora);
-
+		estadoNubeVoladora = new EstadoNubeVoladora();
+		estado.tomarNubeVoladora(estadoNubeVoladora);
 	}
 
 	@Override
     public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
 		estado.cambiarCoordenadas(coordenada, nuevaCoordenada);
     }
-
-
 }

@@ -1,6 +1,7 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public interface EstadoFreezer {
@@ -11,8 +12,6 @@ public interface EstadoFreezer {
 	
 	void rayoMortal(Freezer freezer, GuerrerosZ oponente);
 
-	void mover(Freezer freezer, Coordenada coordenadaDestino);
-
 	void asignarCoordenadas(Freezer freezer, Coordenada coordenada);
 
 	void recibirAtaque(Freezer freezer, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
@@ -20,5 +19,7 @@ public interface EstadoFreezer {
     void cambiarCoordenadas(Coordenada coordenada, Coordenada coordenadaNueva);
 
 	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+
+	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 
 }

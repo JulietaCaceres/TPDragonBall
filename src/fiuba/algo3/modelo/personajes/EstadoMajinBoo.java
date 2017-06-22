@@ -1,6 +1,7 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public interface EstadoMajinBoo {
@@ -20,4 +21,6 @@ public interface EstadoMajinBoo {
     void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva);
 
 	void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva);
+
+	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 }

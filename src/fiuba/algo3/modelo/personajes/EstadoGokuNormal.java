@@ -40,22 +40,7 @@ public class EstadoGokuNormal implements EstadoGoku {
 			goku.asignarEstado(nuevaForma);
 		}
 	}
-
-	@Override
-	public void mover(Goku goku, Coordenada coordenadaDestino){
-		/*int distanciaHorizontal = Math.abs(goku.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(goku.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2*goku.usarAumentoDeVelocidad() || distanciaVertical > 2*goku.usarAumentoDeVelocidad()){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//goku.obtenerCoordenadas().vaciarCasillero();
-		//this.goku.obtenerCoordenadas() = coordenadaDestino;
-		coordenadaDestino.asignarPersonajeACasillero(goku);
-		this.ki += 5;
-		this.transformar(goku);
-	*/}
-
+	
 	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		//this.goku.obtenerCoordenadas() = coordenada;
@@ -90,8 +75,6 @@ public class EstadoGokuNormal implements EstadoGoku {
     public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
 		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
-
-
 	}
 
 	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
@@ -103,14 +86,12 @@ public class EstadoGokuNormal implements EstadoGoku {
 	}
 
 	private void cambiarCoordenadasConNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad())) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
-
-
 	}
-
 
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {

@@ -7,6 +7,8 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 	private int ki = 0;
 
 	private int velocidad = 2;
+
+	private EstadoNubeVoladora nubeVoladora;
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 100 + 100*(gohan.usarAumentoDeAtaque()), 4);
@@ -27,19 +29,6 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 125 + 125*(gohan.usarAumentoDeAtaque()), 4);
 		this.ki -= 10;
-	}
-
-	@Override
-	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 2 || distanciaVertical > 2){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//this.gohan.obtenerCoordenadas().vaciarCasillero();
-		//.gohan.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
 	}
 
 	@Override
@@ -66,18 +55,38 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 	}
 
     @Override
-	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+    public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+	     cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
 	}
 
-	@Override
-	public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+    @Override
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
+		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
+	}
+
+	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+
+	}
+
+	private void cambiarCoordenadasConNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
 	}
 
-	private void aumentarKi() { ki = ki + 5;
+	@Override
+    public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
+		this.nubeVoladora = unaNubeVoladora;
+    }
+
+    private void aumentarKi() {
+		ki = ki + 5;
 	}
 }

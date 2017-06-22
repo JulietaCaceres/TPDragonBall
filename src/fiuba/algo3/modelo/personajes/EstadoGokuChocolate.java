@@ -8,7 +8,6 @@ import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 public class EstadoGokuChocolate implements EstadoGoku {
 	
 	private int turnos = 3;
-
 	
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
@@ -19,16 +18,7 @@ public class EstadoGokuChocolate implements EstadoGoku {
 		}
 		this.convertir(goku);
 	}
-
-	@Override
-	public void mover(Goku goku, Coordenada coordenadaFinal) {
-		turnos--;
-		if(turnos > 0){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-		this.convertir(goku);
-	}
-
+	
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
 		if(danio < 20){

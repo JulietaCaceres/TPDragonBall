@@ -5,21 +5,19 @@ import fiuba.algo3.modelo.juego.*;
 public class EstadoFreezerSegundaForma implements EstadoFreezer {
 
 	private int ki = 0;
-
+	private EstadoFreezer estadoSiguiente = null;
+	private EstadoNubeVoladora nubeVoladora;
     private int velocidad = 6;
+    
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 40 + 40*(freezer.usarAumentoDeAtaque()), 3);
-		this.ki += 5;
-		this.transformar(freezer);
+		this.aumentarKi();
 	}
 	
-	private void transformar(Freezer freezer) {
-		if(this.ki == 50){
-			EstadoFreezerFormaOriginal nuevaForma = new EstadoFreezerFormaOriginal();
-			freezer.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(freezer, freezer.obtenerCoordenadas());
-			freezer.asignarEstado(nuevaForma);
+	private void transformar() {
+		if(this.ki == 20){
+			estadoSiguiente = new EstadoFreezerSegundaForma();
 		}
 	}
 
@@ -37,20 +35,6 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 60 + 60*(freezer.usarAumentoDeAtaque()), 3);
 		this.ki  -= 20;
-	}
-	
-	@Override
-	public void mover(Freezer freezer, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(freezer.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(freezer.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 6 || distanciaVertical > 6){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		//this.freezer.obtenerCoordenadas().vaciarCasillero();
-		//this.freezer.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-		this.transformar(freezer);
 	}
 
 	@Override
@@ -71,17 +55,39 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+    	if (estadoSiguiente == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+        else estadoSiguiente.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
 	}
 
-	@Override
-	public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+    @Override
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
+		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
+	}
+    
+	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
 	}
 
-	private void aumentarKi() { ki = ki + 5;
+	private void cambiarCoordenadasConNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
+
+    @Override
+    public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
+    	if (estadoSiguiente != null)  estadoSiguiente.tomarNubeVoladora(unaNubeVoladora);
+		else nubeVoladora = unaNubeVoladora;
+    }
+
+    private void aumentarKi() {
+		ki = ki + 5;
+		transformar();
 	}
 }

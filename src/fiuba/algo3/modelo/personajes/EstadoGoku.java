@@ -11,8 +11,6 @@ public interface EstadoGoku {
 	public abstract void recibirDanio(Goku goku, double danio);
 
 	void kamehameha(Goku goku, EnemigosDeLaTierra oponente);
-	
-	public abstract void mover(Goku goku, Coordenada coordenadaDestino);
 
 	public abstract void asignarCoordenadas(Goku goku, Coordenada coordenada);
 

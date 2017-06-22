@@ -30,8 +30,6 @@ public abstract class Personaje {
 		}
 	}
 
-	public abstract void mover(Coordenada coordenada);
-
 	public Coordenada obtenerCoordenadas(){
 		return this.coordenada;
 	}

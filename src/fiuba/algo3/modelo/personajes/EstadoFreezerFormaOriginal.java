@@ -7,6 +7,7 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 	private int ki = 0;
     private EstadoFreezer estadoSiguiente = null;
 	private int velocidad = 6;
+	private EstadoNubeVoladora nubeVoladora;
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente){
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 50 + 50*(freezer.usarAumentoDeAtaque()), 3);
@@ -28,19 +29,6 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 75 + 75*(freezer.usarAumentoDeAtaque()), 3);
 		this.ki -= 20;
 	}
-
-	@Override
-	public void mover(Freezer freezer, Coordenada coordenadaDestino) {
-		int distanciaHorizontal = Math.abs(freezer.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
-		int distanciaVertical = Math.abs(freezer.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
-		
-		if(distanciaHorizontal > 6 || distanciaVertical > 6){
-			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
-		}
-		freezer.obtenerCoordenadas().vaciarCasillero();
-		//freezer.obtenerCoordenadas() = coordenadaDestino;
-		this.ki += 5;
-	}
 	
 	@Override
 	public void asignarCoordenadas(Freezer freezer, Coordenada coordenada) {
@@ -58,21 +46,39 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 		this.recibirDanio(freezer, poderDePelea);
 	}
 
-    @Override
-	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-          cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);}
-
-
 	@Override
-	public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+    	if (estadoSiguiente == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+        else estadoSiguiente.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
+	}
+
+    @Override
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if (nubeVoladora != null) cambiarCoordenadasConNubeVoladora(coordenadaActual,coordenadaNueva);
+		else cambiarCoordenadasSinNubeVoladora(coordenadaActual,coordenadaNueva);
+	}
+    
+	private void cambiarCoordenadasSinNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad ) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
-
 	}
 
-	private void aumentarKi() { ki = ki + 5;
+	private void cambiarCoordenadasConNubeVoladora(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
+				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
+			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
+		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
+		aumentarKi();
+	}
 
+    @Override
+    public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
+		this.nubeVoladora = unaNubeVoladora;
+    }
+
+    private void aumentarKi() {
+		ki = ki + 5;
 	}
 }

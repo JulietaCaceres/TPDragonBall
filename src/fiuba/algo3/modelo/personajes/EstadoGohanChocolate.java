@@ -2,6 +2,7 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanChocolate implements EstadoGohan {
@@ -32,16 +33,6 @@ public class EstadoGohanChocolate implements EstadoGohan {
 			throw new GuerreroZConvertidoEnChocolateException();
 		}
 		this.convertir(gohan);		
-	}
-
-	@Override
-	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
-		
-		turnos--;
-		if(turnos > 0){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-		this.convertir(gohan);
 	}
 
 	@Override
@@ -80,5 +71,10 @@ public class EstadoGohanChocolate implements EstadoGohan {
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
 		this.recibirDanio(gohan, poderDePelea);
+	}
+
+	@Override
+	public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
+		
 	}
 }

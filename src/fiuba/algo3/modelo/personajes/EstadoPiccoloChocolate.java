@@ -2,6 +2,7 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoPiccoloChocolate implements EstadoPiccolo {
@@ -27,15 +28,6 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 
 	@Override
 	public void makankosappo(Piccolo piccolo, EnemigosDeLaTierra oponente) {
-		turnos--;
-		if(turnos > 0){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-		this.convertir(piccolo);
-	}
-
-	@Override
-	public void mover(Piccolo piccolo , Coordenada coordenadaFinal){
 		turnos--;
 		if(turnos > 0){
 			throw new GuerreroZConvertidoEnChocolateException();
@@ -78,5 +70,10 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
 		this.recibirDanio(piccolo, poderDePelea);
+	}
+
+	@Override
+	public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
+		
 	}
 }
