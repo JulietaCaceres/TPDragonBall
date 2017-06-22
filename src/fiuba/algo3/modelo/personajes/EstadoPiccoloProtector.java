@@ -5,7 +5,7 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 
 	private int ki = 0;
     private int velocidad = 4;
-    
+	private EstadoPiccolo estado = new EstadoPiccoloProtector();
     @Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 60 + 60*(piccolo.usarAumentoDeAtaque()), 6);
@@ -26,6 +26,20 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 75, 6);
 		this.ki -= 10;
+	}
+	
+	@Override
+	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
+		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 4 || distanciaVertical > 4){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		//this.piccolo.obtenerCoordenadas().vaciarCasillero();
+		//this.piccolo.obtenerCoordenadas() = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(piccolo);
+		this.ki += 5;
 	}
 
 	@Override
@@ -54,8 +68,8 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		/*if (estado == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
-		if(estado !=null)estado.cambiarCoordenadas(coordenadaActual,coordenadaNueva);*/
+		if (estado == null)cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+		if(estado !=null)estado.cambiarCoordenadas(coordenadaActual,coordenadaNueva);
 
 	}
 
@@ -66,7 +80,8 @@ public class EstadoPiccoloProtector implements EstadoPiccolo {
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
 	}
-	private void aumentarKi() { 
-		ki = ki + 5;
+	private void aumentarKi() { ki = ki + 5;
 	}
+
+
 }

@@ -44,13 +44,19 @@ public class MajinBoo extends Personaje implements EnemigosDeLaTierra {
 	}
 
 	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
+	}
+
+    @Override
+    public void tomarNubeVoladora() {
+
+    }
+
+    @Override
 	public void cambiarCoordenadas(Coordenada coordenadaNueva) {
 		estado.cambiarCoordenadas(coordenada, coordenadaNueva);
-	}
-	
-	@Override
-	public double porcentajeDeVida() {
-		return this.puntosDeVida*100/300;
 	}
 }
 

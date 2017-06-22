@@ -11,6 +11,8 @@ public interface EstadoFreezer {
 	
 	void rayoMortal(Freezer freezer, GuerrerosZ oponente);
 
+	void mover(Freezer freezer, Coordenada coordenadaDestino);
+
 	void asignarCoordenadas(Freezer freezer, Coordenada coordenada);
 
 	void recibirAtaque(Freezer freezer, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);

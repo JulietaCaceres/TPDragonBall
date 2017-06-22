@@ -38,6 +38,21 @@ public class EstadoMajinBooNormal implements EstadoMajinBoo {
 		}
 		oponente.convertirseEnChocolate();
 	}
+	
+	@Override
+	public void mover(MajinBoo majinBoo, Coordenada coordenadaDestino) {
+		/*int distanciaHorizontal = Math.abs(this.majinBoo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.majinBoo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		this.majinBoo.obtenerCoordenadas().vaciarCasillero();
+		this.majinBoo.obtenerCoordenadas() = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(majinBoo);
+		this.ki += 5;
+		this.transformar(majinBoo);
+	*/}
 
 	@Override
 	public void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada) {

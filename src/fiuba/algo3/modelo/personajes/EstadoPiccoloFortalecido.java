@@ -7,21 +7,20 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	private int ki = 0;
     private EstadoPiccolo estado = null;
     private int velocidad = 3;
-    
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
+		if(piccolo.verVidaDeGohan() < 90){
+			this.transformarEnPiccoloProtector(piccolo);
+		}
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 40 + 40*(piccolo.usarAumentoDeAtaque()), 4);
 		this.ki += 5;
-		this.transformar(piccolo);
+		if(piccolo.verVidaDeGohan() < 90){
+			this.transformarEnPiccoloProtector(piccolo);
+		}
 	}
 
-	private void transformar(Piccolo piccolo) {
-		if(piccolo.obtenerPorcentajeVidaDeCompaniero("Gohan") >= 30){
-				throw new ExceptionVidaDeCompanierosPorEncimaDeLoPedido();
-			}
-		EstadoPiccoloProtector nuevoEstado = new EstadoPiccoloProtector();
-		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-		nuevoEstado.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
+	private void transformarEnPiccoloProtector(Piccolo piccolo) {
+		EstadoPiccoloProtector nuevoEstado = new EstadoPiccoloProtector(); 
 		piccolo.asignarEstado(nuevoEstado);
 	}
 
@@ -39,6 +38,22 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 50, 4);
 		this.ki -= 10;
+	}
+	
+	@Override
+	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
+		int distanciaHorizontal = Math.abs(piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 3 || distanciaVertical > 3){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		//this.piccolo.obtenerCoordenadas().vaciarCasillero();
+		coordenadaDestino.asignarPersonajeACasillero(piccolo);
+		this.ki += 5;
+		if(piccolo.verVidaDeGohan() < 90){
+			this.transformarEnPiccoloProtector(piccolo);
+		}
 	}
 	
 	@Override

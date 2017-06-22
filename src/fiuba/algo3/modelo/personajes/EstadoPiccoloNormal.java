@@ -7,11 +7,13 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 	private int ki = 0;
 	private int velocidad = 2;
 	private EstadoPiccolo estado = null;
-	
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 20 + 20*(piccolo.usarAumentoDeAtaque()), 2);
-		aumentarKi();
+		this.ki +=5;
+		if(piccolo.verVidaDeGohan() < 90){
+			this.transformarEnPiccoloProtector(piccolo);
+		}
 		this.transformar(piccolo);
 	}
 
@@ -22,6 +24,13 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 			nuevoEstado.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
 			piccolo.asignarEstado(nuevoEstado);
 		}
+	}
+
+	private void transformarEnPiccoloProtector(Piccolo piccolo) {
+		EstadoPiccoloProtector nuevoEstado = new EstadoPiccoloProtector();
+		piccolo.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+		nuevoEstado.asignarCoordenadas(piccolo, piccolo.obtenerCoordenadas());
+		piccolo.asignarEstado(nuevoEstado);
 	}
 
 	@Override
@@ -39,6 +48,24 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		oponente.recibirAtaqueDe(piccolo.obtenerCoordenadas(), 25, 2);
 		this.ki -= 10;
 	}
+
+	@Override
+	public void mover(Piccolo piccolo, Coordenada coordenadaDestino){
+		/*int distanciaHorizontal = Math.abs(this.piccolo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.piccolo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		this.piccolo.obtenerCoordenadas().vaciarCasillero();
+		this.piccolo.obtenerCoordenadas() = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(piccolo);
+		if(piccolo.verVidaDeGohan() < 90){
+			this.transformarEnPiccoloProtector(piccolo);
+		}
+		this.ki += 5;
+		this.transformar(piccolo);
+	*/}
 	
 	@Override
 	public void asignarCoordenadas(Piccolo piccolo, Coordenada coordenada) {
@@ -79,7 +106,8 @@ public class EstadoPiccoloNormal implements EstadoPiccolo {
 		aumentarKi();
 	}
 
-	private void aumentarKi() { 
-		ki = ki + 5;
+	private void aumentarKi() { ki = ki + 5;
+	if (ki == 20) estado = new EstadoPiccoloFortalecido();
 	}
+
 }

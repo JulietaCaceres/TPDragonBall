@@ -30,6 +30,20 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 	}
 	
 	@Override
+	public void mover(Goku goku, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(this.coordenada.obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(this.coordenada.obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 5 || distanciaVertical > 5){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		this.coordenada.vaciarCasillero();
+		this.coordenada = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(goku);
+		this.ki += 5;
+	}
+	
+	@Override
 	public void asignarCoordenadas(Goku goku, Coordenada coordenada) {
 		this.coordenada = coordenada;
 		coordenada.asignarPersonajeACasillero(goku);
@@ -54,17 +68,22 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 	}
 
     @Override
-    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva, aumento);
+	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
+		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
 	}
 
     @Override
-    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad*aumento)
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad*aumento))
+
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
+		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > velocidad) || (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > velocidad))
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
+    }
+
+    @Override
+    public void tomarNubeVoladora(EstadoNubeVoladora estadoNubeVoladora) {
+
     }
 
     private void aumentarKi() { ki = ki + 5;

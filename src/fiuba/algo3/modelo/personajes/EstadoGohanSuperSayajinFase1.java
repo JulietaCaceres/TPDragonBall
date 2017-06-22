@@ -7,13 +7,12 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 	private int ki = 0;
     private int velocidad = 2;
     private EstadoGohan estadoSiguiente = null;
-    
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30 + 30*(gohan.usarAumentoDeAtaque()), 2);
-		this.aumentarKi();
-		if(this.ki >= 30){
-			this.transformar(gohan);
+		this.ki += 5;
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
 		}
 	}
 
@@ -33,18 +32,32 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		this.ki -= 10;
 	}
 	
-	private void transformar(Gohan gohan) {
-		String[] companierosDeGohan = {"Goku", "Piccolo"};
-		double vidaDeCompanierosDeGohan[] = gohan.obtenerPorcentajeVidaDeCompanieros(companierosDeGohan);
-		for(int i = 0; i<vidaDeCompanierosDeGohan.length; i++){
-			if(vidaDeCompanierosDeGohan[i] >= 30){
-				throw new ExceptionVidaDeCompanierosPorEncimaDeLoPedido();
-			}
+	public void transformarEnSuperSayajin2(Gohan gohan) {
+		if (this.ki >= 30){
+				EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
+				gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+				nuevaForma.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
+				gohan.asignarEstado(nuevaForma);
+				this.ki -= 30;
+			estadoSiguiente = new EstadoGohanSuperSayajinFase2();
+			this.ki -= 30;
 		}
-		EstadoGohanSuperSayajinFase2 nuevoEstado = new EstadoGohanSuperSayajinFase2();
-		gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-		nuevoEstado.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
-		gohan.asignarEstado(nuevoEstado);
+	}
+	
+	@Override
+	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		//this.gohan.obtenerCoordenadas().vaciarCasillero();
+		//this.gohan.obtenerCoordenadas() = coordenadaDestino;
+		this.ki += 5;
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}
 	}
 
 	@Override
@@ -72,7 +85,7 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
     @Override
 	public void cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-    	cambiarCoordenadasConEstadoActual(coordenadaActual,coordenadaNueva);
+
 	}
 
     @Override
@@ -83,7 +96,6 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		aumentarKi();
     }
 
-    private void aumentarKi(){
-    	ki = ki + 5;
+    private void aumentarKi() { ki = ki + 5;
 	}
 }

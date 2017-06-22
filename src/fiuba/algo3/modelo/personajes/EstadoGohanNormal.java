@@ -12,6 +12,9 @@ public class EstadoGohanNormal implements EstadoGohan {
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15 + 15*(gohan.usarAumentoDeAtaque()), 2);
 		this.ki += 5;
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}
 		this.transformar(gohan);
 	}
 	
@@ -39,6 +42,33 @@ public class EstadoGohanNormal implements EstadoGohan {
 			throw new ExceptionAtaqueEspecial();
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15*125/100 + 15*125/100*(gohan.usarAumentoDeAtaque()), 2);
 		this.ki -= 10;
+	}
+
+	public void transformarEnSuperSayajin2(Gohan gohan) {
+		if (this.ki >= 30){
+			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
+			gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
+			nuevaForma.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
+			gohan.asignarEstado(nuevaForma);
+			this.ki -= 30;
+		}
+	}
+	
+	@Override
+	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 2 || distanciaVertical > 2){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		gohan.obtenerCoordenadas().vaciarCasillero();
+		//gohan.obtenerCoordenadas() = coordenadaDestino;
+		this.ki += 5;
+		this.transformar(gohan);
+		if((gohan.obtenerVidaDeGoku() < 150) && (gohan.obtenerVidaDePiccolo() < 150)){
+			this.transformarEnSuperSayajin2(gohan);
+		}
 	}
 
 	@Override
@@ -77,11 +107,13 @@ public class EstadoGohanNormal implements EstadoGohan {
 			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
 		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
 		aumentarKi();
+
 	}
 
-    private void aumentarKi(){
-    	ki = ki + 5;
-	    if (ki == 10) estadoSiguiente = new EstadoGohanSuperSayajinFase1();
+    private void aumentarKi() {
+
+		ki = ki + 5;
+	   if (ki == 10) estadoSiguiente = new EstadoGohanSuperSayajinFase1();
 	}
 
 

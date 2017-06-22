@@ -2,6 +2,7 @@ package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
 import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGokuChocolate implements EstadoGoku {
@@ -18,7 +19,16 @@ public class EstadoGokuChocolate implements EstadoGoku {
 		}
 		this.convertir(goku);
 	}
-	
+
+	@Override
+	public void mover(Goku goku, Coordenada coordenadaFinal) {
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		this.convertir(goku);
+	}
+
 	@Override
 	public void recibirDanio(Goku goku, double danio) {
 		if(danio < 20){
@@ -60,15 +70,20 @@ public class EstadoGokuChocolate implements EstadoGoku {
 	}
 
     @Override
-    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada, int aumento) {
-		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenada, aumento);
+    public void cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada) {
+		cambiarCoordenadasConEstadoActual(coordenadaActual,coordenada);
     }
 
     @Override
-    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva, int aumento) {
+    public void cambiarCoordenadasConEstadoActual(Coordenada coordenadaActual, Coordenada coordenadaNueva) {
 		turnos--;
 		if(turnos > 0){
 			throw new GuerreroZConvertidoEnChocolateException();
 		}
     }
+
+	@Override
+	public void tomarNubeVoladora(EstadoNubeVoladora estadoNubeVoladora) {
+
+	}
 }

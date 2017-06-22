@@ -33,6 +33,15 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 		}
 		this.convertir(piccolo);
 	}
+
+	@Override
+	public void mover(Piccolo piccolo , Coordenada coordenadaFinal){
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		this.convertir(piccolo);
+	}
 	
 	@Override
 	public void convertir(Piccolo piccolo) {

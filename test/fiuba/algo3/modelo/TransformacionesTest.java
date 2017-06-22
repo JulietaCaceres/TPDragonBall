@@ -8,13 +8,11 @@ import org.junit.Test;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.Tablero;
 import fiuba.algo3.modelo.personajes.Cell;
-import fiuba.algo3.modelo.personajes.ExceptionVidaDeCompanierosPorEncimaDeLoPedido;
 import fiuba.algo3.modelo.personajes.Freezer;
 import fiuba.algo3.modelo.personajes.Gohan;
 import fiuba.algo3.modelo.personajes.Goku;
 import fiuba.algo3.modelo.personajes.GuerreroZConvertidoEnChocolateException;
 import fiuba.algo3.modelo.personajes.MajinBoo;
-import fiuba.algo3.modelo.personajes.Personaje;
 import fiuba.algo3.modelo.personajes.Piccolo;
 
 public class TransformacionesTest {
@@ -58,9 +56,9 @@ public class TransformacionesTest {
         majinBoo.atacar(goku);
         majinBoo.atacar(goku);
         //Majin Boo se transforma en Majin Boo Malo, con velocidad 3
-        majinBoo.cambiarCoordenadas(tablero.obtenerCoordenada(5, 5));
+        majinBoo.mover(tablero.obtenerCoordenada(5, 5));
 
-        assertEquals(5,majinBoo.obtenerCoordenadas().obtenerFila());
+        assertTrue(tablero.obtenerCoordenada(5, 5).obtenerCasillero().ocupado());
     }
 
    @Test(expected = GuerreroZConvertidoEnChocolateException.class)
@@ -103,9 +101,9 @@ public class TransformacionesTest {
     	Goku goku = new Goku();
     	Cell cell = new Cell();
     	Gohan gohan = new Gohan();
-    	Personaje guerreros [] = {goku,gohan,piccolo};
-    	
-    	gohan.asignarReferenciaAEquipo(guerreros);
+
+    	gohan.referenciarAGoku(goku);
+    	gohan.referenciarAPiccolo(piccolo);
 
     	Coordenada coordenadaInicialCell = new Coordenada(5, 5);
     	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
@@ -122,106 +120,27 @@ public class TransformacionesTest {
     	}
 
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),488, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),476, 0);
     	//Ahora Gohan es Super Sayajin Fase 1
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),446, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),416, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),386, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),356, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),326, 0);
     	gohan.atacar(cell);
+    	assertEquals(cell.obtenerPuntosDeVida(),296, 0);
     	//Ahora Gohan es Super Sayajin Fase 2
   		gohan.atacar(cell);
     	assertEquals(cell.obtenerPuntosDeVida(),196, 0);
     }
-    
-    @Test
-    public void ubicarAGohanPiccoloYFreezerYHacerQuePiccoloLlegueALaSegundaTransformacion(){
-    	Piccolo piccolo = new Piccolo();
-    	Freezer freezer = new Freezer();
-    	Gohan gohan = new Gohan();
-    	Personaje guerreros [] = {gohan,piccolo};
-    	
-    	piccolo.asignarReferenciaAEquipo(guerreros);
 
-    	Coordenada coordenadaInicialFreezer = new Coordenada(5, 5);
-    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
-    	Coordenada coordenadaInicialGoku = new Coordenada(4, 4);
-    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
-    	freezer.asignarCoordenadas(coordenadaInicialFreezer);
-    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
-    	gohan.asignarCoordenadas(coordenadaInicialGohan);
-    	
-    	for(int i = 1; i<=19;i++){
-    		freezer.atacar(gohan);
-    	}
-
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	//Ahora Piccolo esta en estado Fortalecido
-    	piccolo.atacar(freezer);
-    	//Ahora Piccolo esta en estado Protector
-    	piccolo.atacar(freezer);
-    	assertEquals(freezer.obtenerPuntosDeVida(),220, 0);
-    }
-    
-    @Test (expected = ExceptionVidaDeCompanierosPorEncimaDeLoPedido.class)
-    public void test15ubicarALosGuerrerosZACellYVerQueGohanNoLlegaALaSegundaTransformacion(){
-    	Piccolo piccolo = new Piccolo();
-    	Goku goku = new Goku();
-    	Cell cell = new Cell();
-    	Gohan gohan = new Gohan();
-    	Personaje guerreros [] = {goku,gohan,piccolo};
-    	
-    	gohan.asignarReferenciaAEquipo(guerreros);
-
-    	Coordenada coordenadaInicialCell = new Coordenada(5, 5);
-    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
-    	Coordenada coordenadaInicialGoku = new Coordenada(4, 4);
-    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
-    	cell.asignarCoordenadas(coordenadaInicialCell);
-    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
-    	gohan.asignarCoordenadas(coordenadaInicialGohan);
-    	goku.asignarCoordenadas(coordenadaInicialGoku);
-
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	//Ahora Gohan es Super Sayajin Fase 1
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	gohan.atacar(cell);
-    	//Ahora Gohan trata de convertirse en Super Sayajin 2
-  		gohan.atacar(cell);
-    }
-    
-    @Test (expected = ExceptionVidaDeCompanierosPorEncimaDeLoPedido.class)
-    public void ubicarAGohanPiccoloYFreezerYVerQuePiccoloNoLlegaALaSegundaTransformacion(){
-    	Piccolo piccolo = new Piccolo();
-    	Freezer freezer = new Freezer();
-    	Gohan gohan = new Gohan();
-    	Personaje guerreros [] = {gohan,piccolo};
-    	
-    	piccolo.asignarReferenciaAEquipo(guerreros);
-
-    	Coordenada coordenadaInicialFreezer = new Coordenada(5, 5);
-    	Coordenada coordenadaInicialPiccolo = new Coordenada(5, 4);
-    	Coordenada coordenadaInicialGohan = new Coordenada(4, 5);
-    	freezer.asignarCoordenadas(coordenadaInicialFreezer);
-    	piccolo.asignarCoordenadas(coordenadaInicialPiccolo);
-    	gohan.asignarCoordenadas(coordenadaInicialGohan);
-
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	piccolo.atacar(freezer);
-    	//Ahora Piccolo esta en estado Fortalecido
-    	piccolo.atacar(freezer);
-    }
 
     @Test
     public void test20GokuLlegaASuSegundaTransformacion(){
@@ -263,4 +182,5 @@ public class TransformacionesTest {
     	goku.atacar(cell);
     	assertEquals(cell.obtenerPuntosDeVida(),60, 0);
     }
+
 }

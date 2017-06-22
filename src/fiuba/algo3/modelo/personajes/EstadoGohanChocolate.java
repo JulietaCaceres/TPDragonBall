@@ -35,6 +35,16 @@ public class EstadoGohanChocolate implements EstadoGohan {
 	}
 
 	@Override
+	public void mover(Gohan gohan, Coordenada coordenadaDestino) {
+		
+		turnos--;
+		if(turnos > 0){
+			throw new GuerreroZConvertidoEnChocolateException();
+		}
+		this.convertir(gohan);
+	}
+
+	@Override
 	public void convertir(Gohan gohan) {
 		EstadoGohan formaNormal = new EstadoGohanNormal();
 		gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();

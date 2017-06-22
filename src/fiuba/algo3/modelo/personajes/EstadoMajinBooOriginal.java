@@ -29,6 +29,20 @@ public class EstadoMajinBooOriginal implements EstadoMajinBoo {
 	}
 	
 	@Override
+	public void mover(MajinBoo majinBoo, Coordenada coordenadaDestino) {
+		int distanciaHorizontal = Math.abs(majinBoo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(majinBoo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 4 || distanciaVertical > 4){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		majinBoo.obtenerCoordenadas().vaciarCasillero();
+		//majinBoo.obtenerCoordenadas() = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(majinBoo);
+		this.ki += 5;
+	}
+
+	@Override
 	public void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada) {
 		//majinBoo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(majinBoo);

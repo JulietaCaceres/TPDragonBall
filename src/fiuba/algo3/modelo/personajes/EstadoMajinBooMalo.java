@@ -39,6 +39,21 @@ public class EstadoMajinBooMalo implements EstadoMajinBoo {
 	}
 
 	@Override
+	public void mover(MajinBoo majinBoo, Coordenada coordenadaDestino){
+		int distanciaHorizontal = Math.abs(majinBoo.obtenerCoordenadas().obtenerColumna() - coordenadaDestino.obtenerColumna());
+		int distanciaVertical = Math.abs(majinBoo.obtenerCoordenadas().obtenerFila() - coordenadaDestino.obtenerFila());
+		
+		if(distanciaHorizontal > 3 || distanciaVertical > 3){
+			throw new ExceptionCantidadDeCasillerosSuperaVelocidad();
+		}
+		//this.majinBoo.obtenerCoordenadas().vaciarCasillero();
+		//this.majinBoo.obtenerCoordenadas() = coordenadaDestino;
+		coordenadaDestino.asignarPersonajeACasillero(majinBoo);
+		this.ki += 5;
+		this.transformar(majinBoo);
+	}
+
+	@Override
 	public void asignarCoordenadas(MajinBoo majinBoo, Coordenada coordenada) {
 		//this.majinBoo.obtenerCoordenadas() = coordenada;
 		coordenada.asignarPersonajeACasillero(majinBoo);

@@ -11,18 +11,12 @@ public abstract class Personaje {
 	protected Coordenada coordenada;
 	protected int velocidad;
 	private Consumible consumible;
-	protected Personaje[] companieros;
-	
-	public String obtenerNombre(){
-		return this.nombre;
-	}
 
 	public void asignarCoordenadas(Coordenada unaCoordenada){
 		if(unaCoordenada.obtenerCasillero().ocupado())
-			throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
+        throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
 		coordenada = unaCoordenada;
 		coordenada.obtenerCasillero().asignarPersonaje(this);
-		this.tomarConsumibleDe(unaCoordenada.obtenerCasillero());
 	}
 	
 	public void tomarConsumibleDe(Casillero casillero) {
@@ -35,6 +29,8 @@ public abstract class Personaje {
 			this.consumible.aplicarEfecto(this);
 		}
 	}
+
+	public abstract void mover(Coordenada coordenada);
 
 	public Coordenada obtenerCoordenadas(){
 		return this.coordenada;
@@ -67,51 +63,9 @@ public abstract class Personaje {
 	public void gastarEsferaDelDragon(){
 			this.estadoEsferaDragon = null;	
 	}
-	
-	public int usarAumentoDeVelocidad() {
-		int aumento = 1;
-		if(this.estadoNubeVoladora!= null){
-			aumento = this.estadoNubeVoladora.obtenerAumentoDeVelocidad(this);
-		}
-		return aumento;
-	}
-	
-	public void gastaNubeVoladora(){
-		this.estadoNubeVoladora = null;		
-	}
 
-	public void tomarNubeVoladora() {
-		this.estadoNubeVoladora = new EstadoNubeVoladora();
-	}
+	public abstract void tomarNubeVoladora();
 
 	public abstract void cambiarCoordenadas(Coordenada coordenadaNueva);
 
-	public void asignarReferenciaAEquipo(Personaje[] companieros) {
-		this.companieros = companieros;
-		
 	}
-	
-	public double[] obtenerPorcentajeVidaDeCompanieros(String[] nombreDeCompanieros){
-	   double vida[] = new double[nombreDeCompanieros.length];
-	   int j=0;
-	   for(int i = 0; i<this.companieros.length; i++){
-		   if(this.companieros[i].obtenerNombre() == nombreDeCompanieros[j]){
-			   vida[j] = this.companieros[i].porcentajeDeVida();
-			   j++;
-		   }
-	   }			   
-	   return vida;
-	}
-	
-	protected double obtenerPorcentajeVidaDeCompaniero(String nombreDeCompaniero){
-		double vida = 0;
-		for(int i = 0; i<this.companieros.length; i++){
-		   if(this.companieros[i].obtenerNombre() == nombreDeCompaniero){
-			   vida = this.companieros[i].porcentajeDeVida();
-		   }
-		}			   
-		return vida;
-	}
-	
-	public abstract double porcentajeDeVida();
-}

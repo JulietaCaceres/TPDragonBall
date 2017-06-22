@@ -1,8 +1,5 @@
 package fiuba.algo3.modelo.personajes;
-import fiuba.algo3.modelo.juego.Coordenada;
-import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
-import fiuba.algo3.modelo.juego.GuerrerosZ;
+import fiuba.algo3.modelo.juego.*;
 
 public class Goku extends Personaje implements GuerrerosZ{
 	
@@ -62,13 +59,24 @@ public class Goku extends Personaje implements GuerrerosZ{
 		this.estado = nuevoEstado;
 	}
 
-    @Override
-    public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
-		estado.cambiarCoordenadas(coordenada, nuevaCoordenada, this.usarAumentoDeVelocidad());
-    }
-    
-    @Override
-	public double porcentajeDeVida() {
-		return this.puntosDeVida*100/500;
+	@Override
+	public void mover(Coordenada coordenada) {
+		estado.mover(this, coordenada);
+		tomarConsumibleDe(coordenada.obtenerCasillero());
 	}
+
+	@Override
+	public void tomarNubeVoladora() {
+
+			estadoNubeVoladora = new EstadoNubeVoladora();
+			estado.tomarNubeVoladora(estadoNubeVoladora);
+
+	}
+
+	@Override
+    public void cambiarCoordenadas(Coordenada nuevaCoordenada) {
+		estado.cambiarCoordenadas(coordenada, nuevaCoordenada);
+    }
+
+
 }
