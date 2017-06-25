@@ -1,16 +1,14 @@
 package juego;
 
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Partida {
 
-	private LinkedList<Turno> turnos;
+	private Turno turnoActual;
 	private Tablero tablero;
 
 	public Partida() {
 		this.tablero = new Tablero();
-		this.turnos = new LinkedList<Turno>();
 	}
 
 	public void iniciarPartida() {
@@ -31,12 +29,18 @@ public class Partida {
 		this.tablero.inicializarTablero(goku, gohan, piccolo, cell, majinboo, freezer);
 		Random random = new Random();
 		if (random.nextBoolean())
-			this.turnos.add(new Turno(GuerrerosZ));
+			this.turnoActual = new Turno(GuerrerosZ, EnemigosDeLaTierra);
 		else
-			this.turnos.add(new Turno(EnemigosDeLaTierra));
+			this.turnoActual = new Turno(EnemigosDeLaTierra, GuerrerosZ);
+		while (!this.turnoActual.jugadorGano())
+			this.turnoActual.jugar();
 	}
 
 	public Tablero obtenerTablero() {
 		return this.tablero;
+	}
+
+	public Turno obtenerTurno() {
+		return this.turnoActual;
 	}
 }
