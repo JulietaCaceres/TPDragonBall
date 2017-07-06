@@ -94,7 +94,7 @@ public class TableroTest {
     public void creoUnTableroYObtengoUnaCoordenadaVacia(){
 
         Tablero tablero = new Tablero();
-        Coordenada coordenadaVacia = tablero.obtenerCoordenada(31,31);
+        Coordenada coordenadaVacia = tablero.obtenerCoordenada(0,0);
         assertTrue(coordenadaVacia.obtenerCasillero().obtenerContenido().esVacio());
     }
 }

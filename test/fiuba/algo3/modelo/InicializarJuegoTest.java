@@ -29,9 +29,9 @@ public class InicializarJuegoTest {
         Casillero casillero1 = tablero.obtenerCasillero(2,0);
         Casillero casillero2 = tablero.obtenerCasillero(1,1);
         Casillero casillero3 = tablero.obtenerCasillero(0,2);
-        Casillero casillero4 = tablero.obtenerCasillero(31,29);
-        Casillero casillero5 = tablero.obtenerCasillero(30,30);
-        Casillero casillero6 = tablero.obtenerCasillero(29,31);
+        Casillero casillero4 = tablero.obtenerCasillero(7,5);
+        Casillero casillero5 = tablero.obtenerCasillero(6,6);
+        Casillero casillero6 = tablero.obtenerCasillero(5,7);
         boolean posicionCorrecta = (casillero1.ocupado() && casillero2.ocupado() && casillero3.ocupado()
                                      && casillero4.ocupado() && casillero5.ocupado() && casillero6.ocupado());
        assertTrue(posicionCorrecta);
