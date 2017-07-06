@@ -1,10 +1,9 @@
 package fiuba.algo3.modelo;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
 import fiuba.algo3.modelo.personajes.*;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;

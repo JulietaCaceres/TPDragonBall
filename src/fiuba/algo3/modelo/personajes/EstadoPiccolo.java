@@ -18,10 +18,18 @@ public interface EstadoPiccolo {
 
 	void convertir(Piccolo piccolo);
 
-    EstadoPiccolo cambiarCoordenadas(Piccolo piccolo ,Coordenada coordenadaNueva);
+    EstadoPiccolo cambiarCoordenadas(Piccolo piccolo, Coordenada coordenadaNueva);
 
 
 	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 
 	void referenciarAGogan(GuerrerosZ gohan);
+
+    String obtenerDireccionDeImagen();
+
+    double obtenerAtaque(Piccolo piccolo);
+
+    int obtenerDistanciaDeAtaque();
+
+	int obtenerVelocidad();
 }

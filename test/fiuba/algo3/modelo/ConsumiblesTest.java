@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
 import org.junit.Test;
 
 import fiuba.algo3.modelo.personajes.Cell;
@@ -75,6 +76,7 @@ public class ConsumiblesTest {
 		Tablero tablero = new Tablero();
 		tablero.ubicarPersonaje(majunia,1,1);
 		tablero.ubicarPersonaje(cell,1,2);
+		Coordenada unaCoordenada = tablero.obtenerCoordenada(2,2);
 		SemillaDelErmitanio semilla = new SemillaDelErmitanio();
 		tablero.obtenerCasillero(2,2).asignarConsumible(semilla);
 		cell.atacar(majunia);

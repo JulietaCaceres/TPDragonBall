@@ -1,12 +1,18 @@
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoMajinBooMalo implements EstadoMajinBoo {
 	
 	private int ki = 0;
-
+    private String direccionDeImagen;
     private int velocidad = 3;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+
+	public EstadoMajinBooMalo(){
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/majinBoo2.jpg";
+	}
 	@Override
 	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(majinBoo.obtenerCoordenadas(),50 + 50*(majinBoo.usarAumentoDeAtaque()), 2);
@@ -61,19 +67,29 @@ public class EstadoMajinBooMalo implements EstadoMajinBoo {
 		majinBoo.obtenerCoordenadas().cambiarCoordenadas(coordenadaNueva);
 		return aumentarKi();
 	}
-
-/*	@Override
-    public EstadoMajinBoo cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-	   return aumentarKi();
-	}
-*/
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		 nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+	@Override
+	public String obtenerDireccionDePersonaje() {
+		return direccionDeImagen;
+	}
+
+    @Override
+    public double obtenerAtaque(MajinBoo majinBoo) {
+        return 50 + 50*(majinBoo.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 2;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return velocidad;
     }
 
     private EstadoMajinBoo aumentarKi() {

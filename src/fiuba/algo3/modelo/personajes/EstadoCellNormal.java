@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoCellNormal implements EstadoCell {
 
@@ -9,18 +11,23 @@ public class EstadoCellNormal implements EstadoCell {
 	private int velocidad = 2;
 	private EstadoCell estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
-	
+	private String direccionDeImagen;
+
+	public EstadoCellNormal ()
+	{ direccionDeImagen = "file:src/fiuba/algo3/vista/images/Cell.jpg";
+	}
+
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),20 + 20*(cell.usarAumentoDeAtaque()), 3);
-		this.ki += 5;
+	oponente.recibirAtaqueDe(cell.obtenerCoordenadas(), 20 + 20 * (cell.usarAumentoDeAtaque()), 3);
+  	this.ki += 5;
 	}
 	
 	@Override
 	public void recibirDanio(Cell cell, double danio) {
-		//if(danio < 20){
-		//	danio = danio*80/100;
-		//}
+		if(danio < 20){
+			danio = danio*80/100;
+		}
 		cell.disminuirPuntosDeVidaEn(danio);		
 	}
 
@@ -74,22 +81,29 @@ public class EstadoCellNormal implements EstadoCell {
 
 	}
 
-	/*@Override
-    public EstadoCell cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-        aumentarKi();
-        if (cantidadDeAbsorciones == 4 ) return new EstadoCellSemiPerfecto();
-        return this;
-
-	}
-*/
-
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Cell cell) {
+        return 20 + 20 * (cell.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 3;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 3;
     }
 
     private void  aumentarKi() {

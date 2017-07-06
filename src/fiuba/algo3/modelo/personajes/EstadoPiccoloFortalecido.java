@@ -1,14 +1,21 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 	
 	private int ki = 0;
     private int velocidad = 3;
 	private EstadoPiccolo estadoSiguiente;
-	private EstadoNubeVoladora nubeVoladora;
+	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
 	private GuerrerosZ referenciaAGohan;
+	private String direccionDeImagen;
+
+	public EstadoPiccoloFortalecido(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/PiccoloFortalecido.jpg";
+	}
 
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
@@ -99,7 +106,28 @@ public class EstadoPiccoloFortalecido implements EstadoPiccolo {
 		referenciaAGohan  = gohan;
 	}
 
-	private void aumentarKi() {
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+
+	@Override
+    public double obtenerAtaque(Piccolo piccolo) {
+        return 40 + 40*(piccolo.usarAumentoDeAtaque()) ;
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return velocidad;
+    }
+
+    private void aumentarKi() {
 		ki = ki + 5;
 	}
 }

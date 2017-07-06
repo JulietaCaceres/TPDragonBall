@@ -1,13 +1,18 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 
 	private int ki = 0;
-
+    private String direccionDeImagen;
 	private int velocidad = 2;
 
+	public EstadoGohanSuperSayajinFase2(){
+		direccionDeImagen =   "file:src/fiuba/algo3/vista/images/GohanSuper2.jpg";
+	}
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
@@ -63,15 +68,7 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 		asignarCoordenadas(gohan,coordenadaNueva);
 		return aumentarKi();
 		}
-/*
-    @Override
-    public EstadoGohan cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-      return aumentarKi();	}
-*/
+
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		this.nubeVoladora = unaNubeVoladora.iniciarNube();
@@ -87,7 +84,27 @@ public class EstadoGohanSuperSayajinFase2 implements EstadoGohan {
 
 	}
 
-	private EstadoGohan aumentarKi() {
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Gohan gohan) {
+        return 100 + 100*(gohan.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 3;
+    }
+
+    private EstadoGohan aumentarKi() {
 		ki = ki + 5;
 		return this;
 

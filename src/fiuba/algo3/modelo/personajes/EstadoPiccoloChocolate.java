@@ -1,10 +1,16 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoPiccoloChocolate implements EstadoPiccolo {
 
 	private int turnos = 3;
+	private String direccionDeImagen;
+
+	public EstadoPiccoloChocolate(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/chocolate.jpg";
+	}
 
 	@Override
 	public void atacar(Piccolo piccolo, EnemigosDeLaTierra oponente) {
@@ -64,6 +70,27 @@ public class EstadoPiccoloChocolate implements EstadoPiccolo {
 	public void referenciarAGogan(GuerrerosZ gohan) {
 
 	}
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+	@Override
+	public double obtenerAtaque(Piccolo piccolo) {
+		return 0;
+	}
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 0;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 0;
+    }
+
 
     @Override
     public EstadoPiccolo cambiarCoordenadas(Piccolo piccolo, Coordenada coordenadaNueva) {

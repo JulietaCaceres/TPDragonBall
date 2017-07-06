@@ -1,17 +1,21 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 
 	private int ki = 0;
     private int velocidad = 2;
-
-    
-	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+    private String direccionDeImagen;
+   	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
 	private GuerrerosZ referenciaAGoku;
 	private GuerrerosZ referenciaAPiccolo;
 
+    public EstadoGohanSuperSayajinFase1(){
+    	direccionDeImagen =  "file:src/fiuba/algo3/vista/images/GohaSuperFase1.jpg";
+	}
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 30 + 30*(gohan.usarAumentoDeAtaque()), 2);
@@ -35,17 +39,7 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		this.ki -= 10;
 	}
 	
-	private boolean vidaDeCompanierosMenorA30PorCiento(Gohan gohan){
-		boolean todosMenorATreinta = true;
-		String nombresCompanieros[] = {"Goku", "Piccolo"};
-		double vidaDeCompanieros[] = gohan.obtenerPorcentajeVidaDeCompanieros(nombresCompanieros);
-		for (int i = 0; i< vidaDeCompanieros.length; i++){
-			if(vidaDeCompanieros[i] > 30){
-				todosMenorATreinta = false;
-			}
-		}
-		return todosMenorATreinta;
-	}
+
 	
 	private void transformarEnSuperSayajin2(Gohan gohan) {
 		if (this.ki >= 30 && this.vidaDeCompanierosMenorA30PorCiento()){
@@ -86,17 +80,7 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		return aumentarKi();
 
 	}
-/*
-    @Override
-    public EstadoGohan cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-        return aumentarKi();
 
-	}
-*/
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		nubeVoladora = unaNubeVoladora.iniciarNube();
@@ -112,7 +96,27 @@ public class EstadoGohanSuperSayajinFase1 implements EstadoGohan {
 		referenciaAPiccolo = piccolo;
 	}
 
-	private EstadoGohan aumentarKi() {
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Gohan gohan) {
+        return 30 + 30*(gohan.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 2;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 2;
+    }
+
+    private EstadoGohan aumentarKi() {
 		ki = ki + 5;
 	  if ((ki >= 10) && (vidaDeCompanierosMenorA30PorCiento()))return new EstadoGohanSuperSayajinFase2();
       return this;

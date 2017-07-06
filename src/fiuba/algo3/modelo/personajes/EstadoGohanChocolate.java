@@ -1,10 +1,15 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanChocolate implements EstadoGohan {
 	private int turnos = 3;
+    private String direccionDeImagen;
 
+    public EstadoGohanChocolate(){
+    	direccionDeImagen =  "file:src/fiuba/algo3/vista/images/chocolate.jpg";
+	}
 	
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
@@ -50,16 +55,6 @@ public class EstadoGohanChocolate implements EstadoGohan {
 		return this;
 	}
 
-/*	@Override
-    public EstadoGohan cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenadaFutura) {
-
-		turnos--;
-		if(turnos > 0){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-		return this;
-    }
-*/
 
     @Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
@@ -90,4 +85,24 @@ public class EstadoGohanChocolate implements EstadoGohan {
 	public void referenciarAPiccolo(GuerrerosZ piccolo) {
 
 	}
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Gohan gohan) {
+        return 0;
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 0;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 0;
+    }
 }

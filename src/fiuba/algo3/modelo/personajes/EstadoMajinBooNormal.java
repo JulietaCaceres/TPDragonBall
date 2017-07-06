@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoMajinBooNormal implements EstadoMajinBoo {
 
@@ -8,9 +10,14 @@ public class EstadoMajinBooNormal implements EstadoMajinBoo {
 
     private int velocidad = 2;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+	private String direccionDeImagen;
+
+	public EstadoMajinBooNormal(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/MajinBoo.jpg";
+	}
 	@Override
 	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(majinBoo.obtenerCoordenadas(),30 + 30*(majinBoo.usarAumentoDeAtaque()), 2);
+		oponente.recibirAtaqueDe(majinBoo.obtenerCoordenadas(), 30 + 30 * (majinBoo.usarAumentoDeAtaque()), 2);
 		this.ki += 5;
 		this.transformar(majinBoo);
 	}
@@ -64,19 +71,30 @@ public class EstadoMajinBooNormal implements EstadoMajinBoo {
 		asignarCoordenadas(majinBoo,coordenadaNueva);
 		return aumentarKi();
 	}
-/*
-	@Override
-    public EstadoMajinBoo cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();
-	}
-*/
+
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDePersonaje() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(MajinBoo majinBoo) {
+        return 30 * (majinBoo.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 2;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return velocidad;
     }
 
     private EstadoMajinBoo aumentarKi() {

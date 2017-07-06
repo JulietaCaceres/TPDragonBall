@@ -9,13 +9,16 @@ public class Juego {
 
 	private Turno turno;
 	private Partida partida;
-    private Tablero tablero;
 	private Jugador jugadorGuerrero;
 	private ArrayList<GuerrerosZ> guerreros;
 	private ArrayList<EnemigosDeLaTierra> enemigos;
+	protected Tablero tablero;
+	private static Juego instance = null;
+
+
 	public Juego(String guerrerosZ, String enemigosTierra) {
 		jugadorGuerrero = new Jugador(guerrerosZ, enemigosTierra);
-		tablero = new Tablero();
+		tablero = Tablero.getTablero();
 		guerreros = new ArrayList<GuerrerosZ>();
 		enemigos = new ArrayList<EnemigosDeLaTierra>();
 		Goku goku = new Goku();
@@ -33,32 +36,38 @@ public class Juego {
 		jugadorGuerrero.asignarEquipo(guerreros,enemigos);
 		jugadorGuerrero.asignarEquipoEnemigo(enemigos);
 		turno = new Turno(jugadorGuerrero);
+
 	}
 
-    public void iniciarPartida(){ 
-    	partida = new Partida(jugadorGuerrero,tablero);
-    }
 
-    public void iniciarTablero() { 
-    	partida.iniciarTablero();
+    public void iniciarTablero() {
+
     	turno.iniciarTablero(tablero);
     }
 
-    public void iniciarJuego(){
-    	/*iniciarPartida();
-    	iniciarTablero();
-    	while (!turno.ganoJugador()){
-    		turno.cambiarJugador();
-    		turno.jugadorActualJugar(tablero);
-		}*/
-	}
+	public void moverPersonaje(Equipo unPersonaje, int fila, int columna) {turno.moverPersonaje(unPersonaje,fila,columna);}
 
-	public Tablero obtenerTablero()
+	public void atacarConPersonajeA(Equipo personajeAtacante, Equipo personajeAtacado) { turno.atacarConPersonajeA(personajeAtacante, personajeAtacado);}
+
+		public Tablero obtenerTablero()
 	{
-		return partida.obtnerTablero();
+		return obtenerTurno().obtenerTablero();
 	}
 
+	public static Juego obtenerJuego(){
+		if (Juego.instance == null){
+			Juego.instance = new Juego("jugador1","jugador2");
+		}
+		return Juego.instance;
+	}
 
+	public Turno obtenerTurno(){
+		return turno;
+	}
+
+	public Jugador obtenerJugadorGuerrero(){return turno.obtenerJugadorGuerrero();}
+
+	public Jugador obtenerJugadorEnemigo(){return  turno.obtenerJugadorEnemigo();}
 }
 
 

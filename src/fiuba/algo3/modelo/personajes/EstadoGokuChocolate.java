@@ -3,13 +3,18 @@ package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
-import fiuba.algo3.modelo.juego.ExceptionNoAlcanzaAlOponente;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class
 EstadoGokuChocolate implements EstadoGoku {
 	
 	private int turnos = 3;
-	
+	private String direccionDeImagen;
+
+	public EstadoGokuChocolate(){
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/chocolate.jpg";
+	}
+
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		turnos--;
@@ -67,19 +72,31 @@ EstadoGokuChocolate implements EstadoGoku {
 		}
 		return new EstadoGokuNormal();
     }
-/*
-    @Override
-    public EstadoGoku cambiarCoordenadas(Coordenada coordenadaActual, Coordenada coordenada) {
-		turnos--;
-		if(turnos > 0){
-			throw new GuerreroZConvertidoEnChocolateException();
-		}
-       return new EstadoGokuNormal();
-	}
-*/
+
 
 	@Override
 	public void tomarNubeVoladora(EstadoNubeVoladora estadoNubeVoladora) {
 
 	}
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+
+	@Override
+    public double obtenerAtaque(Goku goku) {
+        return 0;
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 0;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 0;
+    }
 }

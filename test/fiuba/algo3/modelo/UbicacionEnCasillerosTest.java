@@ -2,7 +2,8 @@ package fiuba.algo3.modelo;
 
 import static org.junit.Assert.assertTrue;
 
-import fiuba.algo3.modelo.juego.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
+import fiuba.algo3.modelo.juego.Coordenada;
+import fiuba.algo3.modelo.juego.excepciones.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
 import org.junit.Test;
 
 import fiuba.algo3.modelo.juego.Casillero;
@@ -15,7 +16,8 @@ public class UbicacionEnCasillerosTest {
     @Test
     public void test00ubicoUnPersonajeEnUnCasilleroVerificoCasilleroOcupado() {
         Goku unPersonaje = new Goku();
-        Casillero unCasillero = new Casillero();
+        Coordenada coordenada = new Coordenada(2,2);
+        Casillero unCasillero = new Casillero(coordenada);
         unCasillero.asignarPersonaje(unPersonaje);
         assertTrue(unCasillero.ocupado());
     }
@@ -23,9 +25,11 @@ public class UbicacionEnCasillerosTest {
     @Test
     public void test01seMueveAGokuAUnCasilleroEncontradoAUnaVelocidadAcordeASuModoYSeVerificaQueElCasilleroQuedeOcupado(){
         Goku goku = new Goku();
-        Casillero casilleroInicial = new Casillero();
+        Coordenada coordenada = new Coordenada(2,2);
+        Casillero casilleroInicial = new Casillero(coordenada);
         casilleroInicial.asignarPersonaje(goku);
-        Casillero casilleroFinal = new Casillero();
+        Coordenada otraCoordenada = new Coordenada(2,3);
+        Casillero casilleroFinal = new Casillero(otraCoordenada);
         casilleroFinal.asignarPersonaje(goku);
         assertTrue(casilleroFinal.ocupado());
     }

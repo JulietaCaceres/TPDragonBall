@@ -1,17 +1,25 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoCellSemiPerfecto implements EstadoCell {
-	
+
+	private  String direccionDeImagen;
 	private int cantidadDeAbsorciones = 0;
 	private int ki;
 
     private int velocidad = 3;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+
+	public EstadoCellSemiPerfecto(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/Cell_semi_perfecto.jpg";
+	}
+
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),40 + 40*(cell.usarAumentoDeAtaque()), 4);
+        oponente.recibirAtaqueDe(cell.obtenerCoordenadas(), 40 + 40 * (cell.usarAumentoDeAtaque()), 4);
 		this.ki += 5;
 	}
 	
@@ -70,20 +78,31 @@ public class EstadoCellSemiPerfecto implements EstadoCell {
 		return this;
 	}
 
-	/*@Override
-    public EstadoCell cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		aumentarKi();
-	    if (cantidadDeAbsorciones == 8) return new EstadoCellPerfecto();
-	    return this;
-	}*/
+
 
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Cell cell) {
+        return 40 + 40 * (cell.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 3;
     }
 
     private void aumentarKi() {

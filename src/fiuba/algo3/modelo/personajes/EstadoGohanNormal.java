@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGohanNormal implements EstadoGohan {
 
@@ -10,7 +12,11 @@ public class EstadoGohanNormal implements EstadoGohan {
 	private GuerrerosZ referenciaAGoku;
 	private GuerrerosZ referenciaAPiccolo;
 	private EstadoGohan estadoSuperSayajin = new EstadoGohanSuperSayajinFase1();
+    private String direccionDeImagen;
 
+	public EstadoGohanNormal(){
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/Gohan.jpg";
+	}
 	@Override
 	public void atacar(Gohan gohan, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(gohan.obtenerCoordenadas(), 15 + 15*(gohan.usarAumentoDeAtaque()), 2);
@@ -42,16 +48,6 @@ public class EstadoGohanNormal implements EstadoGohan {
 		this.ki -= 10;
 	}
 
-	public void transformarEnSuperSayajin2(Gohan gohan) {
-		if (this.ki >= 30){
-			EstadoGohanSuperSayajinFase2 nuevaForma = new EstadoGohanSuperSayajinFase2();
-			gohan.obtenerCoordenadas().obtenerCasillero().liberarDePersonaje();
-			nuevaForma.asignarCoordenadas(gohan, gohan.obtenerCoordenadas());
-			gohan.asignarEstado(nuevaForma);
-			this.ki -= 30;
-		}
-	}
-
 	@Override
 	public void asignarCoordenadas(Gohan gohan, Coordenada coordenada) {
 		gohan.asignarCoordenadas(coordenada);
@@ -61,7 +57,7 @@ public class EstadoGohanNormal implements EstadoGohan {
 	public void recibirAtaque(Gohan gohan, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea) {
 		int distanciaHorizontal = Math.abs(gohan.obtenerCoordenadas().obtenerColumna() - coordenadasDeAtacante.obtenerColumna());
 		int distanciaVertical = Math.abs(gohan.obtenerCoordenadas().obtenerFila() - coordenadasDeAtacante.obtenerFila());
-		if(distanciaHorizontal > alcanceDeAtaque || distanciaVertical > alcanceDeAtaque){
+		if((distanciaHorizontal > alcanceDeAtaque) || (distanciaVertical > alcanceDeAtaque)){
 			throw new ExceptionNoAlcanzaAlOponente();
 		}
 		this.recibirDanio(gohan, poderDePelea);
@@ -86,15 +82,6 @@ public class EstadoGohanNormal implements EstadoGohan {
 
 
 
- /*   @Override
-    public EstadoGohan cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();}
-
-*/
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		nubeVoladora = unaNubeVoladora.iniciarNube();
@@ -110,9 +97,28 @@ public class EstadoGohanNormal implements EstadoGohan {
        referenciaAPiccolo = piccolo;
 	}
 
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Gohan gohan) {
+        return 15 + 15*(gohan.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 2;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 2;
+    }
 
 
-	private EstadoGohan aumentarKi() {
+    private EstadoGohan aumentarKi() {
 		ki = ki + 5;
 		if (ki == 10) {
 			estadoSuperSayajin.referenciarAGoku(referenciaAGoku);

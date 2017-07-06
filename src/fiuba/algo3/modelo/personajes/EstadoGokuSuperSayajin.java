@@ -1,14 +1,20 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGokuSuperSayajin implements EstadoGoku {
 	
 	private int ki = 0;
-
+    private String direccionDeImagen;
 	private int velocidad = 5;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
-	
+
+	public EstadoGokuSuperSayajin(){
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/GokuSuperSayayin.jpg";
+	}
+
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
 		oponente.recibirAtaqueDe(goku.obtenerCoordenadas(), 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque()), 4);
@@ -64,19 +70,30 @@ public class EstadoGokuSuperSayajin implements EstadoGoku {
 
 	}
 
- /*   @Override
-	public EstadoGoku cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();
 
-	}
-*/
     @Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		this.nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Goku goku) {
+        return 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 5;
     }
 
     private EstadoGoku aumentarKi() {

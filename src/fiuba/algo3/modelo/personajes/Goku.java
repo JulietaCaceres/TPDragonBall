@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionAtaqueAMismoEquipo;
 
 public class Goku extends Personaje implements GuerrerosZ{
 	
@@ -10,7 +11,7 @@ public class Goku extends Personaje implements GuerrerosZ{
 		this.puntosDeVida = 500;
 		this.estado = new EstadoGokuNormal();
 		this.estadoEsferaDragon = null;
-	}
+			}
 	
 	@Override
 	public void atacar(GuerrerosZ oponente) {
@@ -86,7 +87,13 @@ public class Goku extends Personaje implements GuerrerosZ{
 			return this.puntosDeVida*100/500;
 	}
 
-	public boolean porcentajeDeVidaMenor30() {
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return estado.obtenerDireccionDeImagen();
+    }
+
+
+    public boolean porcentajeDeVidaMenor30() {
 		return (porcentajeDeVida() < 30);
 	}
 
@@ -94,4 +101,19 @@ public class Goku extends Personaje implements GuerrerosZ{
 	public boolean porcentajeDeVidaMenosde20() {
 		return false;
 	}
+
+    @Override
+    public double obtenerAtaque() {
+        return estado.obtenerAtaque(this);
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return estado.obtenerDistanciaDeAtaque();
+    }
+
+    @Override
+    public int obtnerVelocidad() {
+        return estado.obtenerVelocidad();
+    }
 }

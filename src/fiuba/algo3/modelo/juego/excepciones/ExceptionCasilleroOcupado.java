@@ -1,4 +1,4 @@
-package fiuba.algo3.modelo.juego;
+package fiuba.algo3.modelo.juego.excepciones;
 
 /**
  * Created by july on 13/06/17.

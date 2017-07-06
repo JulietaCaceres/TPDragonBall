@@ -1,14 +1,20 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoFreezerNormal implements EstadoFreezer {
 	
 	private int ki = 0;
 	private int velocidad = 4;
-
+    private String direccionDeImagen;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
-	
+
+	public EstadoFreezerNormal()
+	{
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/Freezer.jpg";
+	}
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 20 + 20*(freezer.usarAumentoDeAtaque()), 2);
@@ -62,21 +68,30 @@ public class EstadoFreezerNormal implements EstadoFreezer {
 		return aumentarKi();
 
 	}
-/*
-    @Override
-	public EstadoFreezer cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();
-
-	}
-*/
 
     @Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
     	 nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Freezer freezer) {
+        return 20 + 20*(freezer.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 2;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 4;
     }
 
     private EstadoFreezer aumentarKi() {

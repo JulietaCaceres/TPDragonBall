@@ -19,4 +19,6 @@ public interface GuerrerosZ extends Equipo{
 	void asignarCoordenadas(Coordenada unaCoordenada);
 	double obtenerPuntosDeVida();
 
+    @Override
+    public double obtenerAtaque();
 } 

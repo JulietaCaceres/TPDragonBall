@@ -1,18 +1,25 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoCellPerfecto implements EstadoCell {
 	
 	private int ki;
-
+    private String direccionDeImagen;
     private int velocidad = 4;
 
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+
+	public EstadoCellPerfecto(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/Cell_perfecto.jpg";
+	}
+
 	@Override
 	public void atacar(Cell cell, GuerrerosZ oponente) {
-		oponente.recibirAtaqueDe(cell.obtenerCoordenadas(),80 + 80*(cell.usarAumentoDeAtaque()), 4);
-		this.ki +=5;
+	oponente.recibirAtaqueDe(cell.obtenerCoordenadas(), 80 + 80 * (cell.usarAumentoDeAtaque()), 4);
+    this.ki +=5;
 	}
 	
 	@Override
@@ -58,20 +65,30 @@ public class EstadoCellPerfecto implements EstadoCell {
 		return this; }
 
 
-/*
-    @Override
-    public EstadoCell cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-	     	aumentarKi();
-	return this; }
 
-*/
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		this.nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Cell cell) {
+        return 80 + 80 * (cell.usarAumentoDeAtaque()) ;
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 4;
     }
 
     private void aumentarKi() {

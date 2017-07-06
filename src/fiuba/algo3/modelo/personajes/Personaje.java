@@ -1,8 +1,9 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
 
-public abstract class Personaje  {
+public abstract class Personaje implements IUbicable {
 
 	protected String nombre;
 	protected double puntosDeVida;
@@ -12,13 +13,18 @@ public abstract class Personaje  {
 	protected int velocidad;
 	private Consumible consumible;
 	protected Personaje[] companieros;
+	protected String direccionDeImagen;
 
 
 	public void asignarCoordenadas(Coordenada unaCoordenada) {
 		if (unaCoordenada.obtenerCasillero().ocupado())
 			throw new ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado();
 		coordenada = unaCoordenada;
-		//coordenada.obtenerCasillero().asignarPersonaje(this);
+		}
+
+	@Override
+	public boolean esVacio() {
+		return false;
 	}
 
 	public void asignarReferenciaAEquipo(Personaje[] companieros) {
@@ -105,4 +111,20 @@ public abstract class Personaje  {
 		return (puntosDeVida != 0);
 	}
 
+     public abstract String obtenerDireccionDeImagen();
+
+    @Override
+    public boolean esUnConsumible() {
+        return false;
+    }
+
+	@Override
+	public boolean esUnPersonaje() {
+		return true;
+	}
+
+	@Override
+	public Consumible obtenerConsumible() {
+		return null;
+	}
 }

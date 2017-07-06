@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoFreezerFormaOriginal implements EstadoFreezer {
 	
@@ -8,6 +10,13 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
     private EstadoFreezer estadoSiguiente = null;
 	private int velocidad = 6;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+    private String direccionDeImagen;
+
+    public EstadoFreezerFormaOriginal(){
+
+    	direccionDeImagen =   "file:src/fiuba/algo3/vista/images/freezerOriginal.jpg";
+	}
+
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente){
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 50 + 50*(freezer.usarAumentoDeAtaque()), 3);
@@ -57,6 +66,26 @@ public class EstadoFreezerFormaOriginal implements EstadoFreezer {
     @Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		this.nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Freezer freezer) {
+        return 50 + 50*(freezer.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 3;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 6;
     }
 
     private EstadoFreezerFormaOriginal aumentarKi() {

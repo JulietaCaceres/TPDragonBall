@@ -1,6 +1,7 @@
 package fiuba.algo3.modelo;
 
 import fiuba.algo3.modelo.juego.Casillero;
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.personajes.Gohan;
 import org.junit.Test;
 
@@ -12,7 +13,8 @@ public class CasilleroTest {
     @Test
     public void colocoUnPersonajeEnElCasilleroYMeAseguroQueQuedeOcupado()
     {
-        Casillero casillero = new Casillero();
+        Coordenada unaCoordenada = new Coordenada(2,2);
+        Casillero casillero = new Casillero(unaCoordenada);
         Gohan gohan = new Gohan();
         casillero.asignarPersonaje(gohan);
         assertTrue(casillero.ocupado());
@@ -20,8 +22,8 @@ public class CasilleroTest {
 
     @Test
     public void colococuUnPersonajeEnUnCasilleroLoSacoYVerificoQueElCasilleroQuedeDesocupado()
-    {
-        Casillero casillero = new Casillero();
+    {   Coordenada unaCoordenada = new Coordenada(2,2);
+        Casillero casillero = new Casillero(unaCoordenada);
         Gohan gohan = new Gohan();
         casillero.asignarPersonaje(gohan);
         casillero.liberarDePersonaje();

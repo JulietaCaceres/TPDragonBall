@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoFreezerSegundaForma implements EstadoFreezer {
 
@@ -8,7 +10,11 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 	private EstadoFreezer estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
     private int velocidad = 6;
-    
+    private String direccionDeImagen;
+
+    public EstadoFreezerSegundaForma(){
+    	direccionDeImagen =  "file:src/fiuba/algo3/vista/images/freezerSegundaForma.jpg";
+	}
 	@Override
 	public void atacar(Freezer freezer, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(freezer.obtenerCoordenadas(), 40 + 40*(freezer.usarAumentoDeAtaque()), 3);
@@ -63,19 +69,30 @@ public class EstadoFreezerSegundaForma implements EstadoFreezer {
 
     }
 
-/*    @Override
-	public EstadoFreezer cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();
-	}
-*/
 
     @Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
     	nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Freezer freezer) {
+        return 40 + 40*(freezer.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 3;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 4;
     }
 
     private EstadoFreezer aumentarKi() {

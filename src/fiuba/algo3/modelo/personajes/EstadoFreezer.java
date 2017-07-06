@@ -20,4 +20,11 @@ public interface EstadoFreezer {
 
 	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 
+    String obtenerDireccionDeImagen();
+
+    double obtenerAtaque(Freezer freezer);
+
+	int obtenerDistanciaDeAtaque();
+
+    int obtenerVelocidad();
 }

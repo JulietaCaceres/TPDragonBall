@@ -24,7 +24,6 @@ public class InicializarJuegoTest {
     public void test06seIniciaUnJuegoYSeVerificanLasCondicionesIniciales()
     {
         Juego juego = new Juego("juli","jime");
-        juego.iniciarPartida();
         juego.iniciarTablero();
         Tablero tablero = juego.obtenerTablero();
         Casillero casillero1 = tablero.obtenerCasillero(2,0);

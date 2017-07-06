@@ -1,6 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoGokuKaioKen implements EstadoGoku {
 	
@@ -8,6 +10,11 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 	private EstadoGoku estadoSiguiente = null;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
 	private int velocidad = 3;
+	private String direccionDeImagen;
+
+	public EstadoGokuKaioKen(){
+		direccionDeImagen =  "file:src/fiuba/algo3/vista/images/GokuKaioKen.jpg";
+	}
 
 	@Override
 	public void atacar(Goku goku, EnemigosDeLaTierra oponente) {
@@ -72,19 +79,30 @@ public class EstadoGokuKaioKen implements EstadoGoku {
 		return aumentarKi();
 
 	}
-/*
-    @Override
-	public EstadoGoku cambiarCoordenadas(Coordenada coordenadaActual,Coordenada coordenadaNueva) {
-		if ((Math.abs(coordenadaActual.obtenerColumna() - coordenadaNueva.obtenerColumna()) > (velocidad * nubeVoladora.obtenerAumentoDeVelocidad()))
-				|| (Math.abs(coordenadaActual.obtenerFila() - coordenadaNueva.obtenerFila()) > (velocidad*nubeVoladora.obtenerAumentoDeVelocidad())))
-			throw new ExceptionLaDistanciaEntreLasCoordenadasNoEsValida();
-		coordenadaActual.cambiarCoordenadas(coordenadaNueva);
-		return aumentarKi();
-	}
-*/
+
     @Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		 nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(Goku goku) {
+        return 60*goku.aumentoDePoderPorAdrenalina() + 60*(goku.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 4;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return 3;
     }
 
     private EstadoGoku aumentarKi() {

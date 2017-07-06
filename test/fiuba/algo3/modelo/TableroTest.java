@@ -1,5 +1,6 @@
 package fiuba.algo3.modelo;
 
+import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 import fiuba.algo3.modelo.juego.Tablero;
@@ -89,4 +90,11 @@ public class TableroTest {
         assertTrue(tablero.obtenerCasillero(4,4).ocupado());
     }
 
+    @Test
+    public void creoUnTableroYObtengoUnaCoordenadaVacia(){
+
+        Tablero tablero = new Tablero();
+        Coordenada coordenadaVacia = tablero.obtenerCoordenada(31,31);
+        assertTrue(coordenadaVacia.obtenerCasillero().obtenerContenido().esVacio());
+    }
 }

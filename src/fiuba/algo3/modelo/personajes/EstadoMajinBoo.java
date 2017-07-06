@@ -17,8 +17,16 @@ public interface EstadoMajinBoo {
 
 	public void recibirAtaque(MajinBoo majinBoo, Coordenada coordenadasDeAtacante, int alcanceDeAtaque, double poderDePelea);
 
-    EstadoMajinBoo cambiarCoordenadas(MajinBoo majinBoo,Coordenada coordenadaNueva);
+    EstadoMajinBoo cambiarCoordenadas(MajinBoo majinBoo, Coordenada coordenadaNueva);
 
 
 	void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
+
+    String obtenerDireccionDePersonaje();
+
+    double obtenerAtaque(MajinBoo majinBoo);
+
+	int obtenerDistanciaDeAtaque();
+
+	int obtenerVelocidad();
 }

@@ -7,23 +7,29 @@ public class Casillero {
 
 	protected Equipo personaje;
 	public Consumible consumible;
+	protected IUbicable contenido;
 
-	public Casillero() {
+
+	public Casillero(Coordenada suCoordenada) {
 		this.personaje = null;
 		this.consumible = null;
+		contenido = new Vacio(suCoordenada);
 	}
-	
-	public void asignarConsumible(Consumible consumible){
+
+	public void asignarConsumible(Consumible consumible) {
 		this.consumible = consumible;
 	}
-	
-	public Consumible liberarConsumible(){
+
+	public Consumible liberarConsumible() {
 		Consumible objetoADevolver = this.consumible;
 		this.consumible = null;
 		return objetoADevolver;
 	}
 
-	public Equipo obtenerPersonaje() {
+	public Equipo
+	obtenerPersonaje() {
+		if (personaje == null)
+			throw new ExceptionNoHayPersonajeEnElCasilleroSeleccionado();
 		return this.personaje;
 	}
 
@@ -32,7 +38,7 @@ public class Casillero {
 		this.personaje = unPersonaje;
 		if (consumible != null) personaje.tomarConsumibleDe(this);
 
-				}
+	}
 
 	public boolean ocupado() {
 		return (this.personaje != null);
@@ -42,7 +48,12 @@ public class Casillero {
 		this.personaje = null;
 	}
 
-    public void ocuparCasilleroConPersonaje() {
-         //asignarPersonaje();
+	public IUbicable obtenerContenido() {
+		if (consumible == null) {
+			if (personaje == null) {
+				return contenido;
+			} else return personaje;
+		}
+		return consumible;
 	}
 }

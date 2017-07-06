@@ -23,4 +23,11 @@ EstadoGoku {
 
 	void tomarNubeVoladora(EstadoNubeVoladora estadoNubeVoladora);
 
+    String obtenerDireccionDeImagen();
+
+    double obtenerAtaque(Goku goku);
+
+    int obtenerDistanciaDeAtaque();
+
+	int obtenerVelocidad();
 }

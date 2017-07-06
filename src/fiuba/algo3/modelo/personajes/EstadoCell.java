@@ -20,4 +20,13 @@ public interface EstadoCell {
 
 		void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora);
 
+    String obtenerDireccionDeImagen();
+
+
+
+    double obtenerAtaque(Cell cell);
+
+	int obtenerDistanciaDeAtaque();
+
+    int obtenerVelocidad();
 }

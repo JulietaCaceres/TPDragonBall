@@ -1,6 +1,8 @@
 
 package fiuba.algo3.modelo.juego;
 
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
+import fiuba.algo3.modelo.juego.excepciones.ExcptionLaCoordenadaLePerteneceAUnCasilleroOcupado;
 import fiuba.algo3.modelo.personajes.Personaje;
 
 public class Coordenada {
@@ -12,7 +14,7 @@ public class Coordenada {
     public Coordenada(int numeroFila, int numeroColumna){
     	this.fila = numeroFila;
         this.columna = numeroColumna;
-        this.casillero = new Casillero();
+        this.casillero = new Casillero(this);
     }
 
     public int obtenerFila()
@@ -28,6 +30,8 @@ public class Coordenada {
     public void asignarPersonajeACasillero(Equipo personaje){
     	this.casillero.asignarPersonaje(personaje);
     }
+
+    public void asignarConsumibleACasillero(Consumible unConsumible){casillero.asignarConsumible(unConsumible);}
     
     public void vaciarCasillero(){
     	this.casillero.liberarDePersonaje();
@@ -66,7 +70,4 @@ public class Coordenada {
 
     }
 
-    public void ocuparCasillero() {
-        obtenerCasillero().ocuparCasilleroConPersonaje();
-    }
 }

@@ -2,8 +2,15 @@ package fiuba.algo3.modelo.juego;
 
 public interface EnemigosDeLaTierra extends Equipo{
 
-	void asignarCoordenadas(Coordenada unaCoordenada);
-	double obtenerPuntosDeVida();
+	public abstract void asignarCoordenadas(Coordenada unaCoordenada);
+	public abstract double obtenerPuntosDeVida();
+
+    @Override
+    public double obtenerAtaque();
+
+    @Override
+     int obtenerDistanciaDeAtaque();
+
 	public abstract void atacar(GuerrerosZ oponente);
 	public abstract void realizarAtaqueEspecial(GuerrerosZ oponente);
 	public abstract void atacar(EnemigosDeLaTierra oponente);

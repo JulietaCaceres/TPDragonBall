@@ -1,7 +1,8 @@
 package fiuba.algo3.modelo.personajes;
 import fiuba.algo3.modelo.juego.Coordenada;
 import fiuba.algo3.modelo.juego.EnemigosDeLaTierra;
-import fiuba.algo3.modelo.juego.ExceptionAtaqueAMismoEquipo;
+import fiuba.algo3.modelo.juego.EstadoNubeVoladora;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionAtaqueAMismoEquipo;
 import fiuba.algo3.modelo.juego.GuerrerosZ;
 
 public class Gohan extends Personaje implements GuerrerosZ{
@@ -14,7 +15,7 @@ public class Gohan extends Personaje implements GuerrerosZ{
 		this.nombre = "Gohan";
 		this.puntosDeVida = 300;
 		this.estado = new EstadoGohanNormal();
-	}
+			}
 	
 	public void referenciarAGoku(GuerrerosZ goku){
 		this.referenciaAGoku = goku;
@@ -39,22 +40,6 @@ public class Gohan extends Personaje implements GuerrerosZ{
 	@Override
 	public void atacar(EnemigosDeLaTierra oponente) {
 		estado.atacar(this, oponente);
-	}
-	
-	public double obtenerVidaDeGoku(){
-		double vida = 200;
-		if(this.referenciaAGoku != null){
-			vida = this.referenciaAGoku.obtenerPuntosDeVida();
-		}
-		return vida;
-	}
-	
-	public double obtenerVidaDePiccolo(){
-		double vida = 200;
-		if(this.referenciaAPiccolo != null){
-			vida = this.referenciaAPiccolo.obtenerPuntosDeVida();
-		}
-		return vida;
 	}
 
 	@Override
@@ -88,7 +73,8 @@ public class Gohan extends Personaje implements GuerrerosZ{
 
 	@Override
 	public void tomarNubeVoladora() {
-
+		estadoNubeVoladora = new EstadoNubeVoladora();
+		estado.tomarNubeVoladora(estadoNubeVoladora);
 	}
 
 	@Override
@@ -101,8 +87,27 @@ public class Gohan extends Personaje implements GuerrerosZ{
 		return this.puntosDeVida*300/100;
 	}
 
+    @Override
+    public String obtenerDireccionDeImagen() {
+        return estado.obtenerDireccionDeImagen();
+    }
+
     public boolean porcentajeDeVidaMenosde20() {
 		return (porcentajeDeVida() < 20);
+    }
+
+    @Override
+    public double obtenerAtaque() {return estado.obtenerAtaque(this);
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return estado.obtenerDistanciaDeAtaque();
+    }
+
+    @Override
+    public int obtnerVelocidad() {
+        return estado.obtenerVelocidad();
     }
 
 

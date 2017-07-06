@@ -26,4 +26,12 @@ public interface EstadoGohan {
 	void  referenciarAGoku(GuerrerosZ goku);
 
 	void referenciarAPiccolo(GuerrerosZ piccolo);
+
+    String obtenerDireccionDeImagen();
+
+    double obtenerAtaque(Gohan gohan);
+
+	int obtenerDistanciaDeAtaque();
+
+	int obtenerVelocidad();
 }

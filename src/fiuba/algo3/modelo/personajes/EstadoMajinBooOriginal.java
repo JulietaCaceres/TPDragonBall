@@ -1,12 +1,19 @@
 package fiuba.algo3.modelo.personajes;
 
 import fiuba.algo3.modelo.juego.*;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionLaDistanciaEntreLasCoordenadasNoEsValida;
+import fiuba.algo3.modelo.juego.excepciones.ExceptionNoAlcanzaAlOponente;
 
 public class EstadoMajinBooOriginal implements EstadoMajinBoo {
 	
 	private int ki = 0;
 	private int velocidad = 4;
 	private EstadoNubeVoladora nubeVoladora = new EstadoNubeVoladora();
+	private String direccionDeImagen;
+
+	public EstadoMajinBooOriginal(){
+		direccionDeImagen = "file:src/fiuba/algo3/vista/images/MajinBoo3.jpg";
+	}
 	@Override
 	public void atacar(MajinBoo majinBoo, GuerrerosZ oponente) {
 		oponente.recibirAtaqueDe(majinBoo.obtenerCoordenadas(),60 + 60*(majinBoo.usarAumentoDeAtaque()), 3);
@@ -57,6 +64,26 @@ public class EstadoMajinBooOriginal implements EstadoMajinBoo {
 	@Override
     public void tomarNubeVoladora(EstadoNubeVoladora unaNubeVoladora) {
 		this.nubeVoladora = unaNubeVoladora.iniciarNube();
+    }
+
+    @Override
+    public String obtenerDireccionDePersonaje() {
+        return direccionDeImagen;
+    }
+
+    @Override
+    public double obtenerAtaque(MajinBoo majinBoo) {
+        return 60 + 60*(majinBoo.usarAumentoDeAtaque());
+    }
+
+    @Override
+    public int obtenerDistanciaDeAtaque() {
+        return 3;
+    }
+
+    @Override
+    public int obtenerVelocidad() {
+        return velocidad;
     }
 
     private EstadoMajinBoo aumentarKi() {

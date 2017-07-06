@@ -1,9 +1,9 @@
 package fiuba.algo3.modelo.juego;
 
+import fiuba.algo3.modelo.juego.excepciones.ExceptionElPersonajeNoLePertenece;
 import fiuba.algo3.modelo.personajes.Personaje;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Jugador {
@@ -14,12 +14,15 @@ public class Jugador {
     private ArrayList<EnemigosDeLaTierra> enemigos;
     private Jugador otroJugador;
 
-    public Jugador(String unNombre){ nombre = unNombre;
-    nombreEquipo = "enemigo"; }
+    public Jugador(String unNombre, Jugador otroJugador){
+        nombre = unNombre;
+        nombreEquipo = "enemigo";
+        this.otroJugador = otroJugador;
+    }
 
     public  Jugador(String unNombre, String nombreOtroJugador){
         nombre = unNombre;
-        otroJugador = new Jugador(nombreOtroJugador);
+        otroJugador = new Jugador(nombreOtroJugador, this);
         nombreEquipo = "guerrero";
     }
 
@@ -51,20 +54,19 @@ public class Jugador {
 
 
 
- public GuerrerosZ buscarPersonajeGuerrero(Personaje personajeBuscado) {
+ public GuerrerosZ buscarPersonajeGuerrero(Equipo personajeBuscado) {
      if (!guerrerosZ.contains(personajeBuscado))
          throw new ExceptionElPersonajeNoLePertenece();
 
      for (GuerrerosZ unPersonaje : guerrerosZ) {
 
-         if (unPersonaje.equals(personajeBuscado)) ;
-         return unPersonaje;
+         if (unPersonaje.equals(personajeBuscado)) return unPersonaje;
      }
      return null;
  }
 
-    public EnemigosDeLaTierra buscarPersonajeEnemigo(Personaje personajeBuscado){
-        if(enemigos.contains(personajeBuscado))
+    public EnemigosDeLaTierra buscarPersonajeEnemigo(Equipo personajeBuscado){
+        if(!enemigos.contains(personajeBuscado))
             throw new ExceptionElPersonajeNoLePertenece();
         for (EnemigosDeLaTierra unPersonaje: enemigos){
             if(unPersonaje.equals(personajeBuscado))
@@ -104,5 +106,50 @@ public class Jugador {
 
     public boolean esGuerrero() {
         return  nombreEquipo == "guerrero";
+    }
+
+    public String obtenerNombre() { return nombre;
+    }
+
+    public void borrarPersonajesMuertos() {
+        borrarGuerrerosMuertos();
+        borrasEnemigosMuertos();
+        }
+
+    public void borrasEnemigosMuertos() {
+
+        int i=0;
+        while (i < enemigos.size()) {
+            if (enemigos.get(i).obtenerPuntosDeVida() <= 0) {
+                EnemigosDeLaTierra enemigoMuerto = enemigos.get(i);
+                Coordenada coordenada = enemigoMuerto.obtenerCoordenadas();
+                Tablero.getTablero().obtenerCasillero(coordenada.obtenerFila(), coordenada.obtenerColumna()).liberarDePersonaje();
+                enemigos.remove(i);
+            } else {
+                i++;
+            }
+        }
+    }
+
+    public void borrarGuerrerosMuertos() {
+        int i=0;
+        while (i < guerrerosZ.size()) {
+            if (guerrerosZ.get(i).obtenerPuntosDeVida() <= 0){
+                GuerrerosZ guerreroMuerto = guerrerosZ.get(i);
+                Coordenada coordenada = guerreroMuerto.obtenerCoordenadas();
+                Tablero.getTablero().obtenerCasillero(coordenada.obtenerFila(),coordenada.obtenerColumna()).liberarDePersonaje();
+                //Tablero.getTablero().sacarAlgoformer(posicion);
+                guerrerosZ.remove(i);
+            } else {
+                i++;
+            }
+    }
+}
+
+    public boolean tienePersonaje(Equipo unPersonaje) {
+        if (esGuerrero()){
+            return guerrerosZ.contains(unPersonaje);
+        }
+        return enemigos.contains(unPersonaje);
     }
 }
