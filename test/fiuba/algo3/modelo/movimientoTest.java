@@ -75,7 +75,7 @@ public class movimientoTest {
     public void ubicoPersonajeEnTableroYPidoQueSeMuevaAUnaDistanciaValidaYVerificoQueElCasilleroDestinoSeHayaOcupado()
     {
         Tablero tablero = new Tablero();
-        Cell cell = new Cell();
+        EnemigosDeLaTierra cell = new Cell();
         tablero.ubicarPersonaje(cell,2,2);
         tablero.moverPersonaje(cell,3,2);
         assertTrue(tablero.obtenerCasillero(3,2).ocupado());
