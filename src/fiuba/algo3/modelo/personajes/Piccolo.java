@@ -13,7 +13,7 @@ public class Piccolo extends Personaje implements GuerrerosZ{
 	
 	public Piccolo(){
 		this.nombre = "Piccolo";
-		this.puntosDeVida = 2;
+		this.puntosDeVida = 500;
 		this.estado = new EstadoPiccoloNormal();
 	}
 	
